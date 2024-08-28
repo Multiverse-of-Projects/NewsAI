@@ -1,0 +1,1306 @@
+{
+    "status": "ok",
+    "totalResults": 200,
+    "articles": [
+        {
+            "source": {
+                "id": null,
+                "name": "BBC News"
+            },
+            "author": null,
+            "title": "'She wanted to live a good life': Parents of Indian doctor raped and murdered on night shift",
+            "description": "Parents of the doctor, who was raped and murdered, talk about their caring and affectionate daughter.",
+            "url": "https://www.bbc.com/news/articles/c5yl0799k1wo",
+            "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/9588/live/c60027d0-5ee7-11ef-a55a-8f394e8ed2af.jpg",
+            "publishedAt": "2024-08-21T07:08:06Z",
+            "content": "The doctor's death has sparked a nation-wide conversation on violence against women in India\r\nThe rape and murder of a trainee doctor in Indias Kolkata city earlier this month has sparked massive out… [+5805 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NPR"
+            },
+            "author": "Ruchi Kumar",
+            "title": "The rape and murder of a female doctor in India sets off an outcry over women's safety",
+            "description": "The young woman was raped and murdered while on break from a 36-hour hospital shift. Women who work in health care — and other fields — are calling for changes to protect them from sexual violence.",
+            "url": "https://www.npr.org/sections/goats-and-soda/2024/08/26/g-s1-18366/rape-murder-doctor-india-sexual-violence-protests",
+            "urlToImage": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4000x2250+0+209/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F2a%2F62%2F7de6092b4fbdbe439c5860ea1be8%2Findia-healthcare-attack-2.jpg",
+            "publishedAt": "2024-08-26T16:58:36Z",
+            "content": "On August 9, the body of a 31-year-old doctor trainee was found at the RG Kar Medical College and Hospital in Kolkata. The woman had been raped and murdered.\r\nThe case has once again brought to the f… [+4744 chars]"
+        },
+        {
+            "source": {
+                "id": "rt",
+                "name": "RT"
+            },
+            "author": "RT",
+            "title": "Thousands of Indians are out on the streets again after 12 years, over the rape and murder of a woman doctor",
+            "description": "The rape and murder of a doctor in Kolkata has sparked nationwide uproar, reigniting concerns about how India treats its daughters Read Full Article at RT.com",
+            "url": "https://www.rt.com/india/602908-reclaiming-night-protests-over-rape/",
+            "urlToImage": "https://mf.b37mrtl.ru/files/2024.08/article/66c6c8c985f540431f0b8104.jpg",
+            "publishedAt": "2024-08-22T06:24:55Z",
+            "content": "A brutal rape and murder of a young doctor at a medical college and hospital in Kolkata, the capital of West Bengal, has triggered a series of protests that have spread beyond the eastern Indian stat… [+11390 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "The Diplomat"
+            },
+            "author": "Sudha Ramachandran",
+            "title": "Kolkata Rape and Murder Case Highlights Unsafe Working Conditions for Doctors in India",
+            "description": "The Supreme Court has set up a high-level National Task Force to bring in major systemic changes for the safety of healthcare workers.",
+            "url": "https://thediplomat.com/2024/08/kolkata-rape-and-murder-case-highlights-unsafe-working-conditions-for-doctors-in-india/",
+            "urlToImage": "https://thediplomat.com/wp-content/uploads/2024/08/sizes/td-story-s-2/thediplomat_2024-08-22-104744.jpg",
+            "publishedAt": "2024-08-22T12:33:00Z",
+            "content": "The gruesome rape and murder of a 31-year-old resident doctor at the Kolkata-based RG Kar Medical College and Hospital on August 9 has put the spotlight on unsafe work conditions for medical and heal… [+16152 chars]"
+        },
+        {
+            "source": {
+                "id": "abc-news-au",
+                "name": "ABC News (AU)"
+            },
+            "author": "Ellie Grounds, Oscar Coleman, and Bhat Burhan",
+            "title": "An exhausted female doctor took a nap at work. What happened next has horrified India",
+            "description": "It's something exhausted doctors do every day – find a quiet corner of the hospital for a quick nap. But in India, it ended in a brutal murder. Will it change a nation? WARNING: The details in this story might be distressing to some readers.",
+            "url": "https://www.abc.net.au/news/2024-08-23/doctor-rape-case-horrifying-india/104252328",
+            "urlToImage": "https://live-production.wcms.abc-cdn.net.au/d706457a6e7c1dc420cedf3955584b11?impolicy=wcms_watermark_news&cropH=2813&cropW=5000&xPos=0&yPos=260&width=862&height=485&imformat=generic",
+            "publishedAt": "2024-08-22T18:43:42Z",
+            "content": "During a marathon 36-hour-shift at a government hospital in India's east, a young female trainee doctor ducked off for a quick sleep.\r\nWARNING: The details in this story might be distressing to some … [+9091 chars]"
+        },
+        {
+            "source": {
+                "id": "rt",
+                "name": "RT"
+            },
+            "author": "RT",
+            "title": "Modi blames ‘sinful mentality’ for crimes against women in India",
+            "description": "Safety of women is country’s priority, the Indian PM said amid nationwide protests against rape and murder of a medic on duty Read Full Article at RT.com",
+            "url": "https://www.rt.com/india/603093-modi-blames-sinful-mentality-rape-women/",
+            "urlToImage": "https://mf.b37mrtl.ru/files/2024.08/article/66cc72f685f54026d15d89c7.jpg",
+            "publishedAt": "2024-08-26T12:30:54Z",
+            "content": "The safety and empowerment of women is a top priority for India, Prime Minister Narendra Modi has stated against the backdrop of protests over a spate of cases of sexual violence against women and gi… [+2809 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "The Week Magazine"
+            },
+            "author": "theweekonlineeditorsuk@futurenet.com (Richard Windsor, The Week UK)",
+            "title": "India doctors' strike: rape and murder of student triggers widespread protests",
+            "description": "Nationwide outrage at a brutal attack on a female medical student raises familiar problems for country",
+            "url": "https://theweek.com/crime/india-doctors-strike-rape-and-murder",
+            "urlToImage": "https://cdn.mos.cms.futurecdn.net/ibpbJdgCZm7i4eWCpbaXQn-1200-80.jpg",
+            "publishedAt": "2024-08-21T12:58:06Z",
+            "content": "India's Supreme Court has set up a national task force to ensure the safety of medical workers after days of protests by junior doctors following the rape and murder of a medical student in a hospita… [+4832 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "BusinessLine"
+            },
+            "author": "PTI",
+            "title": "CISF team arrives at RG Kar Medical College to help doctors resume work",
+            "description": "Supreme Court directs CISF to provide security at Kolkata hospital; CBI investigates postgraduate doctor's murder case.",
+            "url": "https://www.thehindubusinessline.com/multimedia/video/cisf-team-arrives-at-rg-kar-medical-college-to-help-doctors-resume-work/article68549463.ece",
+            "urlToImage": "https://bl-i.thgim.com/public/incoming/dnbwm1/article68549461.ece/alternates/LANDSCAPE_1200/Daily%20News%20Thumbnail%2053.png",
+            "publishedAt": "2024-08-21T06:35:00Z",
+            "content": "Directed by the Supreme Court, a team of Central Industrial Security Force (CISF) arrived at Kolkatas RG Kar Medical College on Wednesday morning to provide security.\r\nThe team was led by DIG K Prata… [+913 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "BusinessLine"
+            },
+            "author": "PTI",
+            "title": "AIIMS' doctors call off 11-day strike after SC appeal, assurances",
+            "description": "The apex court earlier in the day asked protesting doctors to resume work and assured them that no adverse action would be taken after they rejoin",
+            "url": "https://www.thehindubusinessline.com/news/aiims-doctors-call-off-11-day-strike-after-sc-appeal-assurances/article68554176.ece",
+            "urlToImage": "https://bl-i.thgim.com/public/incoming/c7o9in/article68553145.ece/alternates/LANDSCAPE_1200/20240821209L.jpg",
+            "publishedAt": "2024-08-22T11:01:39Z",
+            "content": "Doctors at Delhi's All India Institute of Medical Sciences (AIIMS) on Thursday announced that they were calling off their 11-day strike, to protest the rape and murder of a Kolkata doctor, following … [+943 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "BusinessLine"
+            },
+            "author": "BL Kolkata Bureau",
+            "title": "Calcutta HC raps WB govt over delay in forming SIT to probe ‘financial irregularities’ at RG Kar Hospital",
+            "description": "The State government formed the four-member SIT earlier this week to investigate the alleged financial irregularities at the state-run hospital; the body of a junior doctor was found at the hospital on August 9.",
+            "url": "https://www.thehindubusinessline.com/news/calcutta-hc-raps-wb-govt-over-delay-in-forming-sit-to-probe-financial-irregularities-at-rg-kar-hospital/article68555557.ece",
+            "urlToImage": "https://bl-i.thgim.com/public/incoming/jv4yoz/article68556118.ece/alternates/LANDSCAPE_1200/IMG_NKV-CALCUTTA-HC_2_1_FAA95E7S.jpg",
+            "publishedAt": "2024-08-22T17:37:19Z",
+            "content": "Taking a dig at the West Bengal government, the Calcutta High Court on Thursday asked why a Special Investigation Team (SIT) was constituted by the government a year after allegations of financial ir… [+2545 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "BusinessLine"
+            },
+            "author": "B  Baskar",
+            "title": "Think. Over the week",
+            "description": "In the past week, the Editorial section commented on issues such as the recent remarks of Commerce Minister Piyush Goyal on the “predatory pricing” practices of e-commerce giant Amazon and why there was need for clarity on regulation; how unscrupulous promote…",
+            "url": "https://www.thehindubusinessline.com/newsletter/nl-opinion/think-over-the-week/article68561612.ece",
+            "urlToImage": "https://bl-i.thgim.com/public/news/mo9s1f/article68512117.ece/alternates/LANDSCAPE_1200/BL1208_Corp_KK.jpg",
+            "publishedAt": "2024-08-24T06:47:53Z",
+            "content": "In an interesting article, Rukmini Dahanukar, proprietor of MoneyTalks, talks about how, over the ages, money has played a key role in documenting our culture and history.\r\nRead More\r\nTCA Srinivasa R… [+622 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "BusinessLine"
+            },
+            "author": "Anjana  PV",
+            "title": "The dark side of moviedom",
+            "description": "The harrowing tales of women in the Malayalam cinema industry should be a wake-up call to uphold the dignity and safety of women in the workplace",
+            "url": "https://www.thehindubusinessline.com/opinion/columns/from-the-viewsroom/the-dark-side-of-moviedom/article68566327.ece",
+            "urlToImage": "https://bl-i.thgim.com/public/incoming/s7vufn/article68566289.ece/alternates/LANDSCAPE_1200/BL28_Sexual_assault.jpg",
+            "publishedAt": "2024-08-25T15:35:51Z",
+            "content": "Every individual deserves the fundamental right to work in an environment free from bias and discrimination. Yet, the Justice Hema Committee report, released on August 19, starkly reveals the harrowi… [+1851 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Economictimes.com"
+            },
+            "author": null,
+            "title": "Change the dynamics of 'protesters-police'",
+            "description": "The Supreme Court highlighted the importance of differentiated responses to protests, urging law enforcement to handle peaceful demonstrators with sensitivity. Referring to recent events in Kolkata, the court emphasized the need for minimal force and adherenc…",
+            "url": "https://m.economictimes.com/opinion/et-editorial/change-the-dynamics-of-protesters-police/articleshow/112689723.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112689735,width-1200,height-630,imgsize-65574,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-21T16:58:17Z",
+            "content": "The word 'protesters' conjures up insidious and inciteful images among not just members of our state machinery but also among many within civil society. 'Police', in the context of protests, has a si… [+1564 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Aajtak.in"
+            },
+            "author": "aajtak.in",
+            "title": "'लावारिश लाशों को बेचते थे', संदीप घोष को लेकर RGK के पूर्व अधिकारी का दावा, देखें",
+            "description": "Kolkata Rape-Murder Case: कोलकाता रेप-मर्डर केस में आज सीबीआई लगातार छठे दिन आरजी कर मेडिकल कॉलेज के पूर्व प्रिंसिपल संदीप घोष से पूछताछ कर रही है. उनकी भूमिका भी सवालों के घेरे में है. RGK के पूर्व उपाधीक्षक अख्तर अली ने आजतक से एक्सक्लूसिव बातचीत की और संदी…",
+            "url": "https://www.aajtak.in/india/news/video/kolkata-doctor-rape-murder-case-rg-kar-college-official-accuses-ex-principal-sandip-ghosh-sold-unclaimed-bodies-2016817-2024-08-21",
+            "urlToImage": "https://akm-img-a-in.tosshub.com/aajtak/images/video/202408/66c5a6903767d-sandip-ghosh-rg-kar-allegations-213422783-16x9.png",
+            "publishedAt": "2024-08-21T08:37:42Z",
+            "content": "Kolkata Rape-Murder Case: - . . RGK . ."
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Aajtak.in"
+            },
+            "author": "अनुपम मिश्रा",
+            "title": "कोलकाता कांड: TMC सांसद ने पुलिस-CBI पर उठाए सवाल, बोले 'सेमिनार हॉल के बाहर इकट्ठे हुए कौन थे?'",
+            "description": "तृणमूल कांग्रेस के राज्यसभा सांसद सुखेंदु शेखर ने कोलकाता कांड में कोलकाता पुलिस और सीबीआई पर सवाल उठाएं हैं. उन्होंने सोशल मीडिया पर पोस्ट में पूछा कि बलात्कार और हत्या के बाद कई लोग आरजी कर में सेमिनार हॉल में इकट्ठे हुए थे. वह कौन थे? वह वहां किसके निर्देश…",
+            "url": "https://www.aajtak.in/india/news/story/tmc-mp-raised-questions-on-police-cbi-in-rg-kar-medical-college-incident-said-who-were-gathered-outside-seminar-hall-ntc-2022096-2024-08-27",
+            "urlToImage": "https://akm-img-a-in.tosshub.com/aajtak/images/story/202408/66cd3be5b7751-tmcs-rajya-sabha-mp-sukhendu-sekhar-roytmcs-rajya-sabha-mp-sukhendu-sekhar-roy-273724689-16x9.jpeg",
+            "publishedAt": "2024-08-27T02:39:18Z",
+            "content": ". . .\r\n ,   , . ? ? ( ) ? ?. . . .\r\n' '\r\n . , . . . . , .\r\n : : TMC -, - \r\nCBI \r\n , 4 . , , ( ) . .\r\n : Kolkata Rape-Murder Case: : ' , ', \r\n 8-9 . 31 8-9 . . , . .\r\n : CISF 150 , SC \r\n , . .  . . 2 … [+6 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Aajtak.in"
+            },
+            "author": "aajtak.in",
+            "title": "स्टेटस रिपोर्ट, पूछताछ और हड़ताल... कोर्ट से लेकर प्रोटेस्ट तक, कोलकाता कांड पर जानिए हर एक अपडेट",
+            "description": "Kolkata Doctor Rape Murder Case Live Updates: कोलकाता के RG Kar मेडिकल कॉलेज एंड हॉस्पिटल की ट्रेनी डॉक्टर से रेप और हत्या के मामले पर लोगों में गुस्सा बना हुआ है. इस मामले में आरोपी से लेकर अस्पताल के पूर्व प्रिंसिपल संदीप घोष को लेकर रोज नए खुलासे हो रहे है…",
+            "url": "https://www.aajtak.in/india/news/story/kolkata-doctor-rape-murder-doctors-aiims-protest-court-protest-status-report-sanjay-ghosh-ntc-2017785-2024-08-22",
+            "urlToImage": "https://akm-img-a-in.tosshub.com/aajtak/images/breaking_news/202408/66c6afd025687-kolkata-doctor-rape-murder-cbi-status-report-supreme-court-hearing-222606659-16x9.jpg",
+            "publishedAt": "2024-08-22T03:26:27Z",
+            "content": "#WATCH | West Bengal: Visuals from RG Kar Medical College &amp; Hospital where the students have been protesting against the sexual assault and murder of a woman post-graduate trainee (PGT) doctor on… [+64 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata doctor rape-murder case: SC commences hearing as CBI, state govt's deadline to submit status report ends",
+            "description": "Kolkata doctor rape-murder case SC hearing: The Supreme Court has started hearing a suo motu case concerning the rape and murder of a postgraduate medic at RG Kar Medical College and Hospital in Kolkata. The case is being reviewed by a bench including Chief J…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-doctor-rape-murder-case-sc-commences-hearing-as-cbi-state-govts-deadline-to-submit-status-report-ends/articleshow/112698633.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112698642,width-1200,height-630,imgsize-196192,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-22T06:08:37Z",
+            "content": "The Supreme Court on Thursday flagged discrepancies in the status report filed by the West Bengal government, while hearing a suo motu case related to the rape and murder of a postgraduate medic at t… [+2320 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Dwaipayan Ghosh",
+            "title": "Kolkata doctor death case: 53 pieces of evidence from Kolkata Police form base for CBI investigation",
+            "description": "Kolkata Police handed over 53 items and digital evidence to the CBI in the investigation of the rape and murder case at R G Kar Hospital. Key evidence includes 40 exhibits from the crime scene, incriminating articles from accused Sanjay Roy, and CCTV footage.…",
+            "url": "https://timesofindia.indiatimes.com/city/kolkata/kolkata-doctor-death-case-53-pieces-of-evidence-from-kolkata-police-form-base-for-cbi-investigation/articleshow/112769834.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112769840,width-1070,height-580,imgsize-77492,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-24T19:14:44Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Dwaipayan Ghosh",
+            "title": "RG Kar Hospital doctor rape-murder case: CBI officers question Kolkata Police seniors",
+            "description": "The CBI continued questioning senior Kolkata Police officers to uncover the events at RG Kar Hospital on Aug 9. The focus was on the protocols followed in registering the \"unnatural death (UD)\" case. Around 90 witnesses, including 14 Kolkata Police officers, …",
+            "url": "https://timesofindia.indiatimes.com/city/kolkata/rg-kar-hospital-doctor-death-case-cbi-officers-question-kolkata-police-seniors/articleshow/112817000.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112817011,width-1070,height-580,imgsize-329494,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-26T20:08:30Z",
+            "content": "8 morning habits that can help sharpen memory"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "PTI",
+            "title": "Kolkata doctor rape-murder case: Prime accused Sanjay Roy undergoing lie detection test at Presidency Jail",
+            "description": "Sanjay Roy, the main suspect in the alleged rape and murder of an RG Kar Medical College trainee doctor, is undergoing a lie detection test at Kolkata's Presidency Jail. Two other individuals are scheduled for testing at the CBI office in Kolkata. Four people…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-doctor-rape-murder-case-prime-accused-sanjay-roy-undergoing-lie-detection-test-at-presidency-jail/articleshow/112778228.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112778264,width-1200,height-630,imgsize-479900,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-25T07:49:01Z",
+            "content": "The lie detection test on Sanjay Roy, the main accused in the alleged rape and murder of a RG Kar Medical College trainee doctor, is underway at Kolkata's Presidency Jail where he is lodged, official… [+1072 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ANI",
+            "title": "\"Most shameful statement\": Shehzad Poonawalla slams farmer leader Rakesh Tikait over his remarks on Kolkata rape, murder case",
+            "description": "India News: Tikait reportedly alleged that the Kolkata rape and murder incident is being used as part of a wider conspiracy to defame the West Bengal government.",
+            "url": "https://timesofindia.indiatimes.com/india/most-shameful-statement-shehzad-poonawalla-slams-farmer-leader-rakesh-tikait-over-his-remarks-on-kolkata-rape-murder-case/articleshow/112678060.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112678091,width-1070,height-580,imgsize-21014,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-21T09:09:43Z",
+            "content": "8 happiness mantras for working professionals"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata medic rape-murder case: Accused Sanjay Roy sent to 14 days judicial custody",
+            "description": "Kolkata's Sealdah court remanded Prime accused Sanjay Roy to 14 days in a doctor's rape and murder case, causing national outrage. Roy was arrested on August 10 and released on August 9.",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-medic-rape-murder-case-accused-sanjay-roy-sent-to-14-days-judicial-custody/articleshow/112735774.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112735903,width-1200,height-630,imgsize-36040,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-23T09:31:36Z",
+            "content": "Sealdah court in Kolkata on Friday remanded prime accused Sanjay Roy to 14 days judicial custody in the doctor's rape and murder case, which has left the entire nation shook. Roy was arrested on Augu… [+2486 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "‘What is CBI doing,’ asks TMC's Kunal Ghosh on Kolkata hospital case probe",
+            "description": "TMC's Kunal Ghosh has questioned the CBI's investigation into the rape and murder of a trainee doctor at RG Kar Medical College in Kolkata, noting only one arrest so far. The polygraph test for the main suspect, Sanjoy Roy, will be conducted tomorrow after be…",
+            "url": "https://economictimes.indiatimes.com/news/politics-and-nation/what-is-cbi-doing-asks-tmcs-kunal-ghosh-on-kolkata-hospital-case-probe/articleshow/112783334.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112783325,width-1200,height-630,imgsize-22722,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-25T12:50:51Z",
+            "content": "Amid the investigation into the rape and murder of a trainee doctor at RG Kar Medical College and Hospital in Kolkata, TMC leader Kunal Ghosh on Sunday questioned the CBI's line of questioning and th… [+776 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Bureau",
+            "title": "Kolkata Doctor Case: Main accused Sanjay Roy's polygraph test postponed to Aug 26 owing to lack of facilities",
+            "description": "Sanjoy Roy's polygraph test is set for tomorrow in connection with the alleged rape and murder of a postgraduate trainee in Kolkata. Delays were caused by technical issues. A CBI team will conduct the tests on several individuals. Three schools have also been…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-doctor-case-main-accused-sanjay-roys-polygraph-test-postponed-to-aug-26-owing-to-lack-of-facilities/articleshow/112769413.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112769456,width-1200,height-630,imgsize-36040,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-24T18:09:57Z",
+            "content": "Polygraph test of Sanjoy Roy, the main accused in the alleged rape and murder of a postgraduate trainee at a hospital in Kolkata, will be held tomorrow.A senior CBI official said the test could not b… [+1304 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata murder-rape case: SC terms delay in securing crime scene as 'extremely disturbing'",
+            "description": "The Supreme Court, led by CJI Chandrachud, addressed alarming delays and procedural lapses in the Kolkata murder-rape case. The unnatural death entry was delayed until night, raising concerns. Kapil Sibal, representing West Bengal, presented a timeline with v…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-murder-rape-case-sc-terms-delay-in-securing-crime-scene-as-extremely-disturbing/articleshow/112703030.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112703098,width-1200,height-630,imgsize-99810,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-22T07:32:39Z",
+            "content": "As CJI Chandrachud led-Supreme Court bench resumed hearing on Kolkata murder-rape case, the top court termed the delay as \"extremely disturbing\" by Kolkata Police's delay in registering the unnatural… [+1544 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Rohit Khanna,Saibal Sen",
+            "title": "Kolkata doctor rape-murder case: Woman legal aid lawyer to defend rape accused Sanjay Roy",
+            "description": "KOLKATA: Kabita Sarkar, a 52-year-old lawyer, has got the toughest case in her 25-year-old legal career: she has been asked by Sealdah court to defend.",
+            "url": "https://timesofindia.indiatimes.com/city/kolkata/kolkata-doctor-rape-murder-case-woman-legal-aid-lawyer-to-defend-rape-accused-sanjay-roy/articleshow/112720353.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112720356,width-1070,height-580,imgsize-59218,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-22T19:07:46Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Dwaipayan Ghosh",
+            "title": "Kolkata rape-murder case: Accused's '9 articles' among 53 items key to CBI's RG Kar probe",
+            "description": "Kolkata police have seized 53 items, including nine crucial pieces of evidence, in connection with the rape and murder case of a postgraduate resident doctor at RG Kar Medical College. Key digital evidence such as phone tower locations and CCTV footage placed…",
+            "url": "https://timesofindia.indiatimes.com/india/accuseds-9-articles-among-53-items-key-to-cbis-rg-kar-probe/articleshow/112772911.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112773170,width-1070,height-580,imgsize-38008,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-24T23:29:30Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Ambika Pandit",
+            "title": "\"When will justice be delivered?,\" ask acid attack survivors as they demand stringent punishment for the culprit in Kolkata doctor's rape-murder case",
+            "description": "India News: NEW DELHI: As the country rages over the shocking case of rape and murder of a doctor at a govt run hospital in Kolkata, acid attack survivors have co.",
+            "url": "https://timesofindia.indiatimes.com/india/when-will-justice-be-delivered-ask-acid-attack-survivors-as-they-demand-stringent-punishment-for-the-culprit-in-kolkata-doctors-rape-murder-case/articleshow/112696651.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112696655,width-1070,height-580,imgsize-1420349,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-22T02:50:42Z",
+            "content": "8 happiness mantras for working professionals"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "TNN",
+            "title": "Kolkata rape-murder case: Court allows polygraph test on main accused",
+            "description": "A Kolkata special court approved a polygraph test for Sanjay Roy, accused of raping and killing a trainee doctor at RG Kar Medical College. The court also permitted lie-detection tests on the former principal and four doctors. Evidence, including CCTV footage…",
+            "url": "https://timesofindia.indiatimes.com/city/kolkata/kolkata-rape-murder-case-court-allows-polygraph-test-on-main-accused/articleshow/112752685.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112752762,width-1070,height-580,imgsize-38008,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-24T00:52:41Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Dwaipayan Ghosh",
+            "title": "Kolkata rape-murder case: Accused's '9 articles' among 53 items key to CBI's RG Kar probe",
+            "description": "Kolkata police have seized 53 items, including nine crucial pieces of evidence, in connection with the rape and murder case of a postgraduate resident doctor at RG Kar Medical College. Key digital evidence such as phone tower locations and CCTV footage placed…",
+            "url": "https://timesofindia.indiatimes.com/city/kolkata/accuseds-9-articles-among-53-items-key-to-cbis-rg-kar-probe/articleshow/112772911.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112773170,width-1070,height-580,imgsize-38008,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-24T23:29:30Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "TNN",
+            "title": "Kolkata rape-murder case: Court allows polygraph test on main accused",
+            "description": "A Kolkata special court approved a polygraph test for Sanjay Roy, accused of raping and killing a trainee doctor at RG Kar Medical College. The court also permitted lie-detection tests on the former principal and four doctors. Evidence, including CCTV footage…",
+            "url": "https://timesofindia.indiatimes.com/india/kolkata-rape-murder-case-court-allows-polygraph-test-on-main-accused/articleshow/112752685.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112752762,width-1070,height-580,imgsize-38008,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-24T00:52:41Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata doc murder: FAIMA suggests interim measures to protect doctors who suffer 'inhumane' treatment, moves intervention application in SC",
+            "description": "Kolkata doctor rape case: FAIMA appealed to the Supreme Court for interim safety measures following a doctor’s rape and murder at RG Kar Hospital, Kolkata. The Supreme Court established a National Task Force to address healthcare workers' security concerns, w…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-doc-murder-faima-suggests-interim-measures-to-protect-doctors-who-suffer-inhumane-treatment-moves-intervention-application-in-sc/articleshow/112699151.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112699167,width-1200,height-630,imgsize-148898,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-22T04:54:11Z",
+            "content": "Kolkata doctor rape case: Federation of All India Medical Association (FAIMA) has filed application in the Supreme Court to intervene in the Kolkata doctor murder rape case at RG Kar Hospital as a co… [+3966 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Nabanna Abhijan Protest: From water cannons to barricades, Kolkata police puts in high-security ring around secretariat",
+            "description": "Nabanna Abhijan News: The West Bengal police have increased security around the state secretariat, Nabanna, ahead of the Nabanna Abhijan Rally scheduled for Tuesday. The rally aims to protest the RG Kar Medical College and Hospital rape-murder case. Police ha…",
+            "url": "https://economictimes.indiatimes.com/news/india/nabanna-abhijan-protest-from-water-cannons-to-barricades-kolkata-police-puts-in-high-security-ring-at-secretariat/articleshow/112826471.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112826622,width-1200,height-630,imgsize-24272,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-27T05:50:57Z",
+            "content": "The Kolkata Police has been tightening security around the West Bengal state secretariat ahead of the Nabanna Abhijan student protest. In the wake of the rally called for Tuesday to protest the RG Ka… [+3036 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "RG Kar horror case: Protests in Kolkata continue despite rains; scientists, students",
+            "description": "Kolkata, West Bengal: DYFI (Democratic Youth Federation of India) workers hold a protest march against the RG Kar Medical College & Hospital rape-murder case.Healthcare services at state-run hospitals in West Bengal weredisrupted on Saturday as junior doctors…",
+            "url": "https://economictimes.indiatimes.com/news/india/rg-kar-horror-case-protests-in-kolkata-continue-despite-rains-scientists-students/videoshow/112763908.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112763908,width-1070,height-580,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-24T11:41:13Z",
+            "content": "Kolkata, West Bengal: DYFI (Democratic Youth Federation of India) workers hold a protest march against the RG Kar Medical College &amp; Hospital rape-murder case.Healthcare services at state-run hosp… [+86 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "RG Kar Medical college case: Resident doctors 'not satisfied' with CBI's response",
+            "description": "On August 24, a group of resident doctors met with officials from the Central Bureau of Investigation (CBI) to discuss the alleged sexual assault and murder of a trainee doctor at RG Kar Medical College and Hospital in Kolkata. One of the delegation members e…",
+            "url": "https://economictimes.indiatimes.com/news/india/rg-kar-medical-college-case-resident-doctors-not-satisfied-with-cbis-response/videoshow/112768045.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112768045,width-1070,height-580,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-24T15:54:20Z",
+            "content": "On August 24, a group of resident doctors met with officials from the Central Bureau of Investigation (CBI) to discuss the alleged sexual assault and murder of a trainee doctor at RG Kar Medical Coll… [+147 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "TNN",
+            "title": "FIR against Ghosh may trigger graft probe by ED",
+            "description": "Kolkata Police filed an FIR against Dr. Sandip Ghosh, ex-principal of RG Kar Medical College, accusing him of corruption. The Enforcement Directorate might probe the case for money laundering. Ghosh faces allegations of selling unclaimed bodies, bio-waste tra…",
+            "url": "https://timesofindia.indiatimes.com/india/fir-against-ghosh-may-trigger-graft-probe-by-ed/articleshow/112695258.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112695269,width-1070,height-580,imgsize-54458,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-22T00:04:16Z",
+            "content": "Bhumi Pednekar is Shaadi-ready, at least her lehengas say so!"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ANI",
+            "title": "People will immerse Mamata Banerjee into River Ganga, says BJP's Sukanta Majumdar on Kolkata rape-murder",
+            "description": "Union minister Sukanta Majumdar claimed that West Bengal citizens would overthrow Chief Minister Mamata Banerjee over the handling of the Kolkata rape and murder case. Majumdar vowed that BJP would continue protests until justice was achieved. Additionally, t…",
+            "url": "https://timesofindia.indiatimes.com/india/people-will-immerse-mamata-banerjee-into-river-ganga-says-bjps-sukanta-majumdar-on-kolkata-rape-murder/articleshow/112785603.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112785614,width-1070,height-580,imgsize-23396,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-25T16:11:21Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Dwaipayan Ghosh",
+            "title": "Kolkata rape-murder: Sanjay Roy cry for sleep after multiple rounds of interrogation",
+            "description": "Sanjay Roy, the main accused in the R G Kar Medical College rape-and-murder case, requested sleep after exhaustive interrogation by Kolkata Police and CBI. Lodged in the VIP ward of Presidency Correctional Home, Roy had been subjected to multiple questioning …",
+            "url": "https://timesofindia.indiatimes.com/city/kolkata/kolkata-rape-murder-sanjay-roy-cry-for-sleep-after-multiple-rounds-of-interrogation/articleshow/112769928.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112769950,width-1070,height-580,imgsize-1909880,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-24T19:31:55Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "PTI",
+            "title": "Kolkata medic rape-murder: CBI starts grilling ex-principal of RG Kar Hospital, others in 'financial irregularities' case",
+            "description": "According to a complaint lodged by Akhtar Ali, former deputy superintendent of RGKMCH, Sandip Ghosh, during his tenure as the principal of the hospital, along with his associates, had issued tenders for the construction of food stalls, cafes, canteens, and ur…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-medic-rape-murder-cbi-starts-grilling-ex-principal-of-rg-kar-hospital-others-in-financial-irregularities-case/articleshow/112797881.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112797920,width-1200,height-630,imgsize-40040,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-26T06:24:43Z",
+            "content": "Kolkata: CBI sleuths on Monday started grilling former principal of RG Kar Medical College and Hospital (RGKMCH) Sandip Ghosh and ex-medical superintendent and vice principal Sanjay Vashisth in conne… [+1921 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Thehillstimes.in"
+            },
+            "author": "The Hills Times",
+            "title": "RG Kar doctor rape-murder  : Supreme Court tears into Kolkata police for ‘lapses’ in probe",
+            "description": "NEW DELHI, Aug 22: A tough talking Supreme Court on Thursday tore into the Kolkata police over the delay in registering the unnatural death of the woman doctor, who was raped and killed at the RG Kar Hospital, calling it “extremely disturbing” and questioned …",
+            "url": "https://thehillstimes.in/national/rg-kar-doctor-rape-murder-supreme-court-tears-into-kolkata-police-for-lapses-in-probe",
+            "urlToImage": "https://thehillstimes.in/wp-content/uploads/2024/08/280.jpg",
+            "publishedAt": "2024-08-22T23:25:00Z",
+            "content": "NEW DELHI, Aug 22: A tough talking Supreme Court on Thursday tore into the Kolkata police over the delay in registering the unnatural death of the woman doctor, who was raped and killed at the RG Kar… [+5593 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata doctor rape-murder case: SC debunks '151 mg semen' theory, directs lawyers to not use social media arguments in court",
+            "description": "The Supreme Court of India, led by Chief Justice DY Chandrachud, addressed arguments regarding the presence of 151 grams of semen in the victim's body during a hearing on the alleged rape and murder of a postgraduate student at RG Kar Medical College and Hosp…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-doctor-rape-murder-case-sc-debunks-151-mg-semen-theory-directs-lawyers-to-not-use-social-media-arguments-in-court/articleshow/112705108.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112705543,width-1200,height-630,imgsize-167972,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-22T08:12:50Z",
+            "content": "The three judge bench of the Supreme Court, led by Chief Justice of India (CJI) DY Chandrachud, on Thursday debunked the arguments related to the presence of 151 gm semen in victim's body, while hear… [+2086 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata rape case: CJI Chandrachud shares his horrific experience in govt hospital, says he slept on floor once",
+            "description": "Chief Justice of India DY Chandrachud led the Supreme Court in resuming the hearing of the Kolkata doctor-murder case. He urged protesting doctors to return to work, assuring them of protection. The Court emphasized the increasing violence against medical pro…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-rape-case-cji-chandrachud-shares-his-horrific-experience-in-govt-hospital-says-he-slept-on-floor-once/articleshow/112701631.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112701545,width-1200,height-630,imgsize-99810,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-22T06:45:36Z",
+            "content": "As Chief Justice of India led- Supreme Court bench resumes hearing on Kolkata murder rape case, DY Chandruchud shared an annetdote where he explained that he had once slept on the floor of a public h… [+1843 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata Doctor Case: SC asks protesting doctors to return to work; says will ensure no adverse action",
+            "description": "The Supreme Court encouraged doctors to end their protests over the Kolkata doctor-murder case and return to work, assuring no negative actions would follow. Chief Justice Chandrachud reviewed reports from CBI and West Bengal, stressing the need for safer wor…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-doctor-case-sc-asks-protesting-doctors-to-return-to-work-says-will-ensure-no-adverse-action/articleshow/112701423.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112701478,width-1200,height-630,imgsize-1288537,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-22T06:12:18Z",
+            "content": "The Supreme Court on Thursday urged health professionals return to work and ensured that the court will prevail upon authorities that no adverse action be taken against the doctors, who have been pro… [+1633 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "PTI",
+            "title": "IMA to file plea to intervene in SC's suo motu case on rape-murder of Kolkata medic",
+            "description": "The Indian Medical Association will file an interlocutory application in the Supreme Court's suo motu case on the alleged rape and murder of a junior doctor in Kolkata. The IMA is also preparing to appear before the task force formed to ensure healthcare prof…",
+            "url": "https://economictimes.indiatimes.com/news/india/ima-to-file-plea-to-intervene-in-scs-suo-motu-case-on-rape-murder-of-kolkata-medic/articleshow/112709661.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112709712,width-1200,height-630,imgsize-96074,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-22T10:15:16Z",
+            "content": "The IMA on Thursday decided it will file an interlocutory application to intervene in the Supreme Court's suo motu case on the alleged rape and murder of a junior doctor in a state-run hospital in Ko… [+3239 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Rohit Khanna,Dwaipayan Ghosh",
+            "title": "Kolkata rape murder case: No mention of gang rape in CBI note, accused to be kept in solitary confinement",
+            "description": "In the RG Kar hospital rape-murder case, the CBI's remand note for suspect Sanjay Roy did not mention gang rape or multiple perpetrators, countering victim's parents' allegations. The court placed Roy in judicial custody until September 6. This follows a CBI …",
+            "url": "https://timesofindia.indiatimes.com/city/kolkata/kolkata-rape-murder-case-no-mention-of-gang-rape-in-cbi-note-accused-to-be-kept-in-solitary-confinement/articleshow/112751545.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112751681,width-1070,height-580,imgsize-38008,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-23T23:14:45Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata medic rape-murder case: War of words break out between BJP & TMC over 'dancing girl' in alleged protest video",
+            "description": "A political dispute ensued between TMC and BJP after TMC MP Saket Gokhale shared a video suggesting BJP's misuse of a protest for political gains. BJP refuted the claim, stating the clip was from a 'Puja Pandal,' and accused the TMC of spreading false informa…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-medic-rape-murder-case-war-of-words-break-out-between-bjp-tmc-over-dancing-girl-in-alleged-protest-video/articleshow/112798881.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112800094,width-1200,height-630,imgsize-122324,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-26T07:37:30Z",
+            "content": "The TMC and BJP on Monday engaged in a war of words after TMC MP Saket Gokhale shared an alleged video of a girl dancing in a 'protest for RG Kar'. Taking to social media platform X, Gokhale shared a… [+1559 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "PTI",
+            "title": "Delhi doctors' indefinite protest enters 11th day with no end in sight",
+            "description": "New Delhi witnessed an 11-day protest by resident doctors over a trainee medic's alleged rape and murder in Kolkata, despite Supreme Court intervention urging a return to work. The case led to the formation of a 10-member National Task Force for healthcare pr…",
+            "url": "https://timesofindia.indiatimes.com/india/delhi-doctors-indefinite-protest-enters-11th-day-with-no-end-in-sight/articleshow/112699031.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112699209,width-1070,height-580,imgsize-1690406,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-22T04:55:26Z",
+            "content": "8 happiness mantras for working professionals"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "TNN",
+            "title": "'Everyone has right to fair trial': Woman lawyer to defend Roy",
+            "description": "Kolkata lawyer Kabita Sarkar has been assigned the challenging task of defending Sanjoy Roy, accused of rape and murder at RG Kar Hospital, after no other lawyer agreed to take the case. Sarkar, representing the state legal services authority in Sealdah, emph…",
+            "url": "https://timesofindia.indiatimes.com/india/everyone-has-right-to-fair-trial-woman-lawyer-to-defend-roy/articleshow/112724476.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-47529300,width-1070,height-580,imgsize-110164,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-23T00:57:04Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Prithvijit Mitra",
+            "title": "Kolkata doctor rape-murder: For ex-R G Kar principal Sandip Ghosh, a fortnight seems to be a lifetime",
+            "description": "The former principal of R G Kar, Sandip Ghosh, who once appeared confident and authoritative, showed a dramatic change in behavior after facing allegations of corruption and mishandling a student’s murder case. Following intense CBI questioning, he became def…",
+            "url": "https://timesofindia.indiatimes.com/city/kolkata/kolkata-doctor-rape-murder-for-ex-r-g-kar-principal-sandip-ghosh-a-fortnight-seems-to-be-a-lifetime/articleshow/112769757.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112769807,width-1070,height-580,imgsize-63746,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-24T19:08:42Z",
+            "content": "8 protein-packed South-Indian breakfasts made with dal (lentils)"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "PTI",
+            "title": "Doctor murder: App cab drivers stage protest rally",
+            "description": "A group of around 300 drivers from app-based cab services in Kolkata held a rally against the alleged rape and murder of a woman doctor at a state-run hospital. Organized by CITU, the demonstration called for speedy justice and a safer environment for women. …",
+            "url": "https://economictimes.indiatimes.com/news/india/doctor-murder-app-cab-drivers-stage-protest-rally/articleshow/112766554.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112766566,width-1200,height-630,imgsize-486480,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-24T14:01:07Z",
+            "content": "A section of drivers of app-based cab services in Kolkata on Saturday took out a rally in protest against the alleged rape and murder of a woman doctor at a state-run hospital in the city. Around 300… [+1143 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Kolkata rape-murder: Polygraph test on main accused and 6 others including ex-principal underway",
+            "description": "The polygraph tests for the main accused and six others connected to the alleged rape and murder of a trainee doctor at RG Kar Medical College commenced on Saturday. The CBI accused local police of altering the crime scene, prompting the Calcutta High Court t…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-rape-murder-polygraph-test-on-main-accused-and-6-others-including-ex-principal-underway/articleshow/112758998.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112759019,width-1200,height-630,imgsize-176922,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-24T07:55:28Z",
+            "content": "As investigation in the Kolkata murder-rape progresses furthur, the lie detection tests on the main accused and six others in the alleged rape and murder of a trainee doctor at the state-run RG Kar M… [+3994 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "PTI",
+            "title": "ED files money laundering case to probe 'financial irregularities in R G Kar Hospital",
+            "description": "The Enforcement Directorate initiated a money laundering probe into financial irregularities at RG Kar Medical College during Sandip Ghosh's tenure. Based on a CBI FIR, the ED will soon issue summons to the accused. The CBI had earlier raided the premises of …",
+            "url": "https://economictimes.indiatimes.com/news/india/ed-files-money-laundering-case-to-probe-financial-irregularities-in-r-g-kar-hospital/articleshow/112831903.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112831921,width-1200,height-630,imgsize-35384,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-27T08:29:12Z",
+            "content": "The Enforcement Directorate has filed a money laundering case to probe alleged financial irregularities at the RG Kar Medical College and Hospital during the tenure of its former principal Sandip Gho… [+1606 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Thehillstimes.in"
+            },
+            "author": "The Hills Times",
+            "title": "US-based doctor from Kolkata demands accountability over RG Kar medic’s rape-murder",
+            "description": "KOLKATA, Aug 26: A US-based doctor who has contributed immensely to India’s polio elimination efforts and measles surveillance initiatives has criticised the brutal rape and murder of a doctor at RG Kar Medical College and Hospital and slammed the West Bengal…",
+            "url": "https://thehillstimes.in/national/us-based-doctor-from-kolkata-demands-accountability-over-rg-kar-medics-rape-murder",
+            "urlToImage": null,
+            "publishedAt": "2024-08-26T19:50:00Z",
+            "content": "KOLKATA, Aug 26: A US-based doctor who has contributed immensely to Indias polio elimination efforts and measles surveillance initiatives has criticised the brutal rape and murder of a doctor at RG K… [+3993 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Nabanna march: Kolkata police puts in high-security ring at secretariat ahead of student protest",
+            "description": "In the wake of the Nabanna Abhijan Rally called for Tuesday to protest the RG Kar Medical College and Hospital rape-murder case, the West Bengal police have tightened security around the West Bengal state secretariat 'Nabanna'. Ahead of the demonstration, the…",
+            "url": "https://economictimes.indiatimes.com/news/politics-and-nation/nabanna-march-kolkata-police-puts-in-high-security-ring-at-secretariat-ahead-of-student-protest/videoshow/112826202.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112826202,width-1070,height-580,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-27T05:44:36Z",
+            "content": "In the wake of the Nabanna Abhijan Rally called for Tuesday to protest the RG Kar Medical College and Hospital rape-murder case, the West Bengal police have tightened security around the West Bengal … [+374 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "PTI",
+            "title": "Kolkata rape-murder: Doctors protest at Jantar Mantar on day 10, demand better workplace safety",
+            "description": "Resident doctors in Delhi have staged a protest at Jantar Mantar, marking the 10th day of their indefinite strike over the alleged rape and murder of a medic in a Kolkata hospital. The protests have suspended elective services in several government hospitals …",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-rape-murder-doctors-protest-at-jantar-mantar-on-day-10-demand-better-workplace-safety/articleshow/112677190.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112677201,width-1200,height-630,imgsize-176922,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-21T08:37:31Z",
+            "content": "Resident doctors staged a protest at Jantar Mantar in Delhi on Wednesday, marking the 10th day of their indefinite strike over the alleged rape and murder of a medic in a Kolkata hospital. \"It's very… [+2431 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Thehillstimes.in"
+            },
+            "author": "The Hills Times",
+            "title": "CBI takes over probe into financial irregularities at RGK Med College",
+            "description": "NEW DELHI, Aug 24: The CBI on Saturday took over the case of alleged financial irregularities at RG Kar Medical College and Hospital in Kolkata during the tenure of former principal Sandip Ghosh, officials said. The action came on the directions of the Calcut…",
+            "url": "https://thehillstimes.in/national/cbi-takes-over-probe-into-financial-irregularities-at-rgk-med-college",
+            "urlToImage": null,
+            "publishedAt": "2024-08-24T20:00:00Z",
+            "content": "NEW DELHI, Aug 24: The CBI on Saturday took over the case of alleged financial irregularities at RG Kar Medical College and Hospital in Kolkata during the tenure of former principal Sandip Ghosh, off… [+903 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET CONTRIBUTORS",
+            "title": "A cry for justice: The brutal rape and murder of a young doctor in Kolkata",
+            "description": "A young doctor's rape and murder at R. G. Kar Medical College in Kolkata highlighted serious failings by authorities, who initially misclassified the crime as suicide and compromised vital evidence. Protests erupted, shedding light on broader systemic neglect…",
+            "url": "https://economictimes.indiatimes.com/news/india/a-cry-for-justice-the-brutal-rape-and-murder-of-a-young-doctor-in-kolkata/articleshow/112687654.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112687838,width-1200,height-630,imgsize-528702,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-21T15:10:42Z",
+            "content": "The recent and heart-wrenching incident in West Bengal, a state renowned for its rich cultural heritage, has sent shockwaves across the nation. The brutal rape and murder of a young doctor at R. G. K… [+5013 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Jayatri Nag",
+            "title": "Kolkata rape-murder: \"Nabanna Abhijaan\" protests turn ugly; stones hurled, police resort to lathicharge",
+            "description": "Protesters started rallies with \"We Want Justice\" slogans and demanding resignation of Chief Minister Mamata Banerjee started marching towards state secretariat Nabanna amid major security beef up in Kolkata and Howrah Bridge, Santragachhi and other areas. Na…",
+            "url": "https://economictimes.indiatimes.com/news/india/kolkata-rape-murder-nabanna-abhijaan-protests-turn-ugly-stones-hurled-police-resort-to-lathicharge/articleshow/112830438.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112830453,width-1200,height-630,imgsize-235974,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-27T07:43:59Z",
+            "content": "Kolkata: Police lathi charged after a scuffle took place with protesters as banners and stones were hurled at police and barricades were breached, turning the protest of \"Nabanna Abhijaan\" into a war… [+4191 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "Akola school sexual abuse case: School teacher arrested for molesting, showing porn to six girls",
+            "description": "A school teacher in Akola, Maharashtra, was arrested for molesting six class 8 girls over a period of four months. Pramod Manohar Sardar was detained after complaints were lodged. This arrest comes on the heels of another troubling incident in Badlapur, contr…",
+            "url": "https://economictimes.indiatimes.com/news/india/akola-school-sexual-abuse-case-school-teacher-arrested-for-molesting-showing-porn-to-six-girls/articleshow/112670073.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112670708,width-1200,height-630,imgsize-470505,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-21T04:32:06Z",
+            "content": "Another horrific incident comes to light just a day after the Badlapur school horror, where a school teacher has been arrested in Maharashtra's Akola district on charges of molestation following comp… [+2512 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Thehillstimes.in"
+            },
+            "author": "The Hills Times",
+            "title": "CBI conducts second round of polygraph tests on RG Kar hospital ex-principal, others",
+            "description": "KOLKATA, Aug 26: The CBI on Monday started a second round of polygraph tests on former RG Kar Medical College and Hospital (RGKMCH) principal Sandip Ghosh and five others as part of their investigation into the rape-murder of a woman doctor at the institution…",
+            "url": "https://thehillstimes.in/national/cbi-conducts-second-round-of-polygraph-tests-on-rg-kar-hospital-ex-principal-others",
+            "urlToImage": null,
+            "publishedAt": "2024-08-26T19:20:00Z",
+            "content": "KOLKATA, Aug 26: The CBI on Monday started a second round of polygraph tests on former RG Kar Medical College and Hospital (RGKMCH) principal Sandip Ghosh and five others as part of their investigati… [+1929 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ANI",
+            "title": "Health dept cancels Sandip Ghosh's appointment as principal of National Medical College & Hospital; RG Kar Hospital gets new head",
+            "description": "Professor Manas Kumar Bandopadhyay has been appointed as the principal of RG Kar Medical College and Hospital in Kolkata. This appointment follows Prof Suhrita Paul's recent appointment as the principal of Barasat Government Medical College and Hospital, as a…",
+            "url": "https://economictimes.indiatimes.com/news/india/health-dept-cancels-sandip-ghoshs-appointment-as-principal-of-national-medical-college-hospital-rg-kar-hospital-gets-new-head/articleshow/112697055.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112697153,width-1200,height-630,imgsize-2032486,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-22T03:10:59Z",
+            "content": "Kolkata: Professor Manas Kumar Bandopadhyay has been appointed the principal of RG Kar Medical College and Hospital in Kolkata.This development comes a week after Prof Suhrita Paul was appointed to t… [+1612 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "ET Online",
+            "title": "West Bengal rape-murder: Revisiting a still-unsolved case from 2007 that had shaken India in similar manner",
+            "description": "Dr. Kavita, a senior resident at ESI Hospital in Delhi, was found unconscious in September 2007 with signs of sexual assault and attempted murder. Initial suspicions of suicide turned into a full investigation due to public outcry. After remaining in a coma f…",
+            "url": "https://economictimes.indiatimes.com/news/india/west-bengal-rape-murder-revisiting-a-still-unsolved-case-from-2007-that-had-shaken-india-in-similar-manner/articleshow/112673298.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112673400,width-1200,height-630,imgsize-25400,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-21T06:36:42Z",
+            "content": "In September 2007, Dr. Kavita, a 26-year-old paediatrician at ESI Hospital in West Delhi, was found unconscious with severe injuries, bite marks, and an injection mark on her arm, suggesting she had … [+4988 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "PTI",
+            "title": "CBI conducts second round of polygraph tests on RG Kar hospital ex-principal, others",
+            "description": "According to an officer, over the last 10 days, Ghosh provided inconsistent answers during questioning, prompting officers to conduct another round of polygraph tests. The CBI initially conducted the lie-detection tests on Ghosh and five others on Saturday, f…",
+            "url": "https://economictimes.indiatimes.com/news/india/cbi-conducts-second-round-of-polygraph-tests-on-rg-kar-hospital-ex-principal-others/articleshow/112805930.cms",
+            "urlToImage": "https://img.etimg.com/thumb/msid-112806087,width-1200,height-630,imgsize-40040,overlay-economictimes/photo.jpg",
+            "publishedAt": "2024-08-26T10:37:42Z",
+            "content": "The CBI on Monday started a second round of polygraph tests on former RG Kar Medical College and Hospital (RGKMCH) principal Sandip Ghosh and five others as part of their investigation into the rape-… [+1976 chars]"
+        },
+        {
+            "source": {
+                "id": "the-times-of-india",
+                "name": "The Times of India"
+            },
+            "author": "Trisha Tewari",
+            "title": "Top 3 Management Colleges in Delhi According to NIRF Rankings 2024",
+            "description": "In the 2024 NIRF rankings, nine management schools from Delhi secured spots in the top 100, highlighting the city's prominence in business education. IIT Delhi leads the pack at 4th place, followed by the Indian Institute of Foreign Trade at 15th, and Jamia M…",
+            "url": "https://timesofindia.indiatimes.com/education/news/top-3-management-colleges-in-delhi-according-to-nirf-rankings-2024/articleshow/112717569.cms",
+            "urlToImage": "https://static.toiimg.com/thumb/msid-112717752,width-1070,height-580,imgsize-2429545,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
+            "publishedAt": "2024-08-22T15:36:37Z",
+            "content": "<ul><li>News</li>\r\n<li>Top 3 Management Colleges in Delhi According to NIRF Rankings 2024</li></ul>\r\nIn the 2024 NIRF rankings, nine management schools from Delhi secured spots in the top 100, highli… [+2108 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "On CCTV, Kolkata Rape-Murder Accused With Earphones Spotted At Crime Scene",
+            "description": "Investigators in the rape and murder case of a junior doctor in a Kolkata hospital have released a CCTV screen grab of the suspect entering the hospital an hour after midnight.",
+            "url": "https://www.ndtv.com/kolkata-news/on-cctv-kolkata-rape-murder-accused-with-earphones-spotted-at-crime-scene-6406133",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/vbti174g_kolkata-cctv_625x300_24_August_24.jpeg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-24T04:08:43Z",
+            "content": "Sanjay Roy, suspect in Kolkata doctor rape-murder case, seen on CCTV\r\nKolkata: Investigators in the rape and murder case of a junior doctor in a Kolkata hospital have released a CCTV screen grab of t… [+1469 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Don't Use Social Media For Arguments\": Top Court To Lawyer In Kolkata Case",
+            "description": "Chief Justice of India DY Chandrachud on Thursday debunked the \"151 mg semen\" theory in the Kolkata rape and murder case and told a lawyer to not rely on social media for arguments in court.",
+            "url": "https://www.ndtv.com/india-news/supreme-court-dy-chandrachud-to-lawyer-on-semen-claim-in-kolkata-rape-murder-case-dont-use-social-media-for-arguments-6398043",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/9cuhr6vg_dy-chandrachud_625x300_23_August_24.jpeg?im=FaceCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-23T02:14:11Z",
+            "content": "Chief Justice DY Chandrachud-led bench heard the Kolkata rape-murder case on Thursday\r\nNew Delhi: Chief Justice of India DY Chandrachud on Thursday debunked the \"151 mg semen\" theory in the Kolkata r… [+2549 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": "NDTV News Desk",
+            "title": "LIVE: CBI Submits Kolkata Horror Report, Top Court Hearing Begins Shortly",
+            "description": "The Central Bureau of Investigation (CBI) has submitted a status report in the Supreme Court in its probe into the rape-murder of a woman doctor at a Kolkata hospital.",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-case-live-updates-cbi-submits-status-report-supreme-court-hearing-to-begin-shortly-6391042",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/b58c9rdo_kolkata-protests_625x300_21_August_24.jpeg",
+            "publishedAt": "2024-08-22T05:33:07Z",
+            "content": "New Delhi: The Central Bureau of Investigation (CBI) has submitted a status report in the Supreme Court in its probe into the rape-murder of a woman doctor at a Kolkata hospital. The incident has spa… [+1443 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Kolkata Rape Case: CBI Completes Lie Detector Test On Ex-RG Kar Principal",
+            "description": "The Central Bureau of Investigation (CBI) concluded a second round of polygraph tests on former RG Kar Medical College and Hospital principal Sandip Ghosh as part of their investigation into the rape-murder of a woman doctor at the institution.",
+            "url": "https://www.ndtv.com/india-news/kolkata-rape-case-cbi-completes-lie-detector-test-on-ex-rg-kar-principal-sandip-ghosh-6425414",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/dfu1hkg8_sandip-ghosh-kolkata-hospital-_625x300_24_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-27T00:02:04Z",
+            "content": "RG Kar Hospital's Ex-Principal Sandip Ghosh is part of CBI's probe into the doctor's rape-murder case.\r\nKolkata: The Central Bureau of Investigation (CBI) on Monday concluded a second round of polygr… [+1528 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Non-Bailable Charges Against Kolkata Hospital Ex-Chief In Corruption Case",
+            "description": "The First Information Report against Sandip Ghosh, the former Principal of Kolkata's RG Kar Medical College - has cleared the decks for his eventual arrest.",
+            "url": "https://www.ndtv.com/india-news/rg-kar-hospitals-ex-chief-sandip-ghosh-gets-non-bailable-charges-in-corruptioncase-6422293",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/dfu1hkg8_sandip-ghosh-kolkata-hospital-_625x300_24_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-26T12:43:23Z",
+            "content": "The First Information Report against Sandip Ghosh, the former Principal of Kolkata's RG Kar Medical College - has cleared the decks for his eventual arrest. Ghosh -- who is in the eye of the storm ov… [+1549 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Principal Should Have...\": Top Court's Fresh Fire In Kolkata Rape-Murder",
+            "description": "The Supreme Court today said the delay in filing the FIR in the Kolkata doctor's rape-murder case cannot be justified and again questioned the role of Dr Sandip Ghosh, former principal of RG Kar Medical College and Hospital",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-rg-kar-medical-college-principal-should-have-top-courts-fresh-fire-in-kolkata-rape-murder-6393611",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/rqmidj9_sandip-ghosh_625x300_18_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-22T11:21:37Z",
+            "content": "Sandip Ghosh stepped down as principal of RG Kar Medical College after the doctor's rape-murder\r\nNew Delhi: The Supreme Court today said the delay in filing the FIR in the Kolkata doctor's rape-murde… [+2728 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Why DNA Report Could Be Most Important Evidence In Kolkata Rape-Murder Case",
+            "description": "With anger rising over the horrific rape and murder of a 31-year-old trainee doctor at a Kolkata hospital, the report of the DNA samples collected from the victim's body and the accused will likely become the  important piece of evidence in the case.",
+            "url": "https://www.ndtv.com/india-news/why-dna-report-could-be-most-important-evidence-in-kolkata-rape-murder-case-6391795",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/2fiichd_kolkata-doctor-rape-accused_625x300_12_August_24.jpg?im=FitAndFill,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-22T07:21:20Z",
+            "content": "New Delhi: With anger rising over the horrific rape and murder of a 31-year-old trainee doctor at Kolkata's RG Kar Medical College and Hospital, the report of the DNA samples collected from the victi… [+1977 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Why Early Cremation In Kolkata Rape-Murder, Asks Supreme Court's Ex-Judge",
+            "description": "Justice (Retired) Madan Lokur today outlined some of the lapses in the investigation in the Kolkata rape-murder case that has raised a storm of protest from the medical community across the country.",
+            "url": "https://www.ndtv.com/india-news/rg-kar-rape-murder-why-early-cremation-in-kolkata-rape-murder-asks-supreme-courts-ex-judge-6395439",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/29g1ia1_kolkatadoctorsc_625x300_20_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-22T15:28:06Z",
+            "content": "New Delhi: Justice (Retired) Madan Lokur today outlined some of the lapses in the investigation in the Kolkata rape-murder case that has raised a storm of protest from the medical community across th… [+1693 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Don't Politicise\": Chief Justice To Centre, Bengal In Kolkata Rape-Murder",
+            "description": "Chief Justice of India DY Chandrachud today urged counsels for the Centre and West Bengal governments to not politicise the Kolkata doctor's rape and murder case and stressed that the law is taking its course.",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-rg-kar-medical-college-dont-politicise-chief-justice-to-centre-bengal-in-kolkata-rape-murder-6393020",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/qvqucq6g_kolkata-protest_625x300_14_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-22T10:07:28Z",
+            "content": "The rape and murder of a 31-year-old doctor in Kolkata has sparked massive protests\r\nNew Delhi: Chief Justice of India DY Chandrachud today urged counsels for the Centre and West Bengal governments t… [+2774 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Assure Doctors We Are Concerned\": Supreme Court's Top Quotes",
+            "description": "The Supreme Court today resumed hearing in a case related to the rape and murder of a trainee doctor at the RG Kar Medical College and Hospital in Kolkata.",
+            "url": "https://www.ndtv.com/india-news/doctors-must-resume-work-there-will-be-no-victimisation-supreme-court-6391243",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/ud5ub27o_doctors-strike_625x300_20_August_24.jpeg",
+            "publishedAt": "2024-08-22T06:03:47Z",
+            "content": "New Delhi: The Supreme Court today resumed hearing in a case related to the rape and murder of a trainee doctor at the RG Kar Medical College and Hospital in Kolkata. A bench comprising Chief Justice… [+1017 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Kolkata Doctor Rape-Murder Case: CBI Submits Status Report In Supreme Court",
+            "description": "The CBI today submitted its status report to the Supreme Court on the progress of the investigation into the rape and murder of a woman doctor in RG Kar Medical College & Hospital in Kolkata, and as per sources CBI has found several missing links.",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-case-cbi-submits-status-report-in-supreme-court-6391181",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/2ckbq8tk_cbi-investigates-rg-kar-hospital-rape-murder-case-ani_625x300_22_August_24.jpeg",
+            "publishedAt": "2024-08-22T06:40:08Z",
+            "content": "CBI officials investigate the RG Kar Medical College and Hospital rape-murder case.\r\nKolkata: The CBI today submitted its status report to the Supreme Court on the progress of the investigation into … [+2344 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "RG Kar Tragedy: Rebel Trinamool MP Jabs Kolkata Cops With RK Laxman Cartoon",
+            "description": "Rebel Trinamool MP Sukhendu Sekhar Roy, has now taken refuge in a cartoon by legendary Indian artist and humourist RK Laxman to express his anguish over the recent summons to him by Kolkata Police in the Kolkata rape and murder case.",
+            "url": "https://www.ndtv.com/kolkata-news/rg-kar-tragedy-rebel-trinamool-mp-jabs-kolkata-police-with-rk-laxman-cartoon-6406713",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/iftjahs8_tmc-mp-sukhendu-shekhar-roy-shares-rk-laxman-cartoon_625x300_24_August_24.jpeg",
+            "publishedAt": "2024-08-24T06:28:48Z",
+            "content": "Sukhendu Sekhar Roy shared a cartoon by legendary Indian artist RK Laxman.\r\nKolkata: Veteran Trinamool Congress Rajya Sabha member, Sukhendu Sekhar Roy, has now taken refuge in a cartoon by legendary… [+2208 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": "NDTV Sports Desk",
+            "title": "Ganguly Joins Protest Against Kolkata Rape, Daughter Says \"We Want Justice\"",
+            "description": "On Wednesday, Sourav Ganguly and his family could seen joining several other protesters against the rape and murder of a doctor despite heavy rain in Kolkata",
+            "url": "https://sports.ndtv.com/cricket/sourav-ganguly-and-wife-dona-join-protest-against-kolkata-rape-murder-daughter-sana-says-we-want-justice-6388019",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/qotu9qm8_ganguly-daughter_625x300_21_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-21T16:31:25Z",
+            "content": "Former Indian cricket team captain Sourav Ganguly, wife Dona and daughter Sana joined the ongoing protest against the rape and murder of a doctor in a Kolkata hospital on Wednesday. There has been na… [+2288 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "CBI Files Financial Irregularities Case Against Kolkata Hospital's Ex Chief",
+            "description": "CBI files case of financial irregularities against Sandip Ghosh, ex principal of Kolkata's RG Kar hospital",
+            "url": "https://www.ndtv.com/india-news/cbi-files-case-of-financial-irregularities-against-sandip-ghosh-ex-principal-of-kolkatas-rg-kar-hospital-6408413",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/rqmidj9_sandip-ghosh_625x300_18_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-24T11:05:34Z",
+            "content": "Sandip Ghosh resigned from his post two days after the traiiee doctor was found murdered.\r\nNew Delhi: Sandip Ghosh, the former principal of RG Kar Medical College and Hospital in Kolkata, has been in… [+2241 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "CBI Takes Over Kolkata Horror Case, Polygraph Tests Of Accused Begin",
+            "description": "The Central Bureau of Investigation (CBI) today began conducting lie detection tests on the primary accused and six others connected to the rape and murder of a trainee doctor at the state-run RG Kar Medical College and Hospital in Kolkata.",
+            "url": "https://www.ndtv.com/india-news/kolkata-case-rg-kar-cbi-takes-over-kolkata-horror-case-polygraph-tests-of-accused-begin-6407145",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/vpd4a1mo_kolkata-rape-_625x300_24_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-24T07:33:08Z",
+            "content": "<li>The main accused, Sanjay Roy, will undergo the polygraph test at the prison where he is currently lodged. The remaining six individuals -  former principal Sandip Ghosh, four doctors who were on … [+2338 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Kolkata Suspect Tells Court He Wants Lie-Detector Test. Lawyer Explains Why",
+            "description": "The key suspect in the rape and murder case of a junior doctor in a Kolkata hospital has told a special court that he wanted to go through a lie-detector test so that \"the truth comes out\", the suspect's lawyer told NDTV.",
+            "url": "https://www.ndtv.com/kolkata-news/kolkata-doctor-rape-murder-suspect-sanjay-roy-tells-court-he-wants-lie-detector-test-lawyer-explains-why-6408491",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/362jdqkg_sanjay_625x300_22_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-24T11:16:46Z",
+            "content": "Sanjay Roy is the key suspect in the Kolkata rape-murder case\r\nKolkata: The key suspect in the rape and murder case of a junior doctor in a Kolkata hospital has told a special court that he wanted to… [+2477 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "United Doctors Front Association Suspends Strike Following Court Directive",
+            "description": "The United Doctors Front Association (UDFA) has suspended the nationwide strike, protesting the Kolkata rape and murder of trainee doctor, following a Supreme Court's directive on Thursday.",
+            "url": "https://www.ndtv.com/india-news/kolkata-rape-case-united-doctors-front-association-suspends-strike-following-court-directive-6397204",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/m8htu38_doctors-protest-ani_625x300_20_August_24.jpeg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-22T21:20:41Z",
+            "content": "Kolkata Rape Case: United Doctors Front Association (UDFA) has suspended the nationwide strike.\r\nNew Delhi:  The United Doctors Front Association (UDFA) has suspended the nationwide strike, protestin… [+2527 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Polygraph Test On Ex-Principal, 4 Other Doctors In Kolkata Rape-Murder",
+            "description": "The Central Bureau of Investigation, failing to get any satisfactory reply from RG Kar Hospital's former Principal Sandip Ghosh, will now conduct a polygraph test. Four other doctors will take the test along with him.",
+            "url": "https://www.ndtv.com/india-news/polygraph-test-on-ex-principal-4-other-doctors-in-kolkata-rape-murder-6394928",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/fbibg1fg_rg-kar-medical-college-_625x300_15_August_24.jpeg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-22T14:10:31Z",
+            "content": "The Central Bureau of Investigation, failing to get any satisfactory reply from RG Kar Hospital's former Principal Sandip Ghosh, will now conduct a polygraph test. Four other doctors, who were on dut… [+1857 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"If Jawans Desert...\": Trinamool Leader's Pulwama Question For Doctors",
+            "description": "Amid nationwide doctors' protests in the wake of a rape and murder of a 31-year-old doctor in Kolkata, a Trinamool Congress leader has asked how medicos would respond if soldiers went on strike to demand action against those behind Pulwama attack",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-rg-kar-medical-college-if-jawans-desert-trinamool-leaders-pulwama-question-for-doctors-6385232",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/opjfrl4_kolkata-doctors_625x300_13_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-21T10:30:28Z",
+            "content": "Doctors in Kolkata and other parts of the country are protesting against the rape and murder horror\r\nKolkata: Amid nationwide doctors' protests in the wake of a rape and murder of a 31-year-old docto… [+2105 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "AIIMS Doctors To Continue Strike; Provide OPD Services At Jantar Mantar: Updates",
+            "description": "Kolkata Doctor Rape-Murder LIVE Updates: The Resident Doctors' Association of AIIMS, New Delhi said that they will provide OPD services from Jantar Mantar today to demonstrate their unwavering commitment to patient care.",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-live-updates-aiims-doctors-to-continue-strike-provide-opd-services-at-jantar-mantar-6383583",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/ud5ub27o_doctors-strike_625x300_20_August_24.jpeg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-21T05:53:43Z",
+            "content": "AIIMS Delhi said that they will provide OPD services from Jantar Mantar.\r\nNew Delhi: The Resident Doctors' Association of AIIMS, New Delhi said that they will provide OPD services from Jantar Mantar … [+3435 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Rape Threat To Abhishek Banerjee's Daughter, Bengal Child Panel Takes Note",
+            "description": "Amid a social media storm over the rape and murder of a 31-year-old doctor in Kolkata, the West Bengal child rights body has taken note of a rape threat to the daughter of Trinamool Congress MP Abhishek Banerjee",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-rg-kar-medical-college-rape-threat-to-abhishek-banerjees-daughter-bengal-child-panel-takes-note-6420547",
+            "urlToImage": "https://c.ndtvimg.com/2024-04/ieqmulh_abhishek-banerjee_625x300_30_April_24.jpeg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-26T08:34:17Z",
+            "content": "Abhishek Banerjee is a Lok Sabha MP and Trinamool Congress's national general secretary\r\nKolkata: Amid a social media storm over the rape and murder of a 31-year-old doctor in Kolkata, the West Benga… [+2534 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "CBI Searches At 15 Places In Kolkata Hospital Corruption Case: 10 Points",
+            "description": "The CBI conducted searches at 15 places this morning in connection with allegations of financial irregularities against Sandeep Ghosh, the former principal of Kolkata's RG Kar Medical College and Hospital, where a doctor was raped and murdered.",
+            "url": "https://www.ndtv.com/kolkata-news/cbi-searches-at-15-places-in-kolkata-hospital-corruption-case-10-points-6412964",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/7ca4ss1_-sandeep-ghosh_625x300_21_August_24.jpeg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-25T04:53:59Z",
+            "content": "<li>Sources said a Central Bureau of Investigation (CBI) team reached Mr Ghosh's house at 6.45 am, but he opened the doors to them only at 8 am.\r\n</li><li>The CBI also searched the house of Debashish… [+2298 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Kolkata Cops' Timeline In Doctor's Rape-Murder, What Doesn't Add Up",
+            "description": "The Kolkata Police yesterday submitted in Supreme Court a timeline of the events and its actions in the horrifying rape and murder of a 31-year-old doctor that has sparked nationwide protests. Senior Advocate Kapil Sibal said cops followed procedure",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-rg-kar-medical-college-kolkata-cops-timeline-in-doctors-rape-murder-what-doesnt-add-up-6398760",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/hhrlhjlo_rg-kar-college_625x300_23_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-23T04:57:41Z",
+            "content": "Students of RG Kar Medical College watch Supreme Court hearing on their protest site. PTI\r\nKolkata: The Kolkata Police yesterday submitted in Supreme Court a timeline of the events and its actions in… [+5786 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Venomous Men Masking Themselves\": Ex MP Mimi Chakraborty Gets Rape Threat",
+            "description": "Actor and former Trinamool Congress MP Mimi Chakraborty has said she is receiving death threats in the aftermath of the rape and murder of a 31-year-old doctor in Kolkata's RG Kar Medical College and Hospital.",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-rg-kar-medical-college-venomous-men-masking-themselves-ex-mp-mimi-chakraborty-gets-rape-threat-6390938",
+            "urlToImage": "https://c.ndtvimg.com/2022-01/nq00s10o_tmc-mp-mimi-chakraborty_625x300_07_January_22.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-22T05:11:15Z",
+            "content": "Actor Mimi Chakraborty served as Jadavpur MP from 2019 to 2024\r\nKolkata: Actor and former Trinamool Congress MP Mimi Chakraborty has said she is receiving death threats in the aftermath of the rape a… [+1827 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Big Changes In RG Kar Hospital As Doctors Protest Rape-Murder Horror",
+            "description": "Under fire after the rape-murder of a 31-year-old doctor in Kolkata's RG Kar Medical College and Hospital, the West Bengal government has made a string of changes in top posts in the hospital's administration, as demanded by protesting medicos",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-rg-kar-medical-college-big-reshuffle-in-rg-kar-hospital-as-doctors-protesting-rape-murder-horror-6390588",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/c6c3gf4_kolkata-protest_625x300_22_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-22T04:02:05Z",
+            "content": "<li>Professor Dr Suhrita Paul, who was appointed principal of the medical college after its former head Dr Sandip Ghosh stepped down in the wake of the incident, has been removed. Professor Dr Manas … [+2194 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"There Is A Lot\": CBI On Corruption Probe Against Ex-RG Kar Principal",
+            "description": "The Central Bureau of Investigation (CBI) Anti-Corruption Branch announced on Sunday that they have uncovered substantial evidence in their corruption probe against former RG Kar Medical College principal Sandeep Ghosh.",
+            "url": "https://www.ndtv.com/india-news/kolkata-rape-murder-case-sandip-ghosh-rg-kar-college-there-is-a-lot-cbi-on-corruption-probe-against-ex-rg-kar-principal-6416290",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/6l5tfdb8_sandip-ghosh_625x300_23_August_24.jpeg",
+            "publishedAt": "2024-08-25T15:27:08Z",
+            "content": "The CBI initiated a corruption investigation against former principal Sandeep Ghosh\r\nKolkata: The Central Bureau of Investigation (CBI) Anti-Corruption Branch announced on Sunday that they have uncov… [+2706 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "After 11-hour Search At Kolkata Doctor's House, CBI Seizes Documents",
+            "description": "After a 13-hour search later at the home of Kolkata's RG Kar Hospital's former Principal Sandip Ghosh, officials of the Central Bureau of Investigation left late this evening with multiple documents.",
+            "url": "https://www.ndtv.com/india-news/rg-kar-rape-murder-after-11-hour-search-at-kolkata-doctors-house-cbi-seizes-documents-6417040",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/dl4jlqtc_cbi-rg-kar-hospital_625x300_25_August_24.jpeg",
+            "publishedAt": "2024-08-25T17:56:56Z",
+            "content": "Kolkata: After a 13-hour search later at the home of Kolkata's RG Kar Hospital's former Principal Sandip Ghosh, officials of the Central Bureau of Investigation left late this evening with multiple d… [+2227 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "The Rise Of Sandip Ghosh, And How Doctor Rape-Murder Put Him Under Scanner",
+            "description": "Ever since Kolkata and the rest of India woke up on August 9 to the chilling news of the brutal rape and murder of a 31-year-old doctor at the city's RG Kar Medical College and Hospital, the name of Dr Sandip Ghosh has been in the news",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-rg-kar-medical-college-the-rise-of-sandip-ghosh-and-how-doctor-rape-murder-put-him-under-scanner-6384587",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/rqmidj9_sandip-ghosh_625x300_18_August_24.jpg?im=FaceCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-21T08:42:37Z",
+            "content": "Sandip Ghosh stepped down as principal of RG Kar Medical College after the doctor's rape-murder\r\nKolkata: Ever since Kolkata and the rest of India woke up on August 9 to the chilling news of the brut… [+4782 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Horrifying To See Almost 90 Rapes Daily In India\": Mamata Banerjee To Modi",
+            "description": "It is horrifying to see that almost 90 cases of rapes occur every day throughout the country, pointed out Mamata Banerjee, referencing data, in her letter to Prime Minister Narendra Modi.",
+            "url": "https://www.ndtv.com/india-news/horrifying-to-see-almost-90-rapes-daily-in-india-mamata-banerjee-to-pm-modi-6394081",
+            "urlToImage": "https://c.ndtvimg.com/2024-05/93u5u37g_pm-modi-mamata-banerjee-ani_625x300_28_May_24.jpeg",
+            "publishedAt": "2024-08-22T12:22:51Z",
+            "content": "A trainee doctor was raped and murdered during a rest break at a Kolkata hospital\r\nIt is horrifying to see that almost 90 cases of rapes occur every day throughout the country, pointed out Mamata Ban… [+3127 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Anger On Kolkata Streets, Cops Use Water Cannons, Tear Gas On Protesters",
+            "description": "Chaotic scenes are being witnessed on the streets of Kolkata as police intercepted a protest march to state secretariat Nabanna over the rape and murder of a 31-year-old doctor in the city's RG Kar Medical College and Hospital on August 9.",
+            "url": "https://www.ndtv.com/india-news/protesters-throw-stones-break-barricades-cops-use-tear-gas-in-kolkata-6427414",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/a8721o0o_kolkata-protest_625x300_27_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-27T07:29:53Z",
+            "content": "Police are using water cannons and teargas to stop protesters marching to Nabanna\r\nKolkata: Chaotic scenes are being witnessed on the streets of Kolkata as police intercepted a protest march to state… [+3474 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Selling Of Bodies...\": Big Claim Against Ex-RG Kar Hospital Head",
+            "description": "Sandip Ghosh - the ex-head of Kolkata's RG Kar Hospital, who has been interrogated, rigorously, by the CBI in connection with the rape and murder of a junior doctor this month - was last year accused of corruption and trafficking bodies.",
+            "url": "https://www.ndtv.com/india-news/kolkata-doctor-rape-murder-case-sandip-ghosh-rg-kar-hospital-akhtar-ali-selling-of-dead-bodies-big-claim-against-ex-rg-kar-hospital-head-sandip-ghosh-6387477",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/rqmidj9_sandip-ghosh_625x300_18_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-21T15:11:57Z",
+            "content": "Dr Sandip Ghosh, the former Principal of the RG Kar Medical College and Hospital (File).\r\nKolkata: Sandip Ghosh - the ex-head of Kolkata's RG Kar Hospital, who has been interrogated, rigorously, by t… [+3945 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "CBI Raids Premises Of Kolkata Hospital's Ex Principal In Corruption Probe",
+            "description": "The anti-corruption branch of the Central Bureau of Investigation (CBI) conducted searches on Sunday at multiple locations connected to former RG Kar Medical College principal Sandip Ghosh and his relatives in West Bengal's Kolkata.",
+            "url": "https://www.ndtv.com/kolkata-news/cbi-raids-premises-of-kolkata-hospitals-ex-principal-in-corruption-probe-6412732",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/1hts0t78_sandip-ghosh-rg-kar-principal_625x300_12_August_24.jpg?im=FaceCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-25T04:01:18Z",
+            "content": "The CBI filed a FIR against Dr Sandip Ghosh based on directives from the Calcutta High Court (file).\r\nKolkata: The anti-corruption branch of the Central Bureau of Investigation (CBI) conducted search… [+1930 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "Diary Found Near Kolkata Doctor's Body Had Gold Medal, Top Hospitals' Dream",
+            "description": "The young doctor whose life was brutally cut short at RG Kar Hospital less than two weeks ago, harboured big dreams of winning a gold medal and other big honours in medicine.",
+            "url": "https://www.ndtv.com/india-news/rg-kar-hospital-diary-found-near-kolkata-doctors-body-had-gold-medal-top-hospitals-dream-6386689",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/b58c9rdo_kolkata-protests_625x300_21_August_24.jpeg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-21T13:29:19Z",
+            "content": "The young doctor whose life was brutally cut short at RG Kar Hospital less than two weeks ago, harboured big dreams of winning a gold medal and other big honours in medicine. She had even listed the … [+1862 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Wasn't Aware Until...\": Principal Of School Where 6 Students Were Harassed",
+            "description": "Following the arrest of a teacher for the alleged harassment of students in Akola, the Principal of the school said that they were not aware of the incident until the teachers met the students after a programme of the school was over.",
+            "url": "https://www.ndtv.com/cities/wasnt-aware-until-principal-of-maharashtra-school-where-6-students-were-harassed-by-teacher-6388035",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/k6euitc_akola-_625x300_21_August_24.jpg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-21T16:34:17Z",
+            "content": "The accused teacher was arrested on Tuesday evening. (File)\r\nAkola, Maharashtra: Following the arrest of a teacher for the alleged harassment of students in Akola, the Principal of the school, Ravind… [+2251 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "House Of Man Who Sexually Abused 2 Nursery School Girls Vandalised",
+            "description": "Days after the sexual assault of two kindergarten girls at a school in Maharashtra's Badlapur, the house of the accused was vandalised this evening.",
+            "url": "https://www.ndtv.com/india-news/badlapur-sex-assault-case-house-of-man-who-sexually-abused-2-nursery-school-girls-vandalised-6388172",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/07vi61d_badlapur-1_625x300_21_August_24.jpeg?im=FeatureCrop,algorithm=dnn,width=1200,height=738",
+            "publishedAt": "2024-08-21T16:53:51Z",
+            "content": "Visuals showed a broken ceiling fan and utensils and other household items scattered everywhere.\r\nMumbai: Days after the sexual assault of two kindergarten girls at a school in Maharashtra's Badlapur… [+2238 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NDTV News"
+            },
+            "author": null,
+            "title": "\"Want Justice For My Daughter\": Father Of 14-Year-Old Gang-Raped In Assam",
+            "description": "The 14-year-old girl was raped by three people and dumped by the roadside in Assam's Nagaon district on Thursday.",
+            "url": "https://www.ndtv.com/india-news/assam-gang-rape-want-justice-for-my-daughter-father-of-14-year-old-gang-raped-in-assam-6410163",
+            "urlToImage": "https://c.ndtvimg.com/2024-08/3im9prl8_nagaon-rape-protest_625x300_24_August_24.jpeg",
+            "publishedAt": "2024-08-24T15:59:27Z",
+            "content": "Locals protest against the gang-rape of the 14-year-old girl\r\nNagaon, Assam: She had gone for her coaching class. She was later found in a semi-conscious state near a pond, with her bicycle beside he… [+1814 chars]"
+        }
+    ]
+}
