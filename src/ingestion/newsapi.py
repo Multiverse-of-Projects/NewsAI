@@ -1,6 +1,6 @@
 import json
 import os
-
+from datetime import datetime
 import requests
 from dotenv import load_dotenv
 
@@ -14,7 +14,7 @@ API_KEY = os.getenv("NEWS_API_KEY")
 logger = setup_logger()
 
 
-def fetch_news(query, from_date, to_json=True):
+def fetch_news(query, from_date: datetime, to_json=True):
     url = f"https://newsapi.org/v2/everything?q={query}&from={from_date}&sortBy=popularity&apiKey={API_KEY}"
     try:
         logger.debug("Requesting data from NewsAPI")
@@ -46,7 +46,7 @@ def fetch_news(query, from_date, to_json=True):
         else:
             logger.error(f"Error in response: {data}")
     except requests.exceptions.RequestException as e:
-        logger.error(f"HTTP Request failed: {str(e)}")
+        logger.error(f"HTTP Request failed: {type(e).__name__} - {str(e)}")
 
 
 if __name__ == "__main__":

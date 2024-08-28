@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 import colorlog
 
 
-def setup_logger():
+def setup_logger(log_file='app.log'):
     logger = logging.getLogger("news_api_logger")
     logger.setLevel(logging.DEBUG)
 
@@ -26,7 +26,7 @@ def setup_logger():
     handler.setFormatter(formatter)
 
     # Create rotating file handler
-    file_handler = RotatingFileHandler("app.log", maxBytes=5000000, backupCount=5)
+    file_handler = RotatingFileHandler(log_file, maxBytes=5000000, backupCount=5)
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(
         logging.Formatter(
