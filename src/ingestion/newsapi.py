@@ -1,18 +1,21 @@
+import json
 import os
+
 import requests
 from dotenv import load_dotenv
+
 from src.utils.logger import setup_logger
-import json
 
 # Load API key from .env file
 load_dotenv()
-API_KEY = os.getenv('NEWS_API_KEY')
+API_KEY = os.getenv("NEWS_API_KEY")
 
 # Configure logger
 logger = setup_logger()
 
+
 def fetch_news(query, from_date, to_json=True):
-    url = (f'https://newsapi.org/v2/everything?q={query}&from={from_date}&sortBy=popularity&apiKey={API_KEY}')
+    url = f"https://newsapi.org/v2/everything?q={query}&from={from_date}&sortBy=popularity&apiKey={API_KEY}"
     try:
         logger.debug("Requesting data from NewsAPI")
         response = requests.get(url)
@@ -24,7 +27,7 @@ def fetch_news(query, from_date, to_json=True):
             if to_json:
                 try:
                     filename = f"{query.replace(' ', '_')}_{from_date}.json"
-                    with open(filename, 'w', encoding='utf-8') as f:
+                    with open(filename, "w", encoding="utf-8") as f:
                         json.dump(data, f, ensure_ascii=False, indent=4)
                     logger.info(f"Results stored in {filename}")
                 except Exception as e:
@@ -33,15 +36,20 @@ def fetch_news(query, from_date, to_json=True):
                 for article in data.get("articles", []):
                     logger.debug(f"Article Title: {article.get('title')}")
                     try:
-                        logger.debug(f"Article Description: {article.get('description')}")
+                        logger.debug(
+                            f"Article Description: {article.get('description')}"
+                        )
                     except UnicodeEncodeError:
-                        logger.debug(f"Article Description: {article.get('description').encode('utf-8').decode('ascii', 'ignore')}")
+                        logger.debug(
+                            f"Article Description: {article.get('description').encode('utf-8').decode('ascii', 'ignore')}"
+                        )
         else:
             logger.error(f"Error in response: {data}")
     except requests.exceptions.RequestException as e:
         logger.error(f"HTTP Request failed: {str(e)}")
 
+
 if __name__ == "__main__":
-# if __name__ == "__main__" and __package__ is None:
+    # if __name__ == "__main__" and __package__ is None:
     __package__ = "src.ingestion"
     fetch_news(query="Kolkata Murder case", from_date="2024-08-21")
