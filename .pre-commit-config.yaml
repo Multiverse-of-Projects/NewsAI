@@ -4,8 +4,8 @@ repos:
     hooks:
       - id: black
 
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0  # Use the latest stable version of isort
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
     hooks:
       - id: isort
 
@@ -13,8 +13,3 @@ repos:
     rev: v1.6.0  # Use the latest stable version of autopep8
     hooks:
       - id: autopep8
-
-  - repo: https://github.com/pre-commit/mirrors-flake8
-    rev: v4.0.1  # Use the latest stable version of flake8
-    hooks:
-      - id: flake8
