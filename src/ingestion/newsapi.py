@@ -1,7 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
-from utils import setup_logger
+from src.utils.logger import setup_logger
 import json
 
 # Load API key from .env file
@@ -41,7 +41,7 @@ def fetch_news(query, from_date, to_json=True):
     except requests.exceptions.RequestException as e:
         logger.error(f"HTTP Request failed: {str(e)}")
 
-# if __name__ == "__main__":
-if __name__ == "__main__" and __package__ is None:
+if __name__ == "__main__":
+# if __name__ == "__main__" and __package__ is None:
     __package__ = "src.ingestion"
     fetch_news(query="Kolkata Murder case", from_date="2024-08-21")

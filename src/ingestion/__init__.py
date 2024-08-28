@@ -1,1 +1,0 @@
-from .newsapi import fetch_news
