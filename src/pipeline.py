@@ -1,5 +1,5 @@
-from src.ingestion.newsapi import fetch_news
 from src.ingestion.fetch_articles import fetch_articles_contents
+from src.ingestion.newsapi import fetch_news
 from src.preprocessing.keyword_extraction import bert_keyword_extraction
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.logger import setup_logger
@@ -7,32 +7,33 @@ from src.utils.logger import setup_logger
 # Setup logger
 logger = setup_logger()
 
+
 def process_articles(urls):
     logger.info("Starting the processing of articles.")
-    
+
     # Fetch article contents
     contents = fetch_articles_contents(urls)
-    
+
     # Aggregate Keywords
     keywords = bert_keyword_extraction(contents, top_n=10)
-    
-    
+
     # Generate Word Clouds
     generate_wordcloud(keywords, "Positive")
-    
+
     logger.info("Processing of articles completed successfully.")
     return keywords
 
+
 if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
-    
+
     # Fetch article contents
-    news_data = fetch_news(query="Kolkata Murder case", from_date="2024-08-21", to_json=False)
+    news_data = fetch_news(
+        query="Kolkata Murder case", from_date="2024-08-21", to_json=False
+    )
     urls = [article.get("url") for article in news_data.get("articles", [])]
-    
+
     # Process articles
     process_articles(urls)
-    
+
     logger.info("Processing of articles completed successfully.")
-    
-    

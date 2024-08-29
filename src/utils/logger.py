@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 import colorlog
 
 
-def setup_logger(log_file='app.log'):
+def setup_logger(log_file="app.log"):
     logger = logging.getLogger("news_api_logger")
     logger.setLevel(logging.DEBUG)
 
