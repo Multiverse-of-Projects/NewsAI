@@ -37,6 +37,14 @@ def fetch_article_content(url):
         logger.error(f"Failed to fetch the article: {e}")
         return None
 
+def fetch_articles_contents(urls):
+    article_contents = []
+    for url in urls:
+        article_content = fetch_article_content(url)
+        if article_content:
+            article_contents.append(article_content)
+    return article_contents
+
 if __name__ == "__main__":
     url = "https://www.rt.com/india/602908-reclaiming-night-protests-over-rape/"
     article_content = fetch_article_content(url)
