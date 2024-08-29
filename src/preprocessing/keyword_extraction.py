@@ -4,6 +4,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from src.utils.logger import setup_logger
 import nltk
+from keybert import KeyBERT
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -37,6 +38,17 @@ def extract_keywords(texts, top_n=10):
     logger.info("Keyword extraction completed successfully.")
     return [kw[0] for kw in sorted_keywords[:top_n]]
 
+def bert_keyword_extraction(texts, top_n=10):
+    logger.info("Starting keyword extraction using KeyBERT.")
+    model = KeyBERT('all-MiniLM-L6-v2')
+    
+    all_keywords = []
+    for text in texts:
+        keywords = model.extract_keywords(text, keyphrase_ngram_range=(1, 2), top_n=top_n)
+        all_keywords.extend([kw[0] for kw in keywords])
+    
+    logger.info("KeyBERT keyword extraction completed successfully.")
+    return list(set(all_keywords))  # Return unique keywords
 
 def aggregate_keywords(texts, top_n=10):
     logger.info("Aggregating keywords across all articles.")

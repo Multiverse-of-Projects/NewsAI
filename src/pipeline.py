@@ -1,6 +1,6 @@
 from src.ingestion.newsapi import fetch_news
 from src.ingestion.fetch_articles import fetch_articles_contents
-from src.preprocessing.keyword_extraction import aggregate_keywords
+from src.preprocessing.keyword_extraction import bert_keyword_extraction
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.logger import setup_logger
 
@@ -14,7 +14,7 @@ def process_articles(urls):
     contents = fetch_articles_contents(urls)
     
     # Aggregate Keywords
-    keywords = aggregate_keywords(contents, top_n=10)
+    keywords = bert_keyword_extraction(contents, top_n=10)
     
     
     # Generate Word Clouds
