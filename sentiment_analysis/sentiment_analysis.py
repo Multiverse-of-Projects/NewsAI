@@ -1,11 +1,14 @@
-from transformers import pipeline
 import json
 
+from transformers import pipeline
+
 classifier = pipeline("sentiment-analysis")
+
 
 def analyze_sentiment(article_content):
     preds = classifier(article_content)
     return preds[0].get("label"), preds[0].get("score")
+
 
 # Load the article content from article_content.json
 with open("article_content.json", "r", encoding="utf-8") as f:
@@ -36,7 +39,7 @@ for article in article_contents:
         "description": description,
         "sentiment": sentiment,
         "score": score,
-        "published_at": published_at
+        "published_at": published_at,
     }
 
     # Add the new object to the list

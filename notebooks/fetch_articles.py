@@ -1,5 +1,7 @@
-import requests
 import json
+
+import requests
+
 # import set logger from the logger.py file
 from src.utils.logger import setup_logger
 

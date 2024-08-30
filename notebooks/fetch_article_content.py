@@ -1,10 +1,13 @@
-import requests
 import json
-from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+
+import requests
+from bs4 import BeautifulSoup
+
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
+
 
 def fetch_article_content(url):
     try:
@@ -13,19 +16,19 @@ def fetch_article_content(url):
         response.raise_for_status()  # Check for HTTP errors
 
         # Parse the content using BeautifulSoup
-        soup = BeautifulSoup(response.content, 'html.parser')
+        soup = BeautifulSoup(response.content, "html.parser")
 
         # Extract the article content based on common HTML structure
         article_content = ""
 
         # Many articles have a <p> tag structure for paragraphs
-        paragraphs = soup.find_all('p')
+        paragraphs = soup.find_all("p")
         if paragraphs:
             for p in paragraphs:
                 article_content += p.get_text() + "\n"
         else:
             # Fallback if no <p> tags found, try another structure, e.g., <div>
-            divs = soup.find_all('div')
+            divs = soup.find_all("div")
             for div in divs:
                 article_content += div.get_text() + "\n"
 
@@ -37,6 +40,7 @@ def fetch_article_content(url):
     except requests.exceptions.RequestException as e:
         logger.error(f"Failed to fetch the article: {e}")
         return None
+
 
 with open("articles.json", "r", encoding="utf-8") as f:
     articles = json.load(f)
@@ -59,7 +63,7 @@ for idx, article in enumerate(articles, start=1):
         "description": description,
         "url": url,
         "published_at": published_at,
-        "article_content": article_content
+        "article_content": article_content,
     }
 
     # Add the new object to the list
