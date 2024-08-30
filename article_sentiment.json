@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "title": "10th convocation ceremony of St. Philomena’s College held in Mysuru",
+        "description": "611 candidates complete various courses",
+        "sentiment": "POSITIVE",
+        "score": 0.9886124730110168,
+        "published_at": "2024-08-29T14:06:27+00:00"
+    },
+    {
+        "id": 2,
+        "title": "Jagan Mohan Reddy will be left alone in YSRCP soon, says Ganta Srinivasa Rao",
+        "description": "Many YSRCP leaders including Rajya Sabha MPs, former MLAs, MLCs are eager to join the NDA, says the TDP MLA",
+        "sentiment": "NEGATIVE",
+        "score": 0.999426007270813,
+        "published_at": "2024-08-29T14:01:35+00:00"
+    },
+    {
+        "id": 3,
+        "title": "‌Will Pucovski compelled to early retirement following repetitive concussions",
+        "description": "One-Test Australian prodigy Will Pucovski is set to call time on his cricket career after incurring repetitive blows on the head in his young career. He has been suffering from symptoms of concussion throughout his short-lived career and has decided to hang up his boots for a change in profession.",
+        "sentiment": "NEGATIVE",
+        "score": 0.9973739385604858,
+        "published_at": "2024-08-29T13:46:30+00:00"
+    },
+    {
+        "id": 4,
+        "title": "DVAC arrests VAO on graft charge",
+        "description": "DVAC arrests VAO on graft charge",
+        "sentiment": "NEGATIVE",
+        "score": 0.8157424330711365,
+        "published_at": "2024-08-29T13:41:05+00:00"
+    },
+    {
+        "id": 5,
+        "title": "Madras week | Life in the day of a fisherman",
+        "description": "Ashok, a fisherman from Urur Olcott Kuppam in Besant Nagar, shares how deeply he feels committed to fishing as a profession despite the challenges, besides recalling the mid-sea ordeal after being caught in a tornado five years back and says even a tsunami could not separate him from Chennai",
+        "sentiment": "POSITIVE",
+        "score": 0.9463145136833191,
+        "published_at": "2024-08-29T13:38:05+00:00"
+    },
+    {
+        "id": 6,
+        "title": "5,500 people suffering from eye-related problems in Kuppam, says Collector",
+        "description": "The medical camps and screening tests will continue in Kuppam region till September 4, he added",
+        "sentiment": "NEGATIVE",
+        "score": 0.9166727662086487,
+        "published_at": "2024-08-29T13:37:41+00:00"
+    },
+    {
+        "id": 7,
+        "title": "Give adequate publicity to voter verification drive, CfD urges Chief Electoral Officer",
+        "description": "The forum also suggested that the Election Commission of India hold a meeting with all political parties and appoint booth-level agents to accompany the booth-level officers in house visits while conducting the voter verification programme",
+        "sentiment": "NEGATIVE",
+        "score": 0.9882472157478333,
+        "published_at": "2024-08-29T13:37:24+00:00"
+    },
+    {
+        "id": 8,
+        "title": "In three years, loans worth ₹2,965 crore distributed through cooperative societies in Salem, says Collector",
+        "description": "In three years, loans worth ₹2,965 crore distributed through cooperative societies in Salem, says Collector",
+        "sentiment": "NEGATIVE",
+        "score": 0.6711724996566772,
+        "published_at": "2024-08-29T13:36:58+00:00"
+    },
+    {
+        "id": 9,
+        "title": "Plea to reduce GST for borewell service from 18% to 5%",
+        "description": "Plea to reduce GST for borewell service from 18% to 5%",
+        "sentiment": "NEGATIVE",
+        "score": 0.9832593202590942,
+        "published_at": "2024-08-29T13:36:38+00:00"
+    },
+    {
+        "id": 10,
+        "title": "Heritage walk explores historical monuments in Tiruchi",
+        "description": "The participants were enlightened about the historical importance of various sites such as Main Guard Gate, Rock Cut Cave and the Coronation Garden",
+        "sentiment": "POSITIVE",
+        "score": 0.999267041683197,
+        "published_at": "2024-08-29T13:34:54+00:00"
+    }
+]
