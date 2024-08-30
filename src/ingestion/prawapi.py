@@ -23,6 +23,7 @@ logger = setup_logger()
 
 # constants
 COMMENT_COUNT = 10
+TIME_SLOT = 'all'  # Time filter can be 'all', 'day', 'week', 'month', 'year'
 
 def clean_content(content):
     # Replace carriage returns and newlines with spaces
@@ -37,7 +38,7 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
         search_results = reddit.subreddit('all').search(
             query=keyword,
             sort='relevance',  # Sort results by relevance
-            time_filter='all',  # Time filter can be 'all', 'day', 'week', 'month', 'year'
+            time_filter=TIME_SLOT,
             limit=limit
         )
         
@@ -45,7 +46,7 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
         for post in search_results:
             if not post or post.stickied:  # Skip if post is None or stickied
                 continue
-            
+
             post_data = {
                 "title": post.title,
                 "id": post.id,
