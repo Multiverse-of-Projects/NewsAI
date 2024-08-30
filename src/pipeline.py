@@ -18,10 +18,10 @@ def process_articles(urls):
     keywords = bert_keyword_extraction(contents, top_n=10)
 
     # Generate Word Clouds
-    generate_wordcloud(keywords, "Positive")
+    wordcloud = generate_wordcloud(keywords, "Positive")
 
     logger.info("Processing of articles completed successfully.")
-    return keywords
+    return keywords, wordcloud
 
 
 if __name__ == "__main__":
@@ -34,6 +34,7 @@ if __name__ == "__main__":
     urls = [article.get("url") for article in news_data.get("articles", [])]
 
     # Process articles
-    process_articles(urls)
-
+    keywords, wordcloud = process_articles(urls)
+    logger.info(f"Keywords: {keywords}")
+    wordcloud.to_image().save("wordcloud.png")
     logger.info("Processing of articles completed successfully.")
