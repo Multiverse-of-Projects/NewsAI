@@ -1,8 +1,11 @@
 from urllib.parse import urlparse
 
 import requests
+import sys
+import os
 from bs4 import BeautifulSoup
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
