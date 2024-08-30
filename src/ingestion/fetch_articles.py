@@ -1,9 +1,12 @@
+from urllib.parse import urlparse
+
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
+
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
+
 
 def fetch_article_content(url):
     try:
@@ -12,19 +15,19 @@ def fetch_article_content(url):
         response.raise_for_status()  # Check for HTTP errors
 
         # Parse the content using BeautifulSoup
-        soup = BeautifulSoup(response.content, 'html.parser')
+        soup = BeautifulSoup(response.content, "html.parser")
 
         # Extract the article content based on common HTML structure
         article_content = ""
 
         # Many articles have a <p> tag structure for paragraphs
-        paragraphs = soup.find_all('p')
+        paragraphs = soup.find_all("p")
         if paragraphs:
             for p in paragraphs:
                 article_content += p.get_text() + "\n"
         else:
             # Fallback if no <p> tags found, try another structure, e.g., <div>
-            divs = soup.find_all('div')
+            divs = soup.find_all("div")
             for div in divs:
                 article_content += div.get_text() + "\n"
 
@@ -37,6 +40,7 @@ def fetch_article_content(url):
         logger.error(f"Failed to fetch the article: {e}")
         return None
 
+
 def fetch_articles_contents(urls):
     article_contents = []
     for url in urls:
@@ -44,6 +48,7 @@ def fetch_articles_contents(urls):
         if article_content:
             article_contents.append(article_content)
     return article_contents
+
 
 if __name__ == "__main__":
     url = "https://www.rt.com/india/602908-reclaiming-night-protests-over-rape/"
