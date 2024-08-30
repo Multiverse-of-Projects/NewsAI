@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+
 import requests
 from dotenv import load_dotenv
 
@@ -33,6 +34,7 @@ def fetch_news(query, from_date: datetime, to_json=True):
                 except Exception as e:
                     logger.error(f"Error occurred while storing results: {str(e)}")
             else:
+                return data
                 for article in data.get("articles", []):
                     logger.debug(f"Article Title: {article.get('title')}")
                     try:
