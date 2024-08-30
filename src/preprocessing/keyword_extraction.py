@@ -1,5 +1,6 @@
 from collections import defaultdict
 from typing import List
+
 import nltk
 from keybert import KeyBERT
 from nltk.corpus import stopwords
@@ -44,27 +45,24 @@ def bert_keyword_extraction(texts, top_n=10):
 def extract_keywords(texts: List[str], top_n: int = 10) -> List[List[str]]:
     """
     Extracts keywords from a list of texts using KeyBERT.
-    
+
     Args:
         texts (List[str]): List of texts to extract keywords from.
         top_n (int): Number of top keywords to extract per text.
-    
+
     Returns:
         List[List[str]]: List of keyword lists for each text.
     """
     logger.info("Initializing KeyBERT model for keyword extraction.")
-    model = KeyBERT('all-MiniLM-L6-v2')
-    
+    model = KeyBERT("all-MiniLM-L6-v2")
+
     all_keywords = []
     logger.info(f"Extracting keywords from {len(texts)} texts.")
     for idx, text in enumerate(texts):
         logger.debug(f"Extracting keywords from text {idx+1}/{len(texts)}.")
         try:
             keywords = model.extract_keywords(
-                text, 
-                keyphrase_ngram_range=(1, 2), 
-                stop_words='english',
-                top_n=top_n
+                text, keyphrase_ngram_range=(1, 2), stop_words="english", top_n=top_n
             )
             extracted_keywords = [kw[0] for kw in keywords]
             all_keywords.append(extracted_keywords)
@@ -74,6 +72,7 @@ def extract_keywords(texts: List[str], top_n: int = 10) -> List[List[str]]:
             all_keywords.append([])
     logger.info("Keyword extraction completed.")
     return all_keywords
+
 
 def aggregate_keywords(texts, top_n=10):
     logger.info("Aggregating keywords across all articles.")
