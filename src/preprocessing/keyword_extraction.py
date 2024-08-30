@@ -1,5 +1,5 @@
 from collections import defaultdict
-
+from typing import List
 import nltk
 from keybert import KeyBERT
 from nltk.corpus import stopwords
@@ -26,23 +26,6 @@ def preprocess_text(text):
     return filtered_words
 
 
-def extract_keywords(texts, top_n=10):
-    logger.info("Starting keyword extraction using TF-IDF.")
-    vectorizer = TfidfVectorizer(max_df=0.85, max_features=10000, stop_words="english")
-    tfidf_matrix = vectorizer.fit_transform(texts)
-    feature_names = vectorizer.get_feature_names_out()
-
-    keyword_scores = defaultdict(float)
-
-    for row in tfidf_matrix:
-        for idx in row.nonzero()[1]:
-            keyword_scores[feature_names[idx]] += row[0, idx]
-
-    sorted_keywords = sorted(keyword_scores.items(), key=lambda x: x[1], reverse=True)
-    logger.info("Keyword extraction completed successfully.")
-    return [kw[0] for kw in sorted_keywords[:top_n]]
-
-
 def bert_keyword_extraction(texts, top_n=10):
     logger.info("Starting keyword extraction using KeyBERT.")
     model = KeyBERT("all-MiniLM-L6-v2")
@@ -57,6 +40,40 @@ def bert_keyword_extraction(texts, top_n=10):
     logger.info("KeyBERT keyword extraction completed successfully.")
     return list(set(all_keywords))  # Return unique keywords
 
+
+def extract_keywords(texts: List[str], top_n: int = 10) -> List[List[str]]:
+    """
+    Extracts keywords from a list of texts using KeyBERT.
+    
+    Args:
+        texts (List[str]): List of texts to extract keywords from.
+        top_n (int): Number of top keywords to extract per text.
+    
+    Returns:
+        List[List[str]]: List of keyword lists for each text.
+    """
+    logger.info("Initializing KeyBERT model for keyword extraction.")
+    model = KeyBERT('all-MiniLM-L6-v2')
+    
+    all_keywords = []
+    logger.info(f"Extracting keywords from {len(texts)} texts.")
+    for idx, text in enumerate(texts):
+        logger.debug(f"Extracting keywords from text {idx+1}/{len(texts)}.")
+        try:
+            keywords = model.extract_keywords(
+                text, 
+                keyphrase_ngram_range=(1, 2), 
+                stop_words='english',
+                top_n=top_n
+            )
+            extracted_keywords = [kw[0] for kw in keywords]
+            all_keywords.append(extracted_keywords)
+            logger.debug(f"Keywords for text {idx+1}: {extracted_keywords}")
+        except Exception as e:
+            logger.error(f"Error extracting keywords from text {idx+1}: {e}")
+            all_keywords.append([])
+    logger.info("Keyword extraction completed.")
+    return all_keywords
 
 def aggregate_keywords(texts, top_n=10):
     logger.info("Aggregating keywords across all articles.")
