@@ -1,13 +1,9 @@
-import os
-import sys
+import json
 from urllib.parse import urlparse
 
 import requests
-import sys
-import os
 from bs4 import BeautifulSoup
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
@@ -46,18 +42,39 @@ def fetch_article_content(url):
         return None
 
 
-def fetch_articles_contents(urls):
-    article_contents = []
-    for url in urls:
-        article_content = fetch_article_content(url)
-        if article_content:
-            article_contents.append(article_content)
-    return article_contents
+with open("articles.json", "r", encoding="utf-8") as f:
+    articles = json.load(f)
 
+article_contents = []
 
-if __name__ == "__main__":
-    url = "https://www.rt.com/india/602908-reclaiming-night-protests-over-rape/"
+for idx, article in enumerate(articles, start=1):
+    title = article.get("title")
+    description = article.get("description")
+    url = article.get("url")
+    published_at = article.get("published_at")
+
+    # Fetch the article content using the URL
     article_content = fetch_article_content(url)
-    if article_content:
-        logger.info("Article Content Extracted:\n")
-        logger.info(article_content)
+
+    # Create a new object with the required fields
+    article_content_obj = {
+        "id": idx,
+        "title": title,
+        "description": description,
+        "url": url,
+        "published_at": published_at,
+        "article_content": article_content,
+    }
+
+    # Add the new object to the list
+    article_contents.append(article_content_obj)
+
+# Save the new objects to article_content.json
+with open("article_content.json", "w", encoding="utf-8") as f:
+    json.dump(article_contents, f, ensure_ascii=False, indent=4)
+
+print("Article content has been successfully saved to article_content.json")
+article_content = fetch_article_content(url)
+if article_content:
+    logger.info("Article Content Extracted:\n")
+    logger.info(article_content)
