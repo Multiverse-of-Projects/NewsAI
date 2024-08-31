@@ -59,9 +59,7 @@ def extract_keywords(article_ids, top_n: int = 10):
     article_summaries = []
     documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
     for doc in documents:
-        article_summaries.append(
-            {"id": doc["id"], "summary": doc["summary"]}
-        )
+        article_summaries.append({"id": doc["id"], "summary": doc["summary"]})
 
     logger.info("Initializing KeyBERT model for keyword extraction.")
     model = KeyBERT("all-MiniLM-L6-v2")
