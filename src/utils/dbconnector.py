@@ -3,6 +3,8 @@ import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
+import pandas as pd
+from bson import ObjectId
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
@@ -121,4 +123,35 @@ def find_documents(collection_name, query):
         return documents
     except Exception as e:
         logger.error(f"Failed to find documents: {e}")
+        raise
+
+def fetch_and_combine_articles(collection_name, article_ids):
+    db = get_mongo_client()
+    collection = db[collection_name]
+    
+    try:
+        # Convert string IDs to ObjectId if they are not already in ObjectId format
+        object_ids = [ObjectId(article_id) if isinstance(article_id, str) else article_id for article_id in article_ids]
+        
+        # Query MongoDB to find documents by their IDs
+        query = {"_id": {"$in": object_ids}}
+        documents = collection.find(query)
+        logger.info(f"Fetched {documents.count()} documents for the given IDs.")
+        docs = []
+        for doc in documents:
+            doc['_id'] = str(doc['_id'])
+            docs.append(doc)
+            
+        # Convert the list of documents to a DataFrame
+        df = pd.DataFrame(list(docs))
+        
+        if df.empty:
+            logger.warning("No documents found for the provided article IDs.")
+        else:
+            logger.info("Successfully converted documents to DataFrame.")
+        
+        return df
+
+    except Exception as e:
+        logger.error(f"Failed to fetch and combine articles: {e}")
         raise

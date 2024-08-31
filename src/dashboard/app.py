@@ -5,7 +5,8 @@ import time
 import matplotlib.pyplot as plt
 import plotly.express as px
 from datetime import datetime
-from src.pipeline import process_query
+from src.pipeline import process_articles
+from src.utils.dbconnector import find_documents, find_one_document, append_to_document, fetch_and_combine_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from streamlit_echarts import st_echarts
 
@@ -44,8 +45,12 @@ query = st.text_input("Query", "Enter a keyword or phrase")
 # Wait animation after submitting query
 if st.button("Submit"):
     with st.spinner('Processing data, please wait...'):
-        data = process_query(query)
-    
+        prev = find_one_document("News_Articles_Id", {"query": query})
+        if prev:
+            data = prev["ids"]
+        else:
+            data = process_articles(query)
+    fetch_and_combine_articles("News_Articles", data)
     st.success("Data processed successfully!")
 
     # Column Layout
