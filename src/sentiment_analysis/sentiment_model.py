@@ -7,12 +7,8 @@ from src.utils.logger import setup_logger
 # Setup logger
 logger = setup_logger()
 
-# Load a sentiment-analysis model
-logger.info("Loading sentiment analysis model using BERT.")
-# sentiment_analyzer = pipeline("sentiment-analysis")
 
-
-def analyze_sentiments(texts: List[str]) -> List[Dict[str, float]]:
+def analyze_sentiments(article_summaries):
     """
     Analyzes sentiments of a list of texts.
 
@@ -23,19 +19,21 @@ def analyze_sentiments(texts: List[str]) -> List[Dict[str, float]]:
         List[Dict[str, float]]: List of sentiment analysis results for each text.
     """
     logger.info("Initializing sentiment analysis pipeline.")
-    sentiment_analyzer = pipeline("sentiment-analysis", model="sentiment-analysis")
+    sentiment_analyzer = pipeline("sentiment-analysis")
 
-    results = []
-    logger.info(f"Analyzing sentiments for {len(texts)} texts.")
-    for idx, text in enumerate(texts):
-        logger.debug(f"Analyzing sentiment for text {idx+1}/{len(texts)}.")
+    article_sentiments = []
+    logger.info(f"Analyzing sentiments for {len(article_summaries)} texts.")
+    for idx, obj in enumerate(article_summaries):
+        logger.debug(f"Analyzing sentiment for text {idx+1}/{len(article_summaries)}.")
         try:
-            analysis = sentiment_analyzer(text)
-            result = {"label": analysis[0]["label"], "score": analysis[0]["score"]}
-            results.append(result)
-            logger.debug(f"Sentiment for text {idx+1}: {result}")
+            analysis = sentiment_analyzer(obj.get("summarized_content"))
+            sentiment_obj = {"id": obj.get("id"), "sentiment": analysis[0]["label"], "sentiment_score": analysis[0]["score"]}
+            article_sentiments.append(sentiment_obj)
+            logger.debug(f"Sentiment for text {idx+1}: {sentiment_obj}")
+
         except Exception as e:
             logger.error(f"Error analyzing sentiment for text {idx+1}: {e}")
-            results.append({"label": "UNKNOWN", "score": 0.0})
+            article_sentiments.append({"label": "UNKNOWN", "score": 0.0})
+            
     logger.info("Sentiment analysis completed.")
-    return results
+    return article_sentiments
