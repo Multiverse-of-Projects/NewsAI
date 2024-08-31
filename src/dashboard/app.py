@@ -2,10 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
-from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import plotly.express as px
 from datetime import datetime
+from src.pipeline import process_query
+from src.sentiment_analysis.wordcloud import generate_wordcloud
 from streamlit_echarts import st_echarts
 
 
@@ -13,28 +14,9 @@ def load_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 # Function to simulate data processing (replace with actual processing functions)
-def process_query(query):
-    # Simulate data processing time
-    time.sleep(5)  # Simulate processing delay
-    # Sample data (replace with actual data)
-    data = {
-        "dates": pd.date_range(start="2024-08-01", periods=30, freq='D'),
-        "positive": np.random.randint(10, 50, 30),
-        "neutral": np.random.randint(5, 40, 30),
-        "negative": np.random.randint(1, 30, 30),
-        "states": ['Karnataka', 'Maharashtra', 'Delhi', 'Gujarat', 'Uttar Pradesh'] * 6,
-        "sentiment": np.random.choice(['positive', 'neutral', 'negative'], 30),
-        "count": np.random.randint(1, 100, 30),
-        "keywords": ['news', 'india', 'politics', 'economy', 'health', 'technology', 'sports'],
-        "reddit_keywords": ['murder', 'case', 'justice', 'kolkata', 'police', 'crime'],
-        "reddit_sentiments": np.random.choice(['positive', 'neutral', 'negative'], 30)
-    }
-    return data
+
 
 # Function to create a word cloud
-def generate_wordcloud(keywords):
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(" ".join(keywords))
-    return wordcloud
 
 # Function to create a spiderweb chart
 def generate_spiderweb(data):
