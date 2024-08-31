@@ -60,7 +60,7 @@ def extract_keywords(article_ids, top_n: int = 10):
     documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
     for doc in documents:
         article_summaries.append(
-            {"id": doc["id"], "summarized_content": doc["summarized_content"]}
+            {"id": doc["id"], "summary": doc["summary"]}
         )
 
     logger.info("Initializing KeyBERT model for keyword extraction.")
@@ -72,7 +72,7 @@ def extract_keywords(article_ids, top_n: int = 10):
         logger.debug(f"Extracting keywords from text {idx+1}/{len(article_summaries)}.")
         try:
             keywords = model.extract_keywords(
-                obj.get("summarized_content"),
+                obj.get("summary"),
                 keyphrase_ngram_range=(1, 2),
                 stop_words="english",
                 top_n=top_n,

@@ -28,8 +28,8 @@ def get_mongo_client():
     """
     try:
         mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
-        db_name = os.getenv("MONGO_DB_NAME")
-        client = MongoClient(mongo_uri)
+        db_name = os.getenv("DB_NAME")
+        client = MongoClient(mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
         db = client[db_name]
         logger.info("Successfully connected to MongoDB.")
         return db

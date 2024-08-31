@@ -68,4 +68,4 @@ def analyze_sentiments(article_ids):
 if __name__ == "__main__":
     # Test the function
     text = "A female trainee doctor was found dead in a seminar hall at a Kolkata hospital, sparking outrage and protests demanding safety for medical professionals. The incident, believed to be rape and murder, highlights the alarming security risks faced by doctors and nurses, particularly women, in India's government hospitals.  Lack of designated rest rooms, unrestricted access to wards, and a lack of background checks for volunteers contribute to the vulnerability. Despite calls for stricter federal laws and increased security measures, many doctors remain pessimistic, feeling resigned to working in unsafe conditions.  The article highlights the pervasive issue of violence against healthcare workers in India, with doctors often facing threats and assaults from patients, their relatives, and even hospital staff."
-    analyze_sentiments([{"id": 1, "summarized_content": text}])
+    analyze_sentiments([{"id": 1, "summary": text}])

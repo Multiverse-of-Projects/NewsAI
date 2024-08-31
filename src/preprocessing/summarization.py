@@ -61,7 +61,7 @@ def summarize_texts(
             )
             logger.debug(f"DEBUG SUmmary{response.text}")
             article_summaries.append(
-                {"id": obj.get("id"), "summarized_content": response.text}
+                {"id": obj.get("id"), "summary": response.text}
             )
             append_to_document(
                 "News_Articles", {"id": obj.get("id")}, {"summary": response.text}
