@@ -84,44 +84,42 @@ if st.button("Submit"):
 
     # Line chart for time-wise distribution
     st.subheader("Time-wise Sentiment Distribution")
-    time_data = pd.DataFrame({
-        "Date": data["dates"],
-        "Positive": data["positive"],
-        "Neutral": data["neutral"],
-        "Negative": data["negative"]
-    })
-    fig = px.line(time_data, x='Date', y=['Positive', 'Neutral', 'Negative'], title='Time-wise Sentiment Distribution')
-    st.plotly_chart(fig)
+    df['publishedat'] = pd.to_datetime(df['publishedat'])
+
+    # Extract dates and sentiments
+    time_data = df.pivot_table(index=df['publishedat'].dt.date, 
+                           columns='sentiment', 
+                           aggfunc='size', 
+                           fill_value=0)
+   # Reset the index to turn the dates into a column and rename the columns
+    time_data = time_data.reset_index().rename_axis(None, axis=1)
+
+    # Ensure the columns are in the correct order and all sentiments are present
+    # time_data = time_data[['publishedat', 'positive', 'neutral', 'negative']].fillna(0)
+    # st.write(time_data)
+    # Rename columns for clarity
+    # time_data.columns = ['Date', 'Positive', 'Neutral', 'Negative']
+
+    # Plotting the line chart
+    # Plotting the line chart for all sentiments
+    for sentiment in ["POSITIVE", "NEGATIVE", "UNKNOWN"]:
+        if sentiment not in time_data.columns:
+            time_data[sentiment] = 0
+        fig = px.line(time_data, x='publishedat', y=sentiment, title=f'Time-wise {sentiment} Sentiment Distribution')
+        st.plotly_chart(fig)
 
     # Ratio of Positive, Neutral, Negative News
     st.subheader("Sentiment Ratio")
     sentiment_ratio = pd.DataFrame({
-        "Sentiment": ["Positive", "Neutral", "Negative"],
-        "Count": [sum(data["positive"]), sum(data["neutral"]), sum(data["negative"])]
+        "Sentiment": ["Negative", "Unknown", "Positive"],
+        "Count": [sum(data["negative"]), sum(data["unknown"]), sum(data["positive"])]
     })
-    fig = px.bar(sentiment_ratio, x="Sentiment", y="Count", title="Ratio of Positive, Neutral, and Negative News")
+    fig = px.bar(sentiment_ratio, x="Sentiment", y="Count", color="Sentiment", barmode="stack", 
+                 color_discrete_map={"Negative": "red", "Unknown": "blue", "Positive": "green"},
+                 title="Ratio of Positive, Neutral, and Negative News")
     st.plotly_chart(fig)
 
-    # Choropleth Map with State-wise distribution
-    st.subheader("State-wise News Distribution (India)")
-    state_data = pd.DataFrame({
-        "State": data["states"],
-        "Count": data["count"]
-    })
-    state_counts = state_data.groupby("State").sum().reset_index()
-    fig = px.choropleth(state_counts, locations="State", locationmode='geojson-id',
-                        color="Count", title="State-wise News Distribution (India)",
-                        geojson="https://raw.githubusercontent.com/geohacker/india/master/state/india_telengana.geojson",
-                        featureidkey="properties.ST_NM",
-                        scope="india",
-                        color_continuous_scale=px.colors.sequential.Plasma)
-    st.plotly_chart(fig)
-
-    # Spiderweb Chart
-    st.subheader("Spiderweb Chart Example")
-    sample_data = {"Topic A": 90, "Topic B": 70, "Topic C": 50, "Topic D": 30, "Topic E": 80}
-    generate_spiderweb(sample_data)
-
+   
     # Reddit Word Cloud
     st.subheader("Reddit Keyword Extraction - Word Cloud")
     reddit_wordcloud = generate_wordcloud(data["reddit_keywords"])
