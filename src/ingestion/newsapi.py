@@ -6,7 +6,7 @@ from datetime import datetime
 import requests
 from dotenv import load_dotenv
 
-from src.utils.dbconnector import insert_document, find_one_document
+from src.utils.dbconnector import find_one_document, insert_document
 from src.utils.logger import setup_logger
 
 # Load API key from .env file
@@ -21,7 +21,9 @@ def fetch_news(query, from_date: datetime, sort_by, limit, to_json):
     url = f"https://newsapi.org/v2/everything?q={query}&from={from_date}&sortBy={sort_by}&apiKey={API_KEY}"
     try:
         logger.debug("Requesting data from NewsAPI")
-        previous = find_one_document("articles", {"query": query, "from_date": from_date})
+        previous = find_one_document(
+            "articles", {"query": query, "from_date": from_date}
+        )
         if previous:
             logger.info(f"Previous data found for {query} from {from_date}")
             return previous["ids"]
@@ -62,7 +64,9 @@ def fetch_news(query, from_date: datetime, sort_by, limit, to_json):
 
                 logger.info(f"Total articles saved: {len(articles_db)}")
                 logger.debug(f"Article IDs: {article_ids}")
-                insert_document("News_Articles_Ids", {"query": query, "ids": article_ids})
+                insert_document(
+                    "News_Articles_Ids", {"query": query, "ids": article_ids}
+                )
                 return article_ids
         else:
             logger.error(f"Error in response: {data}")

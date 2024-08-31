@@ -73,6 +73,7 @@ def find_one_document(collection_name, query):
         logger.error(f"Failed to find document: {e}")
         raise
 
+
 def append_to_document(collection_name, query, update_data):
     """
     Appends new data to an existing document in the MongoDB collection.
