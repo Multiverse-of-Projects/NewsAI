@@ -1,12 +1,15 @@
 import os
-from pymongo import MongoClient
+
 from dotenv import load_dotenv
+from pymongo import MongoClient
+
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
 
 # Load environment variables
 load_dotenv()
+
 
 def get_mongo_client():
     """
@@ -34,6 +37,7 @@ def get_mongo_client():
         logger.error(f"Failed to connect to MongoDB: {e}")
         raise
 
+
 def insert_document(collection_name, document):
     """
     Inserts a document into the given collection.
@@ -57,6 +61,7 @@ def insert_document(collection_name, document):
     except Exception as e:
         logger.error(f"Failed to insert document: {e}")
         raise
+
 
 def append_to_document(collection_name, query, update_data):
     """
@@ -82,6 +87,7 @@ def append_to_document(collection_name, query, update_data):
     except Exception as e:
         logger.error(f"Failed to update document: {e}")
         raise
+
 
 def find_documents(collection_name, query):
     """
