@@ -33,7 +33,7 @@ TIME_SLOT = "all"  # Time filter can be 'all', 'day', 'week', 'month', 'year'
 def clean_content(content):
     # cleaning the content
     cleaned_content = content.replace("\r", " ").replace("\n", " ")
-    cleaned_content = content.replace('’', "'")
+    cleaned_content = content.replace("’", "'")
     # Remove excessive spaces (multiple spaces turned into a single space)
     cleaned_content = " ".join(cleaned_content.split())
     return cleaned_content
@@ -97,7 +97,12 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
 
         if to_json:
             try:
-                filename = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")), f"{keyword}_posts_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.json")
+                filename = os.path.join(
+                    os.path.abspath(
+                        os.path.join(os.path.dirname(__file__), "..", "..")
+                    ),
+                    f"{keyword}_posts_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.json",
+                )
                 with open(filename, "w", encoding="utf-8") as f:
                     json.dump(posts, f, ensure_ascii=False, indent=4)
                 logger.info(f"Results stored in {filename}")

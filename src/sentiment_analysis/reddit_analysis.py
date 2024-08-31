@@ -1,11 +1,13 @@
-import google.generativeai as genai
 import json
 import os
 import sys
 
+import google.generativeai as genai
+
 # importing wordcloud
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from src.utils.logger import setup_logger
+
 logger = setup_logger()
 
 # def configure_model():
@@ -17,6 +19,7 @@ logger = setup_logger()
 
 #     return model
 
+
 def summarize_content(content):
     """
     This function takes a string of content as a parameter and summarizes it using the OpenAI API.
@@ -27,7 +30,9 @@ def summarize_content(content):
     # Initialize the GenerativeModel with the specific model name
     model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 
-    genai.configure(api_key=os.getenv("OPENAI_API_KEY") or "AIzaSyBE62xwU0A0HaaAUesOglJZmLWDeSdlSxQ")
+    genai.configure(
+        api_key=os.getenv("OPENAI_API_KEY") or "AIzaSyBE62xwU0A0HaaAUesOglJZmLWDeSdlSxQ"
+    )
 
     # Initialize the GenerativeModel with the specific model name
     prompt = (
@@ -42,6 +47,7 @@ def summarize_content(content):
     # print(response.to_dict())
     return response.text
 
+
 def sentiment_analysis(content, all_comments):
     """
     This function takes a list of all comments for a single topic as a parameter and analyzes the sentiment of the users for the topic based on the comments.
@@ -49,7 +55,10 @@ def sentiment_analysis(content, all_comments):
     genai.configure(api_key=os.getenv("GEMINI_AI_API_TOKEN"))
 
     # Initialize the GenerativeModel with the specific model name
-    model = genai.GenerativeModel(model_name="gemini-1.5-flash", generation_config={"response_mime_type": "application/json"})
+    model = genai.GenerativeModel(
+        model_name="gemini-1.5-flash",
+        generation_config={"response_mime_type": "application/json"},
+    )
     backslash_char = "\\"
     # Create a prompt to instruct the model to analyze sentiment
     prompt = (
@@ -61,7 +70,7 @@ def sentiment_analysis(content, all_comments):
         f"{'{backslash_char}n'.join(all_comments)}{backslash_char}n{backslash_char}n"
         "Sentiment Analysis Results:"
     )
-    
+
     # Generate a response from the model using the created prompt
     response = model.generate_content(prompt)
 
@@ -93,23 +102,23 @@ def sentiment_analysis(content, all_comments):
         elif sentiment == "Neutral":
             neutral_count += 1
     result = {
-        'positive_count': positive_count,
-        'negative_count': negative_count,
-        'neutral_count': neutral_count
+        "positive_count": positive_count,
+        "negative_count": negative_count,
+        "neutral_count": neutral_count,
     }
     return result
+
 
 if __name__ == "__main__":
     content = None
     comments = None
 
-    with open('concatenated_content.json', 'r', encoding="utf-8") as f:
+    with open("concatenated_content.json", "r", encoding="utf-8") as f:
         content = f.read()
 
-    with open('all_comments.json', 'r', encoding="utf-8") as f:
+    with open("all_comments.json", "r", encoding="utf-8") as f:
         comments = json.load(f)
 
     # Analyze sentiment for each comment
     content = summarize_content(content)
     sentiment = sentiment_analysis(content, comments)
-
