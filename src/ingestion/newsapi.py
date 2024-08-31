@@ -69,4 +69,9 @@ def fetch_news(query, from_date: datetime, sort_by, to_json):
 if __name__ == "__main__":
     # if __name__ == "__main__" and __package__ is None:
     __package__ = "src.ingestion"
-    fetch_news(query="Kolkata Murder case", from_date="2024-08-21", sort_by="popularity", to_json=True)
+    fetch_news(
+        query="Kolkata Murder case",
+        from_date="2024-08-21",
+        sort_by="popularity",
+        to_json=True,
+    )

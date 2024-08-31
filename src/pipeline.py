@@ -1,4 +1,5 @@
 import json
+
 from src.ingestion.fetch_articles import fetch_article_content
 from src.ingestion.newsapi import fetch_news
 from src.preprocessing.keyword_extraction import (bert_keyword_extraction,
@@ -28,7 +29,7 @@ def process_articles(query):
     # with open(contents_file, "w", encoding="utf-8") as f:
     #     json.dump(article_contents, f, ensure_ascii=False, indent=4)
 
-    #Summarize the articles
+    # Summarize the articles
     logger.info("Summarizing articles.")
     article_summaries = summarize_texts(article_contents)
 
@@ -36,7 +37,7 @@ def process_articles(query):
     # with open(summaries_file, "w", encoding="utf-8") as f:
     #     json.dump(article_summaries, f, ensure_ascii=False, indent=4)
 
-    #Extract keywords from summaries
+    # Extract keywords from summaries
     logger.info("Extracting keywords from summaries.")
     article_keywords = extract_keywords(article_summaries, top_n=10)
 

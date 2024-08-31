@@ -1,17 +1,19 @@
+import json
 import os
 import sys
-import json
 from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
 
+
 def fetch_article_content(article_ids):
-    urls = [] # List of article ID and associated URL {id: url} using article_ids
+    urls = []  # List of article ID and associated URL {id: url} using article_ids
     # ---------
     # MongoDB code to fetch URLs from the database
     # ---------
@@ -57,7 +59,7 @@ def fetch_article_content(article_ids):
         except requests.exceptions.RequestException as e:
             logger.error(f"Failed to fetch the article: {e}")
             return None
-    
+
     logger.info(f"Total articles content fetched: {len(article_contents)}")
     # ---------
     # MongoDB code to store article content
