@@ -14,6 +14,7 @@ nltk.download("stopwords")
 # Setup logger
 logger = setup_logger()
 
+
 # Not in use
 def preprocess_text(text):
     logger.info("Preprocessing text for tokenization and stopword removal.")
@@ -24,6 +25,7 @@ def preprocess_text(text):
     ]
     logger.info("Text preprocessed successfully.")
     return filtered_words
+
 
 # Not in use
 def bert_keyword_extraction(texts, top_n=10):
@@ -62,7 +64,10 @@ def extract_keywords(article_summaries, top_n: int = 10):
         logger.debug(f"Extracting keywords from text {idx+1}/{len(article_summaries)}.")
         try:
             keywords = model.extract_keywords(
-                obj.get("summarized_content"), keyphrase_ngram_range=(1, 2), stop_words="english", top_n=top_n
+                obj.get("summarized_content"),
+                keyphrase_ngram_range=(1, 2),
+                stop_words="english",
+                top_n=top_n,
             )
             extracted_keywords = [kw[0] for kw in keywords]
             keyword_obj = {"id": obj.get("id"), "keywords": extracted_keywords}

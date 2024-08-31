@@ -27,13 +27,17 @@ def analyze_sentiments(article_summaries):
         logger.debug(f"Analyzing sentiment for text {idx+1}/{len(article_summaries)}.")
         try:
             analysis = sentiment_analyzer(obj.get("summarized_content"))
-            sentiment_obj = {"id": obj.get("id"), "sentiment": analysis[0]["label"], "sentiment_score": analysis[0]["score"]}
+            sentiment_obj = {
+                "id": obj.get("id"),
+                "sentiment": analysis[0]["label"],
+                "sentiment_score": analysis[0]["score"],
+            }
             article_sentiments.append(sentiment_obj)
             logger.debug(f"Sentiment for text {idx+1}: {sentiment_obj}")
 
         except Exception as e:
             logger.error(f"Error analyzing sentiment for text {idx+1}: {e}")
             article_sentiments.append({"label": "UNKNOWN", "score": 0.0})
-            
+
     logger.info("Sentiment analysis completed.")
     return article_sentiments
