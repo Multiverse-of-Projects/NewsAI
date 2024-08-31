@@ -128,23 +128,27 @@ def find_documents(collection_name, query):
 def fetch_and_combine_articles(collection_name, article_ids):
     db = get_mongo_client()
     collection = db[collection_name]
+
+    # Debug log to check what is being passed to the function
+    logger.debug(f"Received article_ids: {article_ids}")
     
     try:
-        # Convert string IDs to ObjectId if they are not already in ObjectId format
-        object_ids = [ObjectId(article_id) if isinstance(article_id, str) else article_id for article_id in article_ids]
-        
+        # Ensure article_ids is a list and not None
+
         # Query MongoDB to find documents by their IDs
-        query = {"_id": {"$in": object_ids}}
+        query = {"id": {"$in": article_ids}}
         documents = collection.find(query)
-        logger.info(f"Fetched {documents.count()} documents for the given IDs.")
+        logger.info(f"Fetched {documents} documents for the given IDs.")
+        
+        # Prepare a list of documents
         docs = []
         for doc in documents:
-            doc['_id'] = str(doc['_id'])
+            doc['_id'] = str(doc['_id'])  # Convert ObjectId to string for easier handling
             docs.append(doc)
             
         # Convert the list of documents to a DataFrame
-        df = pd.DataFrame(list(docs))
-        
+        df = pd.DataFrame(docs)
+        print(df.drop(columns=["_id", "id"], inplace=True))
         if df.empty:
             logger.warning("No documents found for the provided article IDs.")
         else:
@@ -155,3 +159,4 @@ def fetch_and_combine_articles(collection_name, article_ids):
     except Exception as e:
         logger.error(f"Failed to fetch and combine articles: {e}")
         raise
+

@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import sys
+import os
+from typing import List
 import time
 import matplotlib.pyplot as plt
 import plotly.express as px
@@ -10,6 +13,12 @@ from src.utils.dbconnector import find_documents, find_one_document, append_to_d
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from streamlit_echarts import st_echarts
 
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(_file_), "..", "..")))
+def extract_and_flatten_keywords(data) -> List[str]:
+    all_keywords = []
+    all_keywords = data["keywords"].tolist()
+    all_keywords = [item for sublist in all_keywords for item in sublist]
+    return all_keywords
 
 def load_css(file_name):
     with open(file_name) as f:
@@ -33,7 +42,7 @@ def generate_spiderweb(data):
     st_echarts(options=options)
 
 # Load external CSS
-load_css("styles.css")
+# load_css("styles.css")
 # Layout Configuration
 # st.set_page_config(layout="wide")
 
@@ -45,30 +54,31 @@ query = st.text_input("Query", "Enter a keyword or phrase")
 # Wait animation after submitting query
 if st.button("Submit"):
     with st.spinner('Processing data, please wait...'):
-        prev = find_one_document("News_Articles_Id", {"query": query})
+        prev = find_one_document("News_Articles_Ids", {"query": query})
+    # st.write(prev)
         if prev:
             data = prev["ids"]
         else:
             data = process_articles(query)
-    fetch_and_combine_articles("News_Articles", data)
+    # st.write(data)
+    df = fetch_and_combine_articles("News_Articles", data)
     st.success("Data processed successfully!")
-
+    st.write(df)
     # Column Layout
     col1, col2 = st.columns(2)
 
-    # Word Cloud or Heatmap
     with col1:
         st.subheader("Keyword Extraction - Word Cloud")
-        wordcloud = generate_wordcloud(data["keywords"])
+        flattened_keywords = extract_and_flatten_keywords(df)
+        wordcloud = generate_wordcloud(flattened_keywords, "Sentiments")
         plt.figure(figsize=(10, 5))
         plt.imshow(wordcloud, interpolation="bilinear")
         plt.axis("off")
         st.pyplot(plt)
-
     # Pie Chart with topic-wise distribution
     with col2:
         st.subheader("Sentiment Distribution")
-        sentiment_counts = pd.Series(data["sentiment"]).value_counts()
+        sentiment_counts = df["sentiment"].value_counts()
         fig = px.pie(values=sentiment_counts.values, names=sentiment_counts.index, title='Sentiment Distribution')
         st.plotly_chart(fig)
 

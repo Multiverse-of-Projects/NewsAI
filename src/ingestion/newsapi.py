@@ -22,7 +22,7 @@ def fetch_news(query, from_date: datetime, sort_by, limit, to_json):
     try:
         logger.debug("Requesting data from NewsAPI")
         previous = find_one_document(
-            "articles", {"query": query, "from_date": from_date}
+            "articles", {"query": query}
         )
         if previous:
             logger.info(f"Previous data found for {query} from {from_date}")
