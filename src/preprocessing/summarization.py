@@ -1,5 +1,7 @@
 import os
 from typing import List
+from src.utils.logger import setup_logger
+from src.utils.dbconnector import append_to_document, find_documents
 
 import google.generativeai as genai
 from dotenv import load_dotenv
@@ -15,7 +17,7 @@ from src.utils.logger import setup_logger
 logger = setup_logger()
 
 
-def summarize_texts(texts: List[str], max_length: int = 200, min_length: int = 20):
+def summarize_texts(articles_id: List[str], max_length: int = 200, min_length: int = 20):
     """
     Summarizes a list of texts using a pre-trained Transformer model.
 
@@ -27,9 +29,13 @@ def summarize_texts(texts: List[str], max_length: int = 200, min_length: int = 2
     Returns:
         List[str]: List of summarized texts.
     """
+    texts = [] 
     logger.info("Initializing summarization pipeline.")
-
+    articles = find_documents("News_Articles", {"id": {"$in": articles_id}})
+    for article in articles:
+        texts.append({"id": article["id"], "content": article["content"]})
     article_summaries = []
+    
     logger.info(f"Starting summarization of {len(texts)} texts.")
     for idx, obj in enumerate(texts):
         logger.debug(f"Summarizing text {idx+1}/{len(texts)}.")
@@ -54,15 +60,14 @@ def summarize_texts(texts: List[str], max_length: int = 200, min_length: int = 2
             article_summaries.append(
                 {"id": obj.get("id"), "summarized_content": response.text}
             )
+            append_to_document("News_Articles", {"id": obj.get("id")}, {"summary": response.text})
             logger.debug(f"Summary {idx+1}: {response.text}")
 
         except Exception as e:
             logger.error(f"Error summarizing text {idx+1}: {e}")
             article_summaries.append("")
+            append_to_document("News_Articles", {"id": obj.get("id")}, {"summary": ""})
 
-    # --------
-    # MongoDB code to store article summaries
-    # --------
 
     logger.info("Summarization completed.")
     return article_summaries

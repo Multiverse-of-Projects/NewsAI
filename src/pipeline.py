@@ -14,12 +14,12 @@ from src.utils.logger import setup_logger
 logger = setup_logger()
 
 
-def process_articles(query):
+def process_articles(query, limit=10):
     logger.info("Starting the processing of articles.")
 
     # Fetch articles from NewsAPI
     article_ids = fetch_news(
-        query=query, from_date="2024-08-01", sort_by="popularity", to_json=False
+        query=query, from_date="2024-08-01", sort_by="popularity", limit=limit, to_json=False
     )
 
     # Get contents for each article
@@ -31,7 +31,7 @@ def process_articles(query):
 
     # Summarize the articles
     logger.info("Summarizing articles.")
-    article_summaries = summarize_texts(article_contents)
+    article_summaries = summarize_texts(article_ids)
 
     # summaries_file = f"{query.replace(' ', '_')}_summaries2.json"
     # with open(summaries_file, "w", encoding="utf-8") as f:
@@ -39,7 +39,7 @@ def process_articles(query):
 
     # Extract keywords from summaries
     logger.info("Extracting keywords from summaries.")
-    article_keywords = extract_keywords(article_summaries, top_n=10)
+    article_keywords = extract_keywords(article_ids, top_n=10)
 
     # keywords_file = f"{query.replace(' ', '_')}_keywords2.json"
     # with open(keywords_file, "w", encoding="utf-8") as f:

@@ -107,9 +107,7 @@ def find_documents(collection_name, query):
     collection = db[collection_name]
     try:
         documents = collection.find(query)
-        result = list(documents)
-        logger.info(f"Found {len(result)} documents.")
-        return result
+        return documents
     except Exception as e:
         logger.error(f"Failed to find documents: {e}")
         raise

@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from src.utils.dbconnector import find_documents, append_to_document
 from urllib.parse import urlparse
 
 import requests
@@ -13,16 +14,14 @@ logger = setup_logger()
 
 
 def fetch_article_content(article_ids):
-    urls = []  # List of article ID and associated URL {id: url} using article_ids
-    # ---------
-    # MongoDB code to fetch URLs from the database
-    # ---------
-    with open("articles.json", "r", encoding="utf-8") as f:
-        articles = json.load(f)
-        for article in articles:
-            id = article["id"]
-            url = article["url"]
-            urls.append({"id": id, "url": url})
+    
+    docs = find_documents("News_Articles", {"id": {"$in": article_ids}})
+    urls = []
+    for doc in docs:
+        id = doc["id"]
+        url = doc["url"]
+        urls.append({"id": id, "url": url})
+        logger.info(f"Fetching content for article {id}")
 
     article_contents = []
     for obj in urls:
@@ -55,15 +54,13 @@ def fetch_article_content(article_ids):
 
             article_obj = {"id": id, "content": article_content}
             article_contents.append(article_obj)
+            result = append_to_document("News_Articles", {"id": id}, article_obj)
 
         except requests.exceptions.RequestException as e:
             logger.error(f"Failed to fetch the article: {e}")
             return None
 
     logger.info(f"Total articles content fetched: {len(article_contents)}")
-    # ---------
-    # MongoDB code to store article content
-    # ---------
     return article_contents
 
 

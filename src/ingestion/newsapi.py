@@ -6,6 +6,7 @@ from datetime import datetime
 import requests
 from dotenv import load_dotenv
 
+from src.utils.dbconnector import insert_document
 from src.utils.logger import setup_logger
 
 # Load API key from .env file
@@ -16,7 +17,7 @@ API_KEY = os.getenv("NEWS_API_KEY")
 logger = setup_logger()
 
 
-def fetch_news(query, from_date: datetime, sort_by, to_json):
+def fetch_news(query, from_date: datetime, sort_by,limit, to_json):
     url = f"https://newsapi.org/v2/everything?q={query}&from={from_date}&sortBy={sort_by}&apiKey={API_KEY}"
     try:
         logger.debug("Requesting data from NewsAPI")
@@ -40,7 +41,7 @@ def fetch_news(query, from_date: datetime, sort_by, to_json):
             else:
                 articles_db = []
                 article_ids = []
-                for article in data.get("articles", [])[:10]:
+                for article in data.get("articles", [])[:limit]:
                     logger.debug(f"Adding ids to articles and saving them to MongoDB")
                     id = str(uuid.uuid4())
                     article_ids.append(id)
@@ -53,12 +54,10 @@ def fetch_news(query, from_date: datetime, sort_by, to_json):
                         "publishedat": article.get("publishedAt"),
                         "source": article.get("source").get("name"),
                     }
-                    articles_db.append(article_obj)
+                    insert_document("News_Articles", article_obj)
+                    
                 logger.info(f"Total articles saved: {len(articles_db)}")
-
-                with open("articles.json", "w", encoding="utf-8") as f:
-                    json.dump(articles_db, f, ensure_ascii=False, indent=4)
-
+                logger.debug(f"Article IDs: {article_ids}")
                 return article_ids
         else:
             logger.error(f"Error in response: {data}")

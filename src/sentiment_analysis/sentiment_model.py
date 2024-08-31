@@ -3,6 +3,7 @@ from typing import Dict, List
 from transformers import pipeline
 
 from src.utils.logger import setup_logger
+from src.utils.dbconnector import find_documents, append_to_document
 
 # Setup logger
 logger = setup_logger()
@@ -21,8 +22,17 @@ def analyze_sentiments(article_ids):
     # -------
     # MongoDB code to fetch article title and description
     # -------
-
     article_obj = []  # This object should have id, title and description
+    documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
+    for doc in documents:
+        article_obj.append(
+            {
+                "id": doc["id"],
+                "title": doc["title"],
+                "description": doc["content"],
+            }
+        )
+
     logger.info("Initializing sentiment analysis pipeline.")
     sentiment_analyzer = pipeline("sentiment-analysis")
 
@@ -39,11 +49,13 @@ def analyze_sentiments(article_ids):
                 "sentiment_score": analysis[0]["score"],
             }
             article_sentiments.append(sentiment_obj)
+            append_to_document("News_Articles", {"id": obj.get("id")}, sentiment_obj)
             logger.debug(f"Sentiment for text {idx+1}: {sentiment_obj}")
 
         except Exception as e:
             logger.error(f"Error analyzing sentiment for text {idx+1}: {e}")
             article_sentiments.append({"label": "UNKNOWN", "score": 0.0})
+            append_to_document("News_Articles", {"id": obj.get("id")}, {"sentiment": "UNKNOWN", "sentiment_score": 0.0})
 
     logger.info("Sentiment analysis completed.")
     return article_sentiments

@@ -6,6 +6,7 @@ from keybert import KeyBERT
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
+from src.utils.dbconnector import append_to_document, find_documents
 from src.utils.logger import setup_logger
 
 nltk.download("punkt")
@@ -43,7 +44,7 @@ def bert_keyword_extraction(texts, top_n=10):
     return list(set(all_keywords))  # Return unique keywords
 
 
-def extract_keywords(article_summaries, top_n: int = 10):
+def extract_keywords(article_ids, top_n: int = 10):
     """
     Extracts keywords from a list of texts using KeyBERT.
 
@@ -55,6 +56,13 @@ def extract_keywords(article_summaries, top_n: int = 10):
         It returns something else not a list of list of str.
         List[List[str]]: List of keyword lists for each text.
     """
+    article_summaries = []
+    documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
+    for doc in documents:
+        article_summaries.append(
+            {"id": doc["id"], "summarized_content": doc["summarized_content"]}
+        )
+    
     logger.info("Initializing KeyBERT model for keyword extraction.")
     model = KeyBERT("all-MiniLM-L6-v2")
 
@@ -73,6 +81,7 @@ def extract_keywords(article_summaries, top_n: int = 10):
             keyword_obj = {"id": obj.get("id"), "keywords": extracted_keywords}
 
             article_keywords.append(keyword_obj)
+            append_to_document("News_Articles", {"id": obj.get("id")}, keyword_obj)
             logger.debug(f"Keywords for text {idx+1}: {extracted_keywords}")
         except Exception as e:
             logger.error(f"Error extracting keywords from text {idx+1}: {e}")
