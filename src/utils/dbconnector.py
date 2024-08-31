@@ -28,7 +28,7 @@ def get_mongo_client():
     """
     try:
         mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
-        db_name = os.getenv("MONGO_DB_NAME")
+        db_name = os.getenv("DB_NAME")
         client = MongoClient(mongo_uri)
         db = client[db_name]
         logger.info("Successfully connected to MongoDB.")
@@ -62,6 +62,16 @@ def insert_document(collection_name, document):
         logger.error(f"Failed to insert document: {e}")
         raise
 
+
+def find_one_document(collection_name, query):
+    db = get_mongo_client()
+    collection = db[collection_name]
+    try:
+        result = collection.find_one(query)
+        return result
+    except Exception as e:
+        logger.error(f"Failed to find document: {e}")
+        raise
 
 def append_to_document(collection_name, query, update_data):
     """
