@@ -1,9 +1,9 @@
+import os
 from typing import List
 
 import google.generativeai as genai
-from google.generativeai.types import HarmBlockThreshold, HarmCategory
-import os
 from dotenv import load_dotenv
+from google.generativeai.types import HarmBlockThreshold, HarmCategory
 
 load_dotenv()
 
@@ -41,15 +41,19 @@ def summarize_texts(texts: List[str], max_length: int = 200, min_length: int = 2
             News Article:
             {obj.get("content")}
             """
-            response = model.generate_content(prompt, safety_settings={
-                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-
-            })
+            response = model.generate_content(
+                prompt,
+                safety_settings={
+                    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+                },
+            )
             logger.debug(f"DEBUG SUmmary{response.text}")
-            article_summaries.append({"id": obj.get("id"), "summarized_content": response.text})
+            article_summaries.append(
+                {"id": obj.get("id"), "summarized_content": response.text}
+            )
             logger.debug(f"Summary {idx+1}: {response.text}")
 
         except Exception as e:

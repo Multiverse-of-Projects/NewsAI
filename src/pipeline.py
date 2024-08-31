@@ -53,7 +53,6 @@ def process_articles(query):
     # with open(sentiments_file, "w", encoding="utf-8") as f:
     #     json.dump(article_sentiments, f, ensure_ascii=False, indent=4)
 
-
     # # Extract keywords from summaries
     # logger.info("Extracting keywords from summaries.")
     # keywords_list = extract_keywords(summaries, top_n=10)

@@ -22,7 +22,7 @@ def analyze_sentiments(article_ids):
     # MongoDB code to fetch article title and description
     # -------
 
-    article_obj = []    # This object should have id, title and description
+    article_obj = []  # This object should have id, title and description
     logger.info("Initializing sentiment analysis pipeline.")
     sentiment_analyzer = pipeline("sentiment-analysis")
 
@@ -33,7 +33,11 @@ def analyze_sentiments(article_ids):
         try:
             analysis = sentiment_analyzer(obj.get("description"))
             print("Analysis", analysis)
-            sentiment_obj = {"id": obj.get("id"), "sentiment": analysis[0]["label"], "sentiment_score": analysis[0]["score"]}
+            sentiment_obj = {
+                "id": obj.get("id"),
+                "sentiment": analysis[0]["label"],
+                "sentiment_score": analysis[0]["score"],
+            }
             article_sentiments.append(sentiment_obj)
             logger.debug(f"Sentiment for text {idx+1}: {sentiment_obj}")
 
@@ -43,6 +47,7 @@ def analyze_sentiments(article_ids):
 
     logger.info("Sentiment analysis completed.")
     return article_sentiments
+
 
 if __name__ == "__main__":
     # Test the function
