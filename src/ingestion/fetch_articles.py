@@ -1,11 +1,12 @@
 import json
 import os
 import sys
-from src.utils.dbconnector import find_documents, append_to_document
 from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
+
+from src.utils.dbconnector import append_to_document, find_documents
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from src.utils.logger import setup_logger
@@ -14,7 +15,6 @@ logger = setup_logger()
 
 
 def fetch_article_content(article_ids):
-    
     docs = find_documents("News_Articles", {"id": {"$in": article_ids}})
     urls = []
     for doc in docs:

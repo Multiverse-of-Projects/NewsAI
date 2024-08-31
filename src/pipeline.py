@@ -19,7 +19,11 @@ def process_articles(query, limit=10):
 
     # Fetch articles from NewsAPI
     article_ids = fetch_news(
-        query=query, from_date="2024-08-01", sort_by="popularity", limit=limit, to_json=False
+        query=query,
+        from_date="2024-08-01",
+        sort_by="popularity",
+        limit=limit,
+        to_json=False,
     )
 
     # Get contents for each article

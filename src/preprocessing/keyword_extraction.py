@@ -62,7 +62,7 @@ def extract_keywords(article_ids, top_n: int = 10):
         article_summaries.append(
             {"id": doc["id"], "summarized_content": doc["summarized_content"]}
         )
-    
+
     logger.info("Initializing KeyBERT model for keyword extraction.")
     model = KeyBERT("all-MiniLM-L6-v2")
 

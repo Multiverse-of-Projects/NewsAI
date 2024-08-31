@@ -17,7 +17,7 @@ API_KEY = os.getenv("NEWS_API_KEY")
 logger = setup_logger()
 
 
-def fetch_news(query, from_date: datetime, sort_by,limit, to_json):
+def fetch_news(query, from_date: datetime, sort_by, limit, to_json):
     url = f"https://newsapi.org/v2/everything?q={query}&from={from_date}&sortBy={sort_by}&apiKey={API_KEY}"
     try:
         logger.debug("Requesting data from NewsAPI")
@@ -55,7 +55,7 @@ def fetch_news(query, from_date: datetime, sort_by,limit, to_json):
                         "source": article.get("source").get("name"),
                     }
                     insert_document("News_Articles", article_obj)
-                    
+
                 logger.info(f"Total articles saved: {len(articles_db)}")
                 logger.debug(f"Article IDs: {article_ids}")
                 return article_ids

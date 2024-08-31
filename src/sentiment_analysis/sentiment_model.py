@@ -2,8 +2,8 @@ from typing import Dict, List
 
 from transformers import pipeline
 
+from src.utils.dbconnector import append_to_document, find_documents
 from src.utils.logger import setup_logger
-from src.utils.dbconnector import find_documents, append_to_document
 
 # Setup logger
 logger = setup_logger()
@@ -55,7 +55,11 @@ def analyze_sentiments(article_ids):
         except Exception as e:
             logger.error(f"Error analyzing sentiment for text {idx+1}: {e}")
             article_sentiments.append({"label": "UNKNOWN", "score": 0.0})
-            append_to_document("News_Articles", {"id": obj.get("id")}, {"sentiment": "UNKNOWN", "sentiment_score": 0.0})
+            append_to_document(
+                "News_Articles",
+                {"id": obj.get("id")},
+                {"sentiment": "UNKNOWN", "sentiment_score": 0.0},
+            )
 
     logger.info("Sentiment analysis completed.")
     return article_sentiments
