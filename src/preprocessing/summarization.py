@@ -1,6 +1,13 @@
 from typing import List
 
-from transformers import pipeline
+import google.generativeai as genai
+from google.generativeai.types import HarmBlockThreshold, HarmCategory
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
 from src.utils.logger import setup_logger
 
@@ -23,24 +30,29 @@ def summarize_texts(
         List[str]: List of summarized texts.
     """
     logger.info("Initializing summarization pipeline.")
-    summarizer = pipeline(
-        "summarization",
-        # model="facebook/bart-large-cnn",
-        # tokenizer="facebook/bart-large-cnn",
-    )
 
     article_summaries = []
     logger.info(f"Starting summarization of {len(texts)} texts.")
     for idx, obj in enumerate(texts):
         logger.debug(f"Summarizing text {idx+1}/{len(texts)}.")
         try:
-            print(obj.get("content"))
-            summary = summarizer(
-                obj.get("content"), max_length=max_length, min_length=min_length, do_sample=False
-            )
-            logger.debug(f"DEBUG SUmmary{summary}")
-            article_summaries.append({"id": obj.get("id"), "summarized_content": summary[0]["summary_text"]})
-            logger.debug(f"Summary {idx+1}: {summary[0]['summary_text']}")
+            model = genai.GenerativeModel("gemini-1.5-flash")
+            prompt = f"""
+            Summarize the provided news document while preserving the most important keywords and maintaining the original sentiment or tone. Ensure that the summary is concise, accurately reflects the key points, and retains the emotional impact or intent of the original content.
+
+            News Article:
+            {obj.get("content")}
+            """
+            response = model.generate_content(prompt, safety_settings={
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+
+            })
+            logger.debug(f"DEBUG SUmmary{response.text}")
+            article_summaries.append({"id": obj.get("id"), "summarized_content": response.text})
+            logger.debug(f"Summary {idx+1}: {response.text}")
 
         except Exception as e:
             logger.error(f"Error summarizing text {idx+1}: {e}")

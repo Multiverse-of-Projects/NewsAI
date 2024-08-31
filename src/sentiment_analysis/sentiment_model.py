@@ -8,7 +8,7 @@ from src.utils.logger import setup_logger
 logger = setup_logger()
 
 
-def analyze_sentiments(article_summaries):
+def analyze_sentiments(article_ids):
     """
     Analyzes sentiments of a list of texts.
 
@@ -18,15 +18,21 @@ def analyze_sentiments(article_summaries):
     Returns:
         List[Dict[str, float]]: List of sentiment analysis results for each text.
     """
+    # -------
+    # MongoDB code to fetch article title and description
+    # -------
+
+    article_obj = []    # This object should have id, title and description
     logger.info("Initializing sentiment analysis pipeline.")
     sentiment_analyzer = pipeline("sentiment-analysis")
 
     article_sentiments = []
-    logger.info(f"Analyzing sentiments for {len(article_summaries)} texts.")
-    for idx, obj in enumerate(article_summaries):
-        logger.debug(f"Analyzing sentiment for text {idx+1}/{len(article_summaries)}.")
+    logger.info(f"Analyzing sentiments for {len(article_obj)} texts.")
+    for idx, obj in enumerate(article_obj):
+        logger.debug(f"Analyzing sentiment for text {idx+1}/{len(article_obj)}.")
         try:
-            analysis = sentiment_analyzer(obj.get("summarized_content"))
+            analysis = sentiment_analyzer(obj.get("description"))
+            print("Analysis", analysis)
             sentiment_obj = {"id": obj.get("id"), "sentiment": analysis[0]["label"], "sentiment_score": analysis[0]["score"]}
             article_sentiments.append(sentiment_obj)
             logger.debug(f"Sentiment for text {idx+1}: {sentiment_obj}")
@@ -34,6 +40,11 @@ def analyze_sentiments(article_summaries):
         except Exception as e:
             logger.error(f"Error analyzing sentiment for text {idx+1}: {e}")
             article_sentiments.append({"label": "UNKNOWN", "score": 0.0})
-            
+
     logger.info("Sentiment analysis completed.")
     return article_sentiments
+
+if __name__ == "__main__":
+    # Test the function
+    text = "A female trainee doctor was found dead in a seminar hall at a Kolkata hospital, sparking outrage and protests demanding safety for medical professionals. The incident, believed to be rape and murder, highlights the alarming security risks faced by doctors and nurses, particularly women, in India's government hospitals.  Lack of designated rest rooms, unrestricted access to wards, and a lack of background checks for volunteers contribute to the vulnerability. Despite calls for stricter federal laws and increased security measures, many doctors remain pessimistic, feeling resigned to working in unsafe conditions.  The article highlights the pervasive issue of violence against healthcare workers in India, with doctors often facing threats and assaults from patients, their relatives, and even hospital staff."
+    analyze_sentiments([{"id": 1, "summarized_content": text}])

@@ -24,43 +24,33 @@ def process_articles(query):
     # Get contents for each article
     article_contents = fetch_article_content(article_ids)
 
-    contents_file = f"{query.replace(' ', '_')}_contents2.json"
-    with open(contents_file, "w", encoding="utf-8") as f:
-        json.dump(article_contents, f, ensure_ascii=False, indent=4)
+    # contents_file = f"{query.replace(' ', '_')}_contents2.json"
+    # with open(contents_file, "w", encoding="utf-8") as f:
+    #     json.dump(article_contents, f, ensure_ascii=False, indent=4)
 
     #Summarize the articles
     logger.info("Summarizing articles.")
     article_summaries = summarize_texts(article_contents)
 
-    summaries_file = f"{query.replace(' ', '_')}_summaries2.json"
-    with open(summaries_file, "w", encoding="utf-8") as f:
-        json.dump(article_summaries, f, ensure_ascii=False, indent=4)
+    # summaries_file = f"{query.replace(' ', '_')}_summaries2.json"
+    # with open(summaries_file, "w", encoding="utf-8") as f:
+    #     json.dump(article_summaries, f, ensure_ascii=False, indent=4)
 
     #Extract keywords from summaries
     logger.info("Extracting keywords from summaries.")
     article_keywords = extract_keywords(article_summaries, top_n=10)
 
-    keywords_file = f"{query.replace(' ', '_')}_keywords2.json"
-    with open(keywords_file, "w", encoding="utf-8") as f:
-        json.dump(article_keywords, f, ensure_ascii=False, indent=4)
+    # keywords_file = f"{query.replace(' ', '_')}_keywords2.json"
+    # with open(keywords_file, "w", encoding="utf-8") as f:
+    #     json.dump(article_keywords, f, ensure_ascii=False, indent=4)
 
     # Analyze sentiments of summaries
     logger.info("Analyzing sentiments of summaries.")
-    article_sentiments = analyze_sentiments(article_summaries)
+    article_sentiments = analyze_sentiments(article_ids)
 
-    
-    
-    
-    
-    sentiments_file = f"{query.replace(' ', '_')}_sentiments2.json"
-    with open(sentiments_file, "w", encoding="utf-8") as f:
-        json.dump(article_sentiments, f, ensure_ascii=False, indent=4)
-
-
-
-
-
-
+    # sentiments_file = f"{query.replace(' ', '_')}_sentiments2.json"
+    # with open(sentiments_file, "w", encoding="utf-8") as f:
+    #     json.dump(article_sentiments, f, ensure_ascii=False, indent=4)
 
 
     # # Extract keywords from summaries
