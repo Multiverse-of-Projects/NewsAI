@@ -1,3 +1,4 @@
+from src.utils.logger import setup_logger
 import json
 import os
 import sys
@@ -5,8 +6,8 @@ import sys
 import google.generativeai as genai
 
 # importing wordcloud
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-from src.utils.logger import setup_logger
+sys.path.append(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "..")))
 
 logger = setup_logger()
 
@@ -31,7 +32,8 @@ def summarize_content(content):
     model = genai.GenerativeModel(model_name="gemini-1.5-flash")
 
     genai.configure(
-        api_key=os.getenv("OPENAI_API_KEY") or "AIzaSyBE62xwU0A0HaaAUesOglJZmLWDeSdlSxQ"
+        api_key=os.getenv(
+            "OPENAI_API_KEY") or "AIzaSyBE62xwU0A0HaaAUesOglJZmLWDeSdlSxQ"
     )
 
     # Initialize the GenerativeModel with the specific model name

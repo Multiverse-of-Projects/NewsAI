@@ -39,7 +39,8 @@ def analyze_sentiments(article_ids):
     article_sentiments = []
     logger.info(f"Analyzing sentiments for {len(article_obj)} texts.")
     for idx, obj in enumerate(article_obj):
-        logger.debug(f"Analyzing sentiment for text {idx+1}/{len(article_obj)}.")
+        logger.debug(
+            f"Analyzing sentiment for text {idx+1}/{len(article_obj)}.")
         try:
             analysis = sentiment_analyzer(obj.get("description"))
             print("Analysis", analysis)
@@ -49,7 +50,8 @@ def analyze_sentiments(article_ids):
                 "sentiment_score": analysis[0]["score"],
             }
             article_sentiments.append(sentiment_obj)
-            append_to_document("News_Articles", {"id": obj.get("id")}, sentiment_obj)
+            append_to_document("News_Articles", {
+                               "id": obj.get("id")}, sentiment_obj)
             logger.debug(f"Sentiment for text {idx+1}: {sentiment_obj}")
 
         except Exception as e:

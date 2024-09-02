@@ -1,3 +1,4 @@
+from src.sentiment_analysis.wordcloud import generate_wordcloud
 import json
 import os
 import re
@@ -6,8 +7,8 @@ import sys
 import emoji
 
 # importing wordcloud
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-from src.sentiment_analysis.wordcloud import generate_wordcloud
+sys.path.append(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "..")))
 
 
 # Function to remove emojis from text
@@ -66,7 +67,8 @@ def process_reddit_data(json_file_path):
         for comment in post["top_comments"]:
             # Remove emojis from comment content and add to the list
             comment_without_emojis = remove_emojis(comment["comment_content"])
-            comment_escaped_char = remove_escape_characters(comment_without_emojis)
+            comment_escaped_char = remove_escape_characters(
+                comment_without_emojis)
             all_comments.append(comment_escaped_char)
 
     # Strip any excess spaces from the concatenated content
