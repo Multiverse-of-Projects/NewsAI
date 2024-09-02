@@ -36,7 +36,7 @@ def summarize_texts(
     logger.info("Initializing summarization pipeline.")
     articles = find_documents("News_Articles", {"id": {"$in": articles_id}})
     for article in articles:
-        texts.append({"id": article["id"], "content": article["content"]})
+        texts.append({"id": article["id"], "content": article.get("content", "")})
     article_summaries = []
 
     logger.info(f"Starting summarization of {len(texts)} texts.")

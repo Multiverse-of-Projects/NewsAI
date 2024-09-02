@@ -29,12 +29,14 @@ def analyze_sentiments(article_ids):
             {
                 "id": doc["id"],
                 "title": doc["title"],
-                "description": doc["content"],
+                "description": doc.get("content", ""),
             }
         )
 
     logger.info("Initializing sentiment analysis pipeline.")
-    sentiment_analyzer = pipeline("sentiment-analysis")
+    sentiment_analyzer = pipeline(
+        "sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment-latest"
+    )
 
     article_sentiments = []
     logger.info(f"Analyzing sentiments for {len(article_obj)} texts.")
