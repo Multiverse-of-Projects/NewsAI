@@ -10,6 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 
 # Import setup_logger from utils
 from src.utils.logger import setup_logger
+from src.utils.dbconnector import insert_document
 
 load_dotenv()
 
@@ -33,6 +34,8 @@ TIME_SLOT = "all"  # Time filter can be 'all', 'day', 'week', 'month', 'year'
 def clean_content(content):
     # Replace carriage returns and newlines with spaces
     cleaned_content = content.replace("\r", " ").replace("\n", " ")
+    # remove emoji from post content and comment content
+    cleaned_content = ''.join(c for c in cleaned_content if c.isascii() and c not in u"\U00010000-\U0010FFFF")
     # Remove excessive spaces (multiple spaces turned into a single space)
     cleaned_content = " ".join(cleaned_content.split())
     return cleaned_content
@@ -59,6 +62,7 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
                 "content": clean_content(post.selftext),
                 "url": post.url,
                 "created_utc": datetime.utcfromtimestamp(post.created_utc).isoformat(),
+                "discussion_topic": keyword,
                 "top_comments": [],
             }
 
@@ -87,25 +91,14 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
             except Exception as e:
                 logger.error(f"Error fetching comments for post ID {post.id}: {str(e)}")
 
-            posts.append(post_data)
-            logger.debug(f"Post Title: {post.title}")
-            logger.debug(f"Post URL: {post.url}")
-            logger.debug(
-                f"Post Content: {post.selftext[:100]}"
-            )  # Print a snippet of content
-
-        if to_json:
             try:
-                filename = f"{keyword}_posts_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.json"
-                with open(filename, "w", encoding="utf-8") as f:
-                    json.dump(posts, f, ensure_ascii=False, indent=4)
-                logger.info(f"Results stored in {filename}")
+                insert_document('reddit_posts', post_data)  # Replace 'reddit_posts' with your desired collection name
+                logger.info(f"Inserted post ID {post.id} into MongoDB")
             except Exception as e:
-                logger.error(f"Error occurred while storing results: {str(e)}")
-        else:
-            logger.info(
-                f"Fetched {len(posts)} posts containing the keyword '{keyword}'"
-            )
+                logger.error(f"Error inserting post ID {post.id} into MongoDB: {str(e)}")
+
+            # posts.append(post_data)
+            logger.debug(f"Post Title: {post.title} Saved to MongoDB")
 
     except Exception as e:
         logger.error(f"Error fetching posts: {type(e).__name__} - {str(e)}")
@@ -113,4 +106,4 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
 
 if __name__ == "__main__":
     # Example usage: searching for posts about "python"
-    fetch_reddit_posts_by_keyword(keyword="python", limit=10)
+    fetch_reddit_posts_by_keyword(keyword="python", limit=5)
