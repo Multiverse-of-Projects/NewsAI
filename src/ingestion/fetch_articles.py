@@ -1,4 +1,3 @@
-from src.utils.logger import setup_logger
 import json
 import os
 import sys
@@ -8,6 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.utils.dbconnector import append_to_document, find_documents
+from src.utils.logger import setup_logger
 
 sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", "..")))

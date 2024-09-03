@@ -1,4 +1,3 @@
-from src.utils.logger import setup_logger
 import json
 import os
 import sys
@@ -6,6 +5,8 @@ from datetime import datetime
 
 import praw
 from dotenv import load_dotenv
+
+from src.utils.logger import setup_logger
 
 sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", "..")))
