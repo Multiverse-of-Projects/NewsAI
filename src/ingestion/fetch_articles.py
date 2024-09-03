@@ -2,21 +2,24 @@ import json
 import os
 import sys
 from urllib.parse import urlparse
+
 import requests
 from bs4 import BeautifulSoup
 
 from src.utils.dbconnector import append_to_document, find_documents
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-from src.utils.logger import setup_logger
 from src.utils.dbconnector import content_manager
+from src.utils.logger import setup_logger
 
 logger = setup_logger()
 
 
 import asyncio
+
 import aiohttp
 from bs4 import BeautifulSoup
+
 
 async def fetch_article_content(article_ids, session):
     try:
@@ -83,13 +86,17 @@ async def fetch_article_content(article_ids, session):
     logger.info(f"Total articles content fetched: {len(article_contents)}")
     return article_contents
 
+
 async def test_fetch_article_content():
     async with aiohttp.ClientSession() as session:
         contents = await fetch_article_content(article_ids, session)
         print(contents)  # Print the fetched content for verification
+
+
 if __name__ == "__main__":
     url = "https://www.rt.com/india/602908-reclaiming-night-protests-over-rape/"
-    article_ids = ["b01d85d7-d538-47cc-a7c4-31c13e7f6b4e", "15133cc7-1522-41f9-8db4-70568e837968"]
+    article_ids = [
+        "b01d85d7-d538-47cc-a7c4-31c13e7f6b4e",
+        "15133cc7-1522-41f9-8db4-70568e837968",
+    ]
     asyncio.run(test_fetch_article_content())
-
-

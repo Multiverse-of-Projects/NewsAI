@@ -42,6 +42,7 @@ def get_mongo_client():
 
 from pymongo import MongoClient
 
+
 def content_manager(article_id, required_fields):
     """
     Checks if the specified fields are present in the database for the given article_id.
@@ -61,7 +62,9 @@ def content_manager(article_id, required_fields):
     article = collection.find_one({"id": article_id})
 
     # Check for the required fields
-    field_status = {field: field in article and bool(article[field]) for field in required_fields}
+    field_status = {
+        field: field in article and bool(article[field]) for field in required_fields
+    }
 
     return field_status
 
