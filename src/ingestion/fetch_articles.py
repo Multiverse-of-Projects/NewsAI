@@ -7,9 +7,10 @@ import requests
 from bs4 import BeautifulSoup
 
 from src.utils.dbconnector import append_to_document, find_documents
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from src.utils.logger import setup_logger
+
+sys.path.append(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "..")))
 
 logger = setup_logger()
 
@@ -54,7 +55,8 @@ def fetch_article_content(article_ids):
 
             article_obj = {"id": id, "content": article_content}
             article_contents.append(article_obj)
-            result = append_to_document("News_Articles", {"id": id}, article_obj)
+            result = append_to_document(
+                "News_Articles", {"id": id}, article_obj)
 
         except requests.exceptions.RequestException as e:
             logger.error(f"Failed to fetch the article: {e}")

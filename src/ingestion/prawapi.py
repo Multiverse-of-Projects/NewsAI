@@ -6,10 +6,12 @@ from datetime import datetime
 import praw
 from dotenv import load_dotenv
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from src.utils.logger import setup_logger
+
+sys.path.append(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "..")))
 
 # Import setup_logger from utils
-from src.utils.logger import setup_logger
 
 load_dotenv()
 
@@ -85,7 +87,8 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
                     if hasattr(comment, "body")
                 ]
             except Exception as e:
-                logger.error(f"Error fetching comments for post ID {post.id}: {str(e)}")
+                logger.error(
+                    f"Error fetching comments for post ID {post.id}: {str(e)}")
 
             posts.append(post_data)
             logger.debug(f"Post Title: {post.title}")

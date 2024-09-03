@@ -43,12 +43,14 @@ def fetch_news(query, from_date: datetime, sort_by, limit, to_json):
                     logger.info(f"Results stored in {filename}")
                     # -----
                 except Exception as e:
-                    logger.error(f"Error occurred while storing results: {str(e)}")
+                    logger.error(
+                        f"Error occurred while storing results: {str(e)}")
             else:
                 articles_db = []
                 article_ids = []
                 for article in data.get("articles", [])[:limit]:
-                    logger.debug(f"Adding ids to articles and saving them to MongoDB")
+                    logger.debug(
+                        f"Adding ids to articles and saving them to MongoDB")
                     id = str(uuid.uuid4())
                     article_ids.append(id)
                     article_obj = {

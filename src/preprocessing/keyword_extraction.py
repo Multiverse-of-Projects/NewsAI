@@ -67,7 +67,8 @@ def extract_keywords(article_ids, top_n: int = 10):
     article_keywords = []
     logger.info(f"Extracting keywords from {len(article_summaries)} texts.")
     for idx, obj in enumerate(article_summaries):
-        logger.debug(f"Extracting keywords from text {idx+1}/{len(article_summaries)}.")
+        logger.debug(
+            f"Extracting keywords from text {idx+1}/{len(article_summaries)}.")
         try:
             keywords = model.extract_keywords(
                 obj.get("summary"),
@@ -79,7 +80,8 @@ def extract_keywords(article_ids, top_n: int = 10):
             keyword_obj = {"id": obj.get("id"), "keywords": extracted_keywords}
 
             article_keywords.append(keyword_obj)
-            append_to_document("News_Articles", {"id": obj.get("id")}, keyword_obj)
+            append_to_document("News_Articles", {
+                               "id": obj.get("id")}, keyword_obj)
             logger.debug(f"Keywords for text {idx+1}: {extracted_keywords}")
         except Exception as e:
             logger.error(f"Error extracting keywords from text {idx+1}: {e}")
