@@ -80,10 +80,7 @@ The project uses a simplified branching strategy:
 
 ## Demo Video
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/stTXgljJVPQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-[![Watch the video](https://img.youtube.com/vi/stTXgljJVPQ/maxresdefault.jpg)](https://youtu.be/stTXgljJVPQ)
-
+<iframe width="560" height="315" src="https://youtu.be/stTXgljJVPQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Setup Instructions
 ---------------------
