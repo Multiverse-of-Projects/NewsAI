@@ -31,7 +31,8 @@ def get_mongo_client():
     try:
         mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
         db_name = os.getenv("DB_NAME")
-        client = MongoClient(mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
+        client = MongoClient(
+            mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
         db = client[db_name]
         logger.info("Successfully connected to MongoDB.")
         return db
@@ -124,7 +125,8 @@ def append_to_document(collection_name, query, update_data):
         if result.modified_count > 0:
             logger.info(f"Document updated successfully.")
         else:
-            logger.warning(f"No document matched the query. No update performed.")
+            logger.warning(
+                f"No document matched the query. No update performed.")
         return result.modified_count
     except Exception as e:
         logger.error(f"Failed to update document: {e}")
