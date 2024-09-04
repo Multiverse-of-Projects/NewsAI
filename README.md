@@ -78,16 +78,9 @@ The project uses a simplified branching strategy:
 * `main`: the final branch where all working features are merged
 * `feature/*`: each feature branch is focused on a specific module or task
 
-## Suggested Branch Allocation
------------------------------
+## Demo Video
 
-For a team of three people, the suggested branch allocation is:
-
-1. **Person 1**: Focus on Multi-API Ingestion (`feature/multi-api-ingestion`)
-2. **Person 2**: Focus on Sentiment Analysis and Processing (`feature/sentiment-analysis` and `feature/preprocessing` if necessary)
-3. **Person 3**: Focus on API Development and Dashboard (`feature/api-endpoints` and `feature/dashboard-ui`)
-
-After completing a feature, each person should merge their branch directly into `main` after peer review or pair programming sessions to ensure everything works together smoothly.
+<iframe width="560" height="315" src="https://youtu.be/stTXgljJVPQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Setup Instructions
 ---------------------

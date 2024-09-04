@@ -43,7 +43,7 @@ def analyze_sentiments(article_ids):
     for idx, obj in enumerate(article_obj):
         logger.debug(f"Analyzing sentiment for text {idx+1}/{len(article_obj)}.")
         try:
-            analysis = sentiment_analyzer(obj.get("description"))
+            analysis = sentiment_analyzer(obj.get("description")[:511])
             print("Analysis", analysis)
             sentiment_obj = {
                 "id": obj.get("id"),

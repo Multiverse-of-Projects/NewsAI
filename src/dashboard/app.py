@@ -2,13 +2,19 @@ import os
 import sys
 import time
 from datetime import datetime
+from io import BytesIO
 from typing import List
 
+import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import plotly.colors as pc
 import plotly.express as px
+import requests
+import seaborn as sns
 import streamlit as st
+from PIL import Image
 from streamlit_echarts import st_echarts
 
 from src.pipeline import process_articles
@@ -16,6 +22,35 @@ from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import (append_to_document,
                                    fetch_and_combine_articles, find_documents,
                                    find_one_document)
+
+
+def download_images(image_urls, save_dir="downloaded_images"):
+    # if not os.path.exists(save_dir):
+    #     os.makedirs(save_dir)
+
+    image_files = []
+    for _, url in enumerate(image_urls):
+        try:
+            response = requests.get(url)
+            img = Image.open(BytesIO(response.content))
+            # img_path = os.path.join(save_dir, f'image_{idx}.png')
+            # img.save(img_path)
+            image_files.append(img)
+        except Exception as e:
+            print(f"Failed to download {url}: {e}")
+
+    return image_files
+
+
+def create_and_show_gif(image_files):
+    images = [img.convert("RGBA") for img in image_files]
+    frames = []
+    for image in images:
+        frames.append(image)
+    frames[0].save(
+        "mygif.gif", save_all=True, append_images=frames[1:], duration=300, loop=0
+    )
+    st.image("mygif.gif", use_column_width=True)
 
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(_file_), "..", "..")))
@@ -78,7 +113,7 @@ if st.button("Submit"):
     st.success("Data processed successfully!")
     # st.write(df)
     # Column Layout
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
         st.subheader("Keyword Extraction - Word Cloud")
@@ -90,64 +125,105 @@ if st.button("Submit"):
         st.pyplot(plt)
     # Pie Chart with topic-wise distribution
     with col2:
-        st.subheader("Sentiment Distribution")
+        # st.subheader("Sentiment Distribution")
         sentiment_counts = df["sentiment"].value_counts()
         fig = px.pie(
             values=sentiment_counts.values,
             names=sentiment_counts.index,
             title="Sentiment Distribution",
+            hole=0.5,
         )
         st.plotly_chart(fig)
 
     # Line chart for time-wise distribution
     st.subheader("Time-wise Sentiment Distribution")
+    # Normalize the sentiment values to lowercase
+    df["sentiment"] = df["sentiment"].str.lower()
     df["publishedat"] = pd.to_datetime(df["publishedat"])
 
-    # Extract dates and sentiments
+    # Extract dates and aggregate sentiment counts
     time_data = df.pivot_table(
         index=df["publishedat"].dt.date,
         columns="sentiment",
         aggfunc="size",
         fill_value=0,
     )
-    # Reset the index to turn the dates into a column and rename the columns
-    time_data = time_data.reset_index().rename_axis(None, axis=1)
 
-    # Ensure the columns are in the correct order and all sentiments are present
-    # time_data = time_data[['publishedat', 'positive', 'neutral', 'negative']].fillna(0)
-    # st.write(time_data)
-    # Rename columns for clarity
-    # time_data.columns = ['Date', 'Positive', 'Neutral', 'Negative']
-
-    # Plotting the line chart
-    # Plotting the line chart for all sentiments
-    for sentiment in ["POSITIVE", "NEGATIVE", "UNKNOWN"]:
+    # Ensure all sentiments (positive, negative, neutral) are included
+    for sentiment in ["positive", "negative", "neutral"]:
         if sentiment not in time_data.columns:
             time_data[sentiment] = 0
-        fig = px.line(
-            time_data,
-            x="publishedat",
-            y=sentiment,
-            title=f"Time-wise {sentiment} Sentiment Distribution",
+
+    # Reset the index to turn dates into a column
+    time_data = time_data.reset_index()
+
+    # Create the line plot
+    fig = px.line(
+        time_data,
+        x="publishedat",
+        y=["positive", "negative", "neutral"],
+        title="Time-wise Sentiment Distribution",
+        labels={"value": "Count", "variable": "Sentiment"},
+    )
+
+    # Customize line colors for each sentiment
+    fig.update_traces(line=dict(color="green"), selector=dict(name="positive"))
+    fig.update_traces(line=dict(color="red"), selector=dict(name="negative"))
+    fig.update_traces(line=dict(color="blue"), selector=dict(name="neutral"))
+
+    # Display the plot
+    st.plotly_chart(fig)
+
+    with col3:
+        source_distribution = df["source"].value_counts()
+
+        # Plot the pie chart
+        fig = px.pie(
+            names=source_distribution.index,
+            values=source_distribution.values,
+            title="Distribution of Articles by Source",
+            color_discrete_sequence=pc.qualitative.Prism,
         )
         st.plotly_chart(fig)
 
-    # # Ratio of Positive, Neutral, Negative News
-    # st.subheader("Sentiment Ratio")
-    # sentiment_ratio = pd.DataFrame({
-    #     "Sentiment": ["Negative", "Unknown", "Positive"],
-    #     "Count": [sum(data["negative"]), sum(data["unknown"]), sum(data["positive"])]
-    # })
-    # fig = px.bar(sentiment_ratio, x="Sentiment", y="Count", color="Sentiment", barmode="stack",
-    #              color_discrete_map={"Negative": "red", "Unknown": "blue", "Positive": "green"},
-    #              title="Ratio of Positive, Neutral, and Negative News")
-    # st.plotly_chart(fig)
+    df["publishedat"] = pd.to_datetime(df["publishedat"])
+
+    # Extract date only (without time) for grouping
+    df["date"] = df["publishedat"].dt.date
+
+    # Pivot the DataFrame to create a matrix for the heatmap
+    # Count sentiment occurrences for each source per day
+    heatmap_data = df.pivot_table(
+        index="date",
+        columns="source",
+        values="sentiment",
+        aggfunc="count",
+        fill_value=0,
+    )
+
+    # Plot the heatmap
+    fig = px.imshow(
+        heatmap_data,
+        color_continuous_scale="YlGnBu",
+        title="Sentiment Distribution Across Sources Over Time",
+    )
+    fig.update_layout(xaxis_title="Source", yaxis_title="Date", xaxis_nticks=10)
+    fig.update_xaxes(tickangle=-45)
+
+    st.plotly_chart(fig)
+
+    downloaded_images = download_images(df["urltoimage"].values)
+
+    create_and_show_gif(downloaded_images)
 
     # Display summaries with highlighted keywords in an expander
     # Display summaries with highlighted keywords in an expander
     def highlight_keywords(text, keywords):
         for keyword in keywords:
-            text = text.replace(keyword, f"<mark>{keyword}</mark>")
+            text = text.replace(
+                keyword,
+                f"<span style='background-color: #ffc107; color: white'>{keyword}</span>",
+            )
         return text
 
     with st.expander("View All Summaries with Highlighted Keywords"):

@@ -40,6 +40,35 @@ def get_mongo_client():
         raise
 
 
+from pymongo import MongoClient
+
+
+def content_manager(article_id, required_fields):
+    """
+    Checks if the specified fields are present in the database for the given article_id.
+
+    Args:
+        article_id (str): The ID of the article to check.
+        required_fields (list): A list of fields to check for presence (e.g., ["content", "summary", "keywords", "sentiment"]).
+
+    Returns:
+        dict: A dictionary with the status of each field (True if present, False if not).
+    """
+    # Connect to the MongoDB
+    db = get_mongo_client()
+    collection = db["News_Articles"]
+
+    # Query the document by article_id
+    article = collection.find_one({"id": article_id})
+
+    # Check for the required fields
+    field_status = {
+        field: field in article and bool(article[field]) for field in required_fields
+    }
+
+    return field_status
+
+
 def insert_document(collection_name, document):
     """
     Inserts a document into the given collection.
