@@ -7,8 +7,8 @@ from typing import List
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import plotly.express as px
 import plotly.colors as pc
+import plotly.express as px
 import streamlit as st
 from streamlit_echarts import st_echarts
 
@@ -140,8 +140,7 @@ if st.button("Submit"):
     # Display the plot
     st.plotly_chart(fig)
 
-
-    source_distribution = df['source'].value_counts()
+    source_distribution = df["source"].value_counts()
 
     # Plot the pie chart
     fig = px.pie(
@@ -151,10 +150,7 @@ if st.button("Submit"):
         color_discrete_sequence=pc.qualitative.Prism,
     )
     st.plotly_chart(fig)
-    
-    
-    
-    
+
     # Display summaries with highlighted keywords in an expander
     # Display summaries with highlighted keywords in an expander
     def highlight_keywords(text, keywords):
