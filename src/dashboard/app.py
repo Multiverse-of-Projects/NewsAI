@@ -10,8 +10,8 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import plotly.express as px
 import plotly.colors as pc
+import plotly.express as px
 import streamlit as st
 from streamlit_echarts import st_echarts
 
