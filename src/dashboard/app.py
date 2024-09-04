@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.colors as pc
 import streamlit as st
 from streamlit_echarts import st_echarts
 
@@ -96,53 +97,64 @@ if st.button("Submit"):
             values=sentiment_counts.values,
             names=sentiment_counts.index,
             title="Sentiment Distribution",
+            hole=0.5,
         )
         st.plotly_chart(fig)
 
     # Line chart for time-wise distribution
     st.subheader("Time-wise Sentiment Distribution")
+    # Normalize the sentiment values to lowercase
+    df["sentiment"] = df["sentiment"].str.lower()
     df["publishedat"] = pd.to_datetime(df["publishedat"])
 
-    # Extract dates and sentiments
+    # Extract dates and aggregate sentiment counts
     time_data = df.pivot_table(
         index=df["publishedat"].dt.date,
         columns="sentiment",
         aggfunc="size",
         fill_value=0,
     )
-    # Reset the index to turn the dates into a column and rename the columns
-    time_data = time_data.reset_index().rename_axis(None, axis=1)
 
-    # Ensure the columns are in the correct order and all sentiments are present
-    # time_data = time_data[['publishedat', 'positive', 'neutral', 'negative']].fillna(0)
-    # st.write(time_data)
-    # Rename columns for clarity
-    # time_data.columns = ['Date', 'Positive', 'Neutral', 'Negative']
-
-    # Plotting the line chart
-    # Plotting the line chart for all sentiments
-    for sentiment in ["POSITIVE", "NEGATIVE", "UNKNOWN"]:
+    # Ensure all sentiments (positive, negative, neutral) are included
+    for sentiment in ["positive", "negative", "neutral"]:
         if sentiment not in time_data.columns:
             time_data[sentiment] = 0
-        fig = px.line(
-            time_data,
-            x="publishedat",
-            y=sentiment,
-            title=f"Time-wise {sentiment} Sentiment Distribution",
-        )
-        st.plotly_chart(fig)
 
-    # # Ratio of Positive, Neutral, Negative News
-    # st.subheader("Sentiment Ratio")
-    # sentiment_ratio = pd.DataFrame({
-    #     "Sentiment": ["Negative", "Unknown", "Positive"],
-    #     "Count": [sum(data["negative"]), sum(data["unknown"]), sum(data["positive"])]
-    # })
-    # fig = px.bar(sentiment_ratio, x="Sentiment", y="Count", color="Sentiment", barmode="stack",
-    #              color_discrete_map={"Negative": "red", "Unknown": "blue", "Positive": "green"},
-    #              title="Ratio of Positive, Neutral, and Negative News")
-    # st.plotly_chart(fig)
+    # Reset the index to turn dates into a column
+    time_data = time_data.reset_index()
 
+    # Create the line plot
+    fig = px.line(
+        time_data,
+        x="publishedat",
+        y=["positive", "negative", "neutral"],
+        title="Time-wise Sentiment Distribution",
+        labels={"value": "Count", "variable": "Sentiment"},
+    )
+
+    # Customize line colors for each sentiment
+    fig.update_traces(line=dict(color="green"), selector=dict(name="positive"))
+    fig.update_traces(line=dict(color="red"), selector=dict(name="negative"))
+    fig.update_traces(line=dict(color="blue"), selector=dict(name="neutral"))
+
+    # Display the plot
+    st.plotly_chart(fig)
+
+
+    source_distribution = df['source'].value_counts()
+
+    # Plot the pie chart
+    fig = px.pie(
+        names=source_distribution.index,
+        values=source_distribution.values,
+        title="Distribution of Articles by Source",
+        color_discrete_sequence=pc.qualitative.Prism,
+    )
+    st.plotly_chart(fig)
+    
+    
+    
+    
     # Display summaries with highlighted keywords in an expander
     # Display summaries with highlighted keywords in an expander
     def highlight_keywords(text, keywords):
