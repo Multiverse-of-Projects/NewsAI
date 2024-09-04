@@ -4,6 +4,9 @@ import time
 from datetime import datetime
 from typing import List
 
+import seaborn as sns
+import matplotlib.dates as mdates
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -79,7 +82,7 @@ if st.button("Submit"):
     st.success("Data processed successfully!")
     # st.write(df)
     # Column Layout
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
         st.subheader("Keyword Extraction - Word Cloud")
@@ -91,7 +94,7 @@ if st.button("Submit"):
         st.pyplot(plt)
     # Pie Chart with topic-wise distribution
     with col2:
-        st.subheader("Sentiment Distribution")
+        # st.subheader("Sentiment Distribution")
         sentiment_counts = df["sentiment"].value_counts()
         fig = px.pie(
             values=sentiment_counts.values,
@@ -140,26 +143,40 @@ if st.button("Submit"):
     # Display the plot
     st.plotly_chart(fig)
 
+    with col3:
+        source_distribution = df['source'].value_counts()
 
-    source_distribution = df['source'].value_counts()
+        # Plot the pie chart
+        fig = px.pie(
+            names=source_distribution.index,
+            values=source_distribution.values,
+            title="Distribution of Articles by Source",
+            color_discrete_sequence=pc.qualitative.Prism,
+        )
+        st.plotly_chart(fig)
+    
+    
+    df['publishedat'] = pd.to_datetime(df['publishedat'])
 
-    # Plot the pie chart
-    fig = px.pie(
-        names=source_distribution.index,
-        values=source_distribution.values,
-        title="Distribution of Articles by Source",
-        color_discrete_sequence=pc.qualitative.Prism,
-    )
+    # Extract date only (without time) for grouping
+    df['date'] = df['publishedat'].dt.date
+
+    # Pivot the DataFrame to create a matrix for the heatmap
+    # Count sentiment occurrences for each source per day
+    heatmap_data = df.pivot_table(index='date', columns='source', values='sentiment', aggfunc='count', fill_value=0)
+
+    # Plot the heatmap
+    fig = px.imshow(heatmap_data, color_continuous_scale='YlGnBu', title="Sentiment Distribution Across Sources Over Time")
+    fig.update_layout(xaxis_title="Source", yaxis_title="Date", xaxis_nticks=10)
+    fig.update_xaxes(tickangle=-45)
+
     st.plotly_chart(fig)
-    
-    
-    
     
     # Display summaries with highlighted keywords in an expander
     # Display summaries with highlighted keywords in an expander
     def highlight_keywords(text, keywords):
         for keyword in keywords:
-            text = text.replace(keyword, f"<mark>{keyword}</mark>")
+            text = text.replace(keyword, f"<span style='background-color: #ffc107; color: white'>{keyword}</span>")
         return text
 
     with st.expander("View All Summaries with Highlighted Keywords"):
