@@ -20,26 +20,66 @@ from src.utils.logger import setup_logger
 logger = setup_logger()
 
 
-# Assumed to be async functions (you may need to modify the actual implementations accordingly)
-async def fetch_article_content_async(article_ids, session):
-    tasks = [fetch_article_content(article_id, session) for article_id in article_ids]
-    return await asyncio.gather(*tasks, return_exceptions=True)
+# async def fetch_article_content_async(article_id, session):
+#     # Implement your content fetching logic here
+#     content = await fetch_article_content(article_id, session)
+#     return content
 
 
-@retry(stop=stop_after_attempt(3), wait=wait_fixed(6))  # Retry logic for Gemini API
-async def summarize_texts_async(articles_id):
+async def summarize_texts_async(article_id):
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, summarize_texts, articles_id)
+    return await loop.run_in_executor(None, summarize_texts, [article_id])
 
 
-async def extract_keywords_async(article_ids):
+async def extract_keywords_async(article_id):
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, extract_keywords, article_ids)
+    return await loop.run_in_executor(None, extract_keywords, [article_id])
 
 
-async def analyze_sentiments_async(article_ids):
+async def analyze_sentiments_async(article_id):
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, analyze_sentiments, article_ids)
+    return await loop.run_in_executor(None, analyze_sentiments, [article_id])
+
+
+async def process_single_article_async(article_id, session):
+    # Check the presence of content, summary, keywords, and sentiment in the DB
+    field_status = content_manager(article_id, ["content", "summary", "keywords", "sentiment"])
+
+    # Fetch content only if not already present
+    if not field_status["content"]:
+        content = await fetch_article_content([article_id], session)
+        # Save content to MongoDB
+        # append_to_document("News_Articles", {"id": article_id}, {"content": content})
+    else:
+        logger.info(f"Content already exists for article {article_id}. Skipping fetch.")
+
+    # Summarize only if summary is not already present
+    if not field_status["summary"]:
+        if not field_status["content"]:
+            content = await fetch_article_content([article_id], session)
+        summary = await summarize_texts_async(article_id)
+        # Save summary to MongoDB
+        # append_to_document("News_Articles", {"id": article_id}, {"summary": summary})
+    else:
+        logger.info(f"Summary already exists for article {article_id}. Skipping summarization.")
+
+    # Extract keywords only if not already present
+    if not field_status["keywords"]:
+        keywords = await extract_keywords_async(article_id)
+        # Save keywords to MongoDB
+        # append_to_document("News_Articles", {"id": article_id}, {"keywords": keywords})
+    else:
+        logger.info(f"Keywords already exist for article {article_id}. Skipping extraction.")
+
+    # Analyze sentiment only if not already present
+    if not field_status["sentiment"]:
+        sentiment = await analyze_sentiments_async(article_id)
+        # Save sentiment to MongoDB
+        # append_to_document("News_Articles", {"id": article_id}, {"sentiment": sentiment})
+    else:
+        logger.info(f"Sentiment already exists for article {article_id}. Skipping sentiment analysis.")
+
+    return article_id
 
 
 async def process_articles_async(query, limit=10):
@@ -55,54 +95,18 @@ async def process_articles_async(query, limit=10):
         raise ValueError("article_ids should be a list")
 
     async with ClientSession() as session:
-        for article_id in article_ids:
-            # Check the presence of content, summary, keywords, and sentiment in the DB
-            field_status = content_manager(
-                article_id, ["content", "summary", "keywords", "sentiment"]
-            )
-
-            # Fetch content only if not already present
-            if not field_status["content"]:
-                content = await fetch_article_content_async(article_id, session)
-                # Save content to MongoDB
-                # append_to_document("News_Articles", {"id": article_id}, {"content": content})
-            else:
-                logger.info(
-                    f"Content already exists for article {article_id}. Skipping fetch."
-                )
-
-            # Summarize only if summary is not already present
-            if not field_status["summary"]:
-                summary = await summarize_texts_async([article_id])
-            else:
-                logger.info(
-                    f"Summary already exists for article {article_id}. Skipping summarization."
-                )
-
-            # Extract keywords only if not already present
-            if not field_status["keywords"]:
-                keywords = await extract_keywords_async([article_id])
-            else:
-                logger.info(
-                    f"Keywords already exist for article {article_id}. Skipping extraction."
-                )
-
-            # Analyze sentiment only if not already present
-            if not field_status["sentiment"]:
-                sentiment = await analyze_sentiments_async([article_id])
-            else:
-                logger.info(
-                    f"Sentiment already exists for article {article_id}. Skipping sentiment analysis."
-                )
+        tasks = [process_single_article_async(article_id, session) for article_id in article_ids]
+        await asyncio.gather(*tasks)
 
     logger.info("Processing completed.")
     return article_ids
 
 
+
 def process_articles(query, limit=10):
     logger.info("Starting the processing of articles.")
-    asyncio.run(process_articles_async(query, limit))
-    return
+    article_ids = asyncio.run(process_articles_async(query, limit))
+    return article_ids
     # Fetch articles from NewsAPI
     article_ids = fetch_news(
         query=query,
@@ -145,7 +149,8 @@ def process_articles(query, limit=10):
 if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
 
-    process_articles("Reliance Industries", limit=1000)
+    article_ids = process_articles("Adani Hindenburg Report", limit=10)
+    logger.info(f"Article IDs: {article_ids}")
 
     # news_data = fetch_news(
     #     query="Kolkata Murder Case", from_date="2024-08-01", sort_by="popularity", to_json=False
