@@ -43,7 +43,9 @@ async def analyze_sentiments_async(article_id):
 
 async def process_single_article_async(article_id, session):
     # Check the presence of content, summary, keywords, and sentiment in the DB
-    field_status = content_manager(article_id, ["content", "summary", "keywords", "sentiment"])
+    field_status = content_manager(
+        article_id, ["content", "summary", "keywords", "sentiment"]
+    )
 
     # Fetch content only if not already present
     if not field_status["content"]:
@@ -61,7 +63,9 @@ async def process_single_article_async(article_id, session):
         # Save summary to MongoDB
         # append_to_document("News_Articles", {"id": article_id}, {"summary": summary})
     else:
-        logger.info(f"Summary already exists for article {article_id}. Skipping summarization.")
+        logger.info(
+            f"Summary already exists for article {article_id}. Skipping summarization."
+        )
 
     # Extract keywords only if not already present
     if not field_status["keywords"]:
@@ -69,7 +73,9 @@ async def process_single_article_async(article_id, session):
         # Save keywords to MongoDB
         # append_to_document("News_Articles", {"id": article_id}, {"keywords": keywords})
     else:
-        logger.info(f"Keywords already exist for article {article_id}. Skipping extraction.")
+        logger.info(
+            f"Keywords already exist for article {article_id}. Skipping extraction."
+        )
 
     # Analyze sentiment only if not already present
     if not field_status["sentiment"]:
@@ -77,7 +83,9 @@ async def process_single_article_async(article_id, session):
         # Save sentiment to MongoDB
         # append_to_document("News_Articles", {"id": article_id}, {"sentiment": sentiment})
     else:
-        logger.info(f"Sentiment already exists for article {article_id}. Skipping sentiment analysis.")
+        logger.info(
+            f"Sentiment already exists for article {article_id}. Skipping sentiment analysis."
+        )
 
     return article_id
 
@@ -95,12 +103,14 @@ async def process_articles_async(query, limit=10):
         raise ValueError("article_ids should be a list")
 
     async with ClientSession() as session:
-        tasks = [process_single_article_async(article_id, session) for article_id in article_ids]
+        tasks = [
+            process_single_article_async(article_id, session)
+            for article_id in article_ids
+        ]
         await asyncio.gather(*tasks)
 
     logger.info("Processing completed.")
     return article_ids
-
 
 
 def process_articles(query, limit=10):
