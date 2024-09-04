@@ -19,8 +19,34 @@ from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import (append_to_document,
                                    fetch_and_combine_articles, find_documents,
                                    find_one_document)
+import requests
+from PIL import Image
+from io import BytesIO
 
+def download_images(image_urls, save_dir='downloaded_images'):
+    # if not os.path.exists(save_dir):
+    #     os.makedirs(save_dir)
+    
+    image_files = []
+    for _, url in enumerate(image_urls):
+        try:
+            response = requests.get(url)
+            img = Image.open(BytesIO(response.content))
+            # img_path = os.path.join(save_dir, f'image_{idx}.png')
+            # img.save(img_path)
+            image_files.append(img)
+        except Exception as e:
+            print(f"Failed to download {url}: {e}")
+    
+    return image_files
 
+def create_and_show_gif(image_files):
+    images = [img.convert("RGBA") for img in image_files]
+    frames = []
+    for image in images:
+        frames.append(image)
+    frames[0].save('mygif.gif', save_all=True, append_images=frames[1:], duration=300, loop=0)
+    st.image('mygif.gif', use_column_width=True)
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(_file_), "..", "..")))
 def extract_and_flatten_keywords(data) -> List[str]:
     all_keywords = []
@@ -179,6 +205,10 @@ if st.button("Submit"):
     fig.update_xaxes(tickangle=-45)
 
     st.plotly_chart(fig)
+    
+    downloaded_images = download_images(df["urltoimage"].values)
+
+    create_and_show_gif(downloaded_images)
 
     # Display summaries with highlighted keywords in an expander
     # Display summaries with highlighted keywords in an expander
