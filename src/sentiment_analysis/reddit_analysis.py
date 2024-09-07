@@ -45,7 +45,7 @@ def sentiment_analysis(text):
         return "neutral"
         print("neutral")
 
-def fetch_required_reddit_posts(keyword):
+def fetch_required_reddit_posts(keyword, limit):
     """
     Fetches the records from mongodb collection for the given keyword
 
@@ -56,7 +56,7 @@ def fetch_required_reddit_posts(keyword):
         list: A list of documents
     """
     # posts = find_documents("reddit_posts", {"discussion_topic": keyword})
-    posts = fetch_reddit_posts_by_keyword(keyword=keyword, limit=10, to_json=True)
+    posts = fetch_reddit_posts_by_keyword(keyword=keyword, limit=limit, to_json=True)
 
     for post in posts:
         update_data = {"sentiment": sentiment_analysis(post["content"])}
@@ -69,7 +69,7 @@ def fetch_required_reddit_posts(keyword):
     return posts
 
 if __name__ == "__main__":
-    posts = fetch_required_reddit_posts(keyword="kolkata murder case")
+    posts = fetch_required_reddit_posts(keyword="kolkata murder case", limit=10)
     # content = extract_post_content(posts)
     # sentiment_analysis(content)
     # for post in posts:

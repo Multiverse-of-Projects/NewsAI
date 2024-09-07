@@ -1,4 +1,7 @@
-import json
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from src.ingestion.fetch_articles import fetch_article_content
 from src.ingestion.newsapi import fetch_news
@@ -9,6 +12,9 @@ from src.sentiment_analysis.classify import (analyze_sentiments,
                                              classify_sentiments)
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.logger import setup_logger
+
+# function for reddit post fetching and sentiment analysis
+from src.sentiment_analysis.reddit_analysis import fetch_required_reddit_posts
 
 # Setup logger
 logger = setup_logger()
@@ -92,6 +98,7 @@ if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
 
     process_articles("Kolkata Murder Case")
+    fetch_required_reddit_posts("Kolkata Murder Case", 10)
 
     # news_data = fetch_news(
     #     query="Kolkata Murder Case", from_date="2024-08-01", sort_by="popularity", to_json=False
