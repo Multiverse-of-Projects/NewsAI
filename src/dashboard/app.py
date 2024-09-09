@@ -207,7 +207,8 @@ if st.button("Submit"):
         color_continuous_scale="YlGnBu",
         title="Sentiment Distribution Across Sources Over Time",
     )
-    fig.update_layout(xaxis_title="Source", yaxis_title="Date", xaxis_nticks=10)
+    fig.update_layout(xaxis_title="Source",
+                      yaxis_title="Date", xaxis_nticks=10)
     fig.update_xaxes(tickangle=-45)
 
     st.plotly_chart(fig)

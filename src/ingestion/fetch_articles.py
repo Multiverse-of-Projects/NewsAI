@@ -1,3 +1,7 @@
+import aiohttp
+import asyncio
+from src.utils.logger import setup_logger
+from src.utils.dbconnector import content_manager
 import json
 import os
 import sys
@@ -8,20 +12,13 @@ from bs4 import BeautifulSoup
 
 from src.utils.dbconnector import append_to_document, find_documents
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-from src.utils.dbconnector import content_manager
-from src.utils.logger import setup_logger
+sys.path.append(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "..")))
 
 sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", "..")))
 
 logger = setup_logger()
-
-
-import asyncio
-
-import aiohttp
-from bs4 import BeautifulSoup
 
 
 async def fetch_article_content(article_ids, session):
@@ -45,7 +42,8 @@ async def fetch_article_content(article_ids, session):
             urls_to_fetch.append({"id": id, "url": url})
             logger.info(f"Fetching content for article {id}")
         else:
-            logger.info(f"Content already exists for article {id}. Skipping fetch.")
+            logger.info(
+                f"Content already exists for article {id}. Skipping fetch.")
 
     article_contents = []
 

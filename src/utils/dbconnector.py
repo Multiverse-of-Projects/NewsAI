@@ -41,9 +41,6 @@ def get_mongo_client():
         raise
 
 
-from pymongo import MongoClient
-
-
 def content_manager(article_id, required_fields):
     """
     Checks if the specified fields are present in the database for the given article_id.
