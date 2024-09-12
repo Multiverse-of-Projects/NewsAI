@@ -11,17 +11,14 @@ logger = setup_logger()
 
 def analyze_sentiments(article_ids):
     """
-    Analyzes sentiments of a list of texts.
+    Analyze the sentiment of a list of article IDs.
 
     Args:
-        texts (List[str]): List of texts to analyze.
+        article_ids (List[str]): List of article IDs to analyze.
 
     Returns:
         List[Dict[str, float]]: List of sentiment analysis results for each text.
     """
-    # -------
-    # MongoDB code to fetch article title and description
-    # -------
     article_obj = []  # This object should have id, title and description
     documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
     for doc in documents:

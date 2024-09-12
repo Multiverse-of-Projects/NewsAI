@@ -6,6 +6,17 @@ logger = setup_logger()
 
 
 def classify_sentiments(texts):
+    """
+    Classify the sentiment of multiple texts.
+
+    Args:
+        texts (List[str]): List of text to classify sentiment for.
+
+    Returns:
+        Dict[str, List[Tuple[str, float]]]: Dictionary with three keys: 'positive', 'negative', 'neutral'.
+            Each key maps to a list of tuples, where the first element of the tuple is the text and the second
+            element is the sentiment score.
+    """
     logger.info("Classifying sentiments of multiple articles.")
     results = {"positive": [], "negative": [], "neutral": []}
 

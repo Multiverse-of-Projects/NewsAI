@@ -25,6 +25,16 @@ from bs4 import BeautifulSoup
 
 
 async def fetch_article_content(article_ids, session):
+    """
+    Fetches the content of a list of articles asynchronously, by checking if content already exists in the database, and if not, extracting the content from the given URLs.
+
+    Args:
+        article_ids (List[str]): List of IDs of the articles to fetch content for.
+        session (aiohttp.ClientSession): The aiohttp session to use for the request.
+
+    Returns:
+        List[Dict[str, str]]: List of dictionaries, each containing the ID and content of a fetched article.
+    """
     try:
         docs = find_documents("News_Articles", {"id": {"$in": article_ids}})
     except Exception as e:
@@ -51,6 +61,16 @@ async def fetch_article_content(article_ids, session):
 
     # Define an asynchronous function to fetch content
     async def fetch_content(id, url):
+        """
+        Fetches the content of a single article asynchronously.
+
+        Args:
+            id (str): The ID of the article to fetch content for.
+            url (str): The URL of the article to fetch content from.
+
+        Returns:
+            None
+        """
         try:
             async with session.get(url) as response:
                 response.raise_for_status()
@@ -91,6 +111,15 @@ async def fetch_article_content(article_ids, session):
 
 
 async def test_fetch_article_content():
+    """
+    Tests the fetch_article_content function by fetching content for a list of article IDs.
+
+    Args:
+        article_ids (List[str]): A list of article IDs to fetch content for.
+
+    Returns:
+        List[Dict[str, str]]: A list of dictionaries where each dictionary contains the ID and content of a fetched article.
+    """
     async with aiohttp.ClientSession() as session:
         contents = await fetch_article_content(article_ids, session)
         print(contents)  # Print the fetched content for verification

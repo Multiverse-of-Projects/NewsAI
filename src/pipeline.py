@@ -20,29 +20,61 @@ from src.utils.logger import setup_logger
 logger = setup_logger()
 
 
-# async def fetch_article_content_async(article_id, session):
-#     # Implement your content fetching logic here
-#     content = await fetch_article_content(article_id, session)
-#     return content
-
 
 async def summarize_texts_async(article_id):
+    """
+    Asynchronous wrapper for summarize_texts.
+
+    Args:
+        article_id (str): ID of the article to summarize.
+
+    Returns:
+        str: Summarized text.
+    """
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(None, summarize_texts, [article_id])
 
 
 async def extract_keywords_async(article_id):
+    """
+    Asynchronous wrapper for extract_keywords.
+
+    Args:
+        article_id (str): ID of the article to extract keywords from.
+
+    Returns:
+        List[str]: List of extracted keywords.
+    """
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(None, extract_keywords, [article_id])
 
 
 async def analyze_sentiments_async(article_id):
+    """
+    Asynchronous wrapper for analyze_sentiments.
+
+    Args:
+        article_id (str): ID of the article to analyze.
+
+    Returns:
+        List[Dict[str, float]]: List of sentiment analysis results for each text.
+    """
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(None, analyze_sentiments, [article_id])
 
 
 async def process_single_article_async(article_id, session):
     # Check the presence of content, summary, keywords, and sentiment in the DB
+    """
+    Process a single article asynchronously, by fetching content, summarizing, extracting keywords and analyzing sentiment.
+
+    Args:
+        article_id (str): ID of the article to process.
+        session (aiohttp.ClientSession): The aiohttp session to use for the request.
+
+    Returns:
+        str: The ID of the article that was processed.
+    """
     field_status = content_manager(
         article_id, ["content", "summary", "keywords", "sentiment"]
     )
@@ -91,6 +123,16 @@ async def process_single_article_async(article_id, session):
 
 
 async def process_articles_async(query, limit=10):
+    """
+    Process a list of articles asynchronously, by fetching content, summarizing, extracting keywords and analyzing sentiment.
+
+    Args:
+        query (str): The query to search for in the NewsAPI.
+        limit (int, optional): The number of articles to fetch. Defaults to 10.
+
+    Returns:
+        List[str]: The IDs of the articles that were processed.
+    """
     logger.info("Starting the processing of articles.")
     article_ids = fetch_news(
         query=query,
@@ -114,6 +156,16 @@ async def process_articles_async(query, limit=10):
 
 
 def process_articles(query, limit=10):
+    """
+    Process a list of articles by fetching content, summarizing, extracting keywords and analyzing sentiment.
+
+    Args:
+        query (str): The query to search for in the NewsAPI.
+        limit (int, optional): The number of articles to fetch. Defaults to 10.
+
+    Returns:
+        List[str]: The IDs of the articles that were processed.
+    """
     logger.info("Starting the processing of articles.")
     article_ids = asyncio.run(process_articles_async(query, limit))
     return article_ids
@@ -154,6 +206,7 @@ def process_articles(query, limit=10):
     # Analyze sentiments of summaries
     logger.info("Analyzing sentiments of summaries.")
     article_sentiments = analyze_sentiments(article_ids)
+
 
 
 if __name__ == "__main__":
