@@ -12,7 +12,6 @@ load_dotenv()
 
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
-from src.utils.logger import setup_logger
 
 # Setup logger
 logger = setup_logger()
@@ -36,7 +35,8 @@ def summarize_texts(
     logger.info("Initializing summarization pipeline.")
     articles = find_documents("News_Articles", {"id": {"$in": articles_id}})
     for article in articles:
-        texts.append({"id": article["id"], "content": article["content"]})
+        texts.append(
+            {"id": article["id"], "content": article.get("content", "")})
     article_summaries = []
 
     logger.info(f"Starting summarization of {len(texts)} texts.")
@@ -60,16 +60,19 @@ def summarize_texts(
                 },
             )
             logger.debug(f"DEBUG SUmmary{response.text}")
-            article_summaries.append({"id": obj.get("id"), "summary": response.text})
+            article_summaries.append(
+                {"id": obj.get("id"), "summary": response.text})
             append_to_document(
-                "News_Articles", {"id": obj.get("id")}, {"summary": response.text}
+                "News_Articles", {"id": obj.get("id")}, {
+                    "summary": response.text}
             )
             logger.debug(f"Summary {idx+1}: {response.text}")
 
         except Exception as e:
             logger.error(f"Error summarizing text {idx+1}: {e}")
             article_summaries.append("")
-            append_to_document("News_Articles", {"id": obj.get("id")}, {"summary": ""})
+            append_to_document("News_Articles", {
+                               "id": obj.get("id")}, {"summary": ""})
 
     logger.info("Summarization completed.")
     return article_summaries

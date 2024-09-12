@@ -1,11 +1,13 @@
+from src.utils.dbconnector import append_to_document, find_documents
+from src.ingestion.prawapi import fetch_reddit_posts_by_keyword
 import os
 import sys
 
 from textblob import TextBlob
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
-from src.ingestion.prawapi import fetch_reddit_posts_by_keyword
-from src.utils.dbconnector import find_documents, append_to_document
+sys.path.append(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "..")))
+
 
 def extract_post_content(posts):
     """
@@ -22,6 +24,7 @@ def extract_post_content(posts):
 
     return content
 
+
 def sentiment_analysis(text):
     """
     Analyzes the sentiment of the given text.
@@ -32,7 +35,7 @@ def sentiment_analysis(text):
     Returns:
         str: The sentiment of the text, either "positive", "neutral", or "negative"
     """
-    
+
     analysis = TextBlob(text)
     print(analysis.sentiment.polarity)
     if analysis.sentiment.polarity > 0.25:
@@ -45,6 +48,7 @@ def sentiment_analysis(text):
         return "neutral"
         print("neutral")
 
+
 def fetch_required_reddit_posts(keyword, limit):
     """
     Fetches the records from mongodb collection for the given keyword
@@ -56,22 +60,26 @@ def fetch_required_reddit_posts(keyword, limit):
         list: A list of documents
     """
     # posts = find_documents("reddit_posts", {"discussion_topic": keyword})
-    posts = fetch_reddit_posts_by_keyword(keyword=keyword, limit=limit, to_json=True)
+    posts = fetch_reddit_posts_by_keyword(
+        keyword=keyword, limit=limit, to_json=True)
 
     for post in posts:
         update_data = {"sentiment": sentiment_analysis(post["content"])}
         append_to_document("reddit_posts", {"id": post["id"]}, update_data)
         for comment in post["top_comments"]:
-            comment["comment_sentiment"] = sentiment_analysis(comment["comment_content"])
+            comment["comment_sentiment"] = sentiment_analysis(
+                comment["comment_content"]
+            )
         update_data = {"top_comments": post["top_comments"]}
         append_to_document("reddit_posts", {"id": post["id"]}, update_data)
-        
+
     return posts
 
+
 if __name__ == "__main__":
-    posts = fetch_required_reddit_posts(keyword="kolkata murder case", limit=10)
+    posts = fetch_required_reddit_posts(
+        keyword="kolkata murder case", limit=10)
     # content = extract_post_content(posts)
     # sentiment_analysis(content)
     # for post in posts:
     #     print(post["title"])
-    
