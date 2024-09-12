@@ -98,6 +98,37 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
             f"Cache hit for keyword: {keyword}. Returning cached data.")
         return cached_posts
 
+def clean_content(content: str) -> str:
+    # Replace carriage returns and newlines with spaces
+    """
+    Clean a string by replacing carriage returns and newlines with spaces and then removing excessive spaces.
+
+    Args:
+        content (str): The string to clean.
+
+    Returns:
+        str: The cleaned string.
+    """
+    if not isinstance(content, str):
+        raise ValueError("Input must be a string.")
+    cleaned_content = content.replace("\r", " ").replace("\n", " ")
+    # Remove excessive spaces (multiple spaces turned into a single space)
+    cleaned_content = " ".join(cleaned_content.split())
+    return cleaned_content
+
+
+def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
+    """
+    Fetches Reddit posts containing the given keyword.
+
+    Args:
+        keyword (str): The keyword to search for in Reddit posts.
+        limit (int, optional): The number of posts to fetch. Defaults to 10.
+        to_json (bool, optional): Whether to store the results in a JSON file. Defaults to True.
+
+    Returns:
+        List[Dict]: A list of dictionaries containing the post data.
+    """
     try:
         # Search for posts containing the keyword
         search_results = reddit.subreddit("all").search(

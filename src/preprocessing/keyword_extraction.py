@@ -18,9 +18,23 @@ logger = setup_logger()
 
 # Not in use
 def preprocess_text(text):
+    """
+    Preprocesses a given text by tokenizing it and removing stopwords.
+
+    Args:
+        text (str): The text to preprocess.
+
+    Returns:
+        List[str]: A list of words without stopwords.
+    """
+
     logger.info("Preprocessing text for tokenization and stopword removal.")
     stop_words = set(stopwords.words("english"))
-    words = word_tokenize(text)
+    try:
+        words = word_tokenize(text)
+    except Exception as e:
+        logger.error("Error during tokenization: %s", e)
+        return []
     filtered_words = [
         word for word in words if word.isalnum() and word.lower() not in stop_words
     ]
@@ -29,7 +43,17 @@ def preprocess_text(text):
 
 
 # Not in use
-def bert_keyword_extraction(texts, top_n=10):
+def bert_keyword_extraction(texts: List[str], top_n: int = 10) -> List[str]:
+    """
+    Extracts keywords from a list of texts using KeyBERT.
+
+    Args:
+        texts (List[str]): List of texts to extract keywords from.
+        top_n (int): Number of top keywords to extract per text.
+
+    Returns:
+        List[str]: List of unique extracted keywords.
+    """
     logger.info("Starting keyword extraction using KeyBERT.")
     model = KeyBERT("all-MiniLM-L6-v2")
 

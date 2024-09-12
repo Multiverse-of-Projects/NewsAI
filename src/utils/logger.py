@@ -5,6 +5,20 @@ import colorlog
 
 
 def setup_logger(log_file="app.log"):
+    """
+    Sets up a logger with a console handler and a rotating file handler.
+
+    The console handler has color coding for different log levels, while the
+    file handler does not. The file handler will rotate the log file every
+    5MB, keeping up to 5 backups.
+
+    Parameters:
+        log_file (str): The name of the log file to write to. Defaults to
+            "app.log".
+
+    Returns:
+        logger (logging.Logger): The configured logger.
+    """
     logger = logging.getLogger("news_api_logger")
 
     # Check if the logger already has handlers to avoid duplicate logs

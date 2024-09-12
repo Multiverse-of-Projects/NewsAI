@@ -27,7 +27,16 @@ from src.utils.dbconnector import (append_to_document,
 def download_images(image_urls, save_dir="downloaded_images"):
     # if not os.path.exists(save_dir):
     #     os.makedirs(save_dir)
+    """
+    Downloads a list of images from the given URLs and returns a list of PIL Image objects.
 
+    Args:
+        image_urls (List[str]): List of URLs of the images to download.
+        save_dir (str, optional): Directory to save the downloaded images. Defaults to "downloaded_images".
+
+    Returns:
+        List[PIL.Image.Image]: List of PIL Image objects downloaded from the URLs.
+    """
     image_files = []
     for _, url in enumerate(image_urls):
         try:
@@ -43,6 +52,17 @@ def download_images(image_urls, save_dir="downloaded_images"):
 
 
 def create_and_show_gif(image_files):
+    """
+    Creates a GIF from a list of PIL Image objects and displays it in Streamlit.
+
+    Args:
+        image_files (List[PIL.Image.Image]): List of PIL Image objects to create the GIF from.
+
+    Returns:
+        None
+    """
+    if not all(isinstance(img, Image.Image) for img in image_files):
+        raise ValueError("All items in image_files must be PIL.Image objects.")
     images = [img.convert("RGBA") for img in image_files]
     frames = []
     for image in images:
@@ -55,6 +75,15 @@ def create_and_show_gif(image_files):
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(_file_), "..", "..")))
 def extract_and_flatten_keywords(data) -> List[str]:
+    """
+    Extracts and flattens a list of lists of keywords from a dataset.
+
+    Args:
+        data (pd.DataFrame): Pandas DataFrame containing a column named 'keywords' with a list of lists of keywords.
+
+    Returns:
+        List[str]: A flattened list of all keywords.
+    """
     all_keywords = []
     all_keywords = data["keywords"].tolist()
     all_keywords = [item for sublist in all_keywords for item in sublist]
@@ -62,6 +91,15 @@ def extract_and_flatten_keywords(data) -> List[str]:
 
 
 def load_css(file_name):
+    """
+    Loads a CSS file and injects it into the Streamlit app.
+
+    Args:
+        file_name (str): Path to the CSS file to load.
+
+    Returns:
+        None
+    """
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
@@ -74,6 +112,15 @@ def load_css(file_name):
 
 # Function to create a spiderweb chart
 def generate_spiderweb(data):
+    """
+    Generates a spiderweb chart using Streamlit's ECharts component.
+
+    Args:
+        data (dict): Dictionary where the keys are the topic names and the values are the topic weights.
+
+    Returns:
+        None
+    """
     options = {
         "title": {"text": "Spiderweb Chart Example"},
         "radar": {"indicator": [{"name": key, "max": 100} for key in data.keys()]},

@@ -18,6 +18,19 @@ logger = setup_logger()
 
 
 def fetch_news(query, from_date: datetime, sort_by, limit, to_json):
+    """
+    Fetches news articles from NewsAPI for the given query, from date and sort_by.
+
+    Args:
+        query (str): The query to search for in the NewsAPI.
+        from_date (datetime.datetime): The date from which to fetch the articles.
+        sort_by (str): The field to sort the results by.
+        limit (int): The number of articles to fetch.
+        to_json (bool): Whether to store the results in a JSON file.
+
+    Returns:
+        List[str]: The IDs of the articles that were fetched and stored in MongoDB.
+    """
     url = f"https://newsapi.org/v2/everything?q={query}&from={from_date}&sortBy={sort_by}&apiKey={API_KEY}"
     try:
         logger.debug("Requesting data from NewsAPI")

@@ -93,6 +93,19 @@ def insert_document(collection_name, document):
 
 
 def find_one_document(collection_name, query):
+    """
+    Finds a single document in the given MongoDB collection using the given query.
+
+    Args:
+        collection_name (str): The name of the collection.
+        query (dict): The query to select documents.
+
+    Returns:
+        dict: The selected document.
+
+    Raises:
+        Exception: If there is an error finding the document.
+    """
     db = get_mongo_client()
     collection = db[collection_name]
     try:
@@ -155,6 +168,19 @@ def find_documents(collection_name, query):
 
 
 def fetch_and_combine_articles(collection_name, article_ids):
+    """
+    Fetches documents from the given MongoDB collection using the given IDs and combines them into a Pandas DataFrame.
+
+    Args:
+        collection_name (str): The name of the MongoDB collection.
+        article_ids (List[str]): List of IDs of the articles to fetch and combine.
+
+    Returns:
+        pd.DataFrame: A Pandas DataFrame containing the combined documents.
+
+    Raises:
+        Exception: If there is an error fetching and combining the documents.
+    """
     db = get_mongo_client()
     collection = db[collection_name]
 
