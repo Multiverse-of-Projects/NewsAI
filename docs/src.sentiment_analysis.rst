@@ -12,14 +12,6 @@ src.sentiment\_analysis.classify module
    :undoc-members:
    :show-inheritance:
 
-src.sentiment\_analysis.reddit\_analysis module
------------------------------------------------
-
-.. automodule:: src.sentiment_analysis.reddit_analysis
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 src.sentiment\_analysis.sentiment\_model module
 -----------------------------------------------
 

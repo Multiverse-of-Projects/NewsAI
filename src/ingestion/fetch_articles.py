@@ -3,6 +3,7 @@ import json
 import os
 import sys
 from urllib.parse import urlparse
+from typing import List, Dict
 
 import aiohttp
 import requests
