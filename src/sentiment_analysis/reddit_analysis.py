@@ -1,9 +1,10 @@
-from src.utils.dbconnector import append_to_document, find_documents
-from src.ingestion.prawapi import fetch_reddit_posts_by_keyword
 import os
 import sys
 
 from textblob import TextBlob
+
+from src.ingestion.prawapi import fetch_reddit_posts_by_keyword
+from src.utils.dbconnector import append_to_document, find_documents
 
 sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", "..")))

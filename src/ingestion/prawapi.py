@@ -1,5 +1,3 @@
-from src.utils.dbconnector import (find_documents, find_one_document,
-                                   insert_document)
 import json
 import os
 import re
@@ -9,6 +7,8 @@ from datetime import datetime
 import praw
 from dotenv import load_dotenv
 
+from src.utils.dbconnector import (find_documents, find_one_document,
+                                   insert_document)
 from src.utils.logger import setup_logger
 
 sys.path.append(os.path.abspath(os.path.join(
@@ -97,6 +97,7 @@ def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
         logger.info(
             f"Cache hit for keyword: {keyword}. Returning cached data.")
         return cached_posts
+
 
 def clean_content(content: str) -> str:
     # Replace carriage returns and newlines with spaces
