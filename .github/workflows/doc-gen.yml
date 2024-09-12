@@ -34,7 +34,7 @@ jobs:
 
     - name: Generate documentation
       run: |
-        sphinx-apidoc -o docs/ src/  # Generate/update .rst files for src
+        sphinx-apidoc -o docs src/  # Generate/update .rst files for src
         sphinx-build -b html docs/ docs/build/html  # Build the HTML documentation
 
     - name: Upload artifacts
