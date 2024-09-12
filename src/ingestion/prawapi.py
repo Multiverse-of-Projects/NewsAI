@@ -32,7 +32,7 @@ COMMENT_COUNT = 10
 TIME_SLOT = "all"  # Time filter can be 'all', 'day', 'week', 'month', 'year'
 
 
-def clean_content(content):
+def clean_content(content: str) -> str:
     # Replace carriage returns and newlines with spaces
     """
     Clean a string by replacing carriage returns and newlines with spaces and then removing excessive spaces.
@@ -43,7 +43,8 @@ def clean_content(content):
     Returns:
         str: The cleaned string.
     """
-    
+    if not isinstance(content, str):
+        raise ValueError("Input must be a string.")
     cleaned_content = content.replace("\r", " ").replace("\n", " ")
     # Remove excessive spaces (multiple spaces turned into a single space)
     cleaned_content = " ".join(cleaned_content.split())

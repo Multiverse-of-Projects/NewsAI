@@ -30,7 +30,11 @@ def preprocess_text(text):
     
     logger.info("Preprocessing text for tokenization and stopword removal.")
     stop_words = set(stopwords.words("english"))
-    words = word_tokenize(text)
+    try:
+        words = word_tokenize(text)
+    except Exception as e:
+        logger.error("Error during tokenization: %s", e)
+        return []
     filtered_words = [
         word for word in words if word.isalnum() and word.lower() not in stop_words
     ]
@@ -39,7 +43,7 @@ def preprocess_text(text):
 
 
 # Not in use
-def bert_keyword_extraction(texts, top_n=10):
+def bert_keyword_extraction(texts: List[str], top_n: int = 10) -> List[str]:
     """
     Extracts keywords from a list of texts using KeyBERT.
 

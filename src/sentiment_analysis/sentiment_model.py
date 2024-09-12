@@ -9,7 +9,7 @@ from src.utils.logger import setup_logger
 logger = setup_logger()
 
 
-def analyze_sentiments(article_ids):
+def analyze_sentiments(article_ids: List[str]) -> List[Dict[str, float]]:
     """
     Analyze the sentiment of a list of article IDs.
 

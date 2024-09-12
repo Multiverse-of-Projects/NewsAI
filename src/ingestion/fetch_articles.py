@@ -36,6 +36,8 @@ async def fetch_article_content(article_ids, session):
         List[Dict[str, str]]: List of dictionaries, each containing the ID and content of a fetched article.
     """
     try:
+        if not docs:
+            raise ValueError(f"No documents found for article IDs: {article_ids}")
         docs = find_documents("News_Articles", {"id": {"$in": article_ids}})
     except Exception as e:
         logger.error(f"Failed to find documents: {e}")
@@ -110,7 +112,7 @@ async def fetch_article_content(article_ids, session):
     return article_contents
 
 
-async def test_fetch_article_content():
+async def test_fetch_article_content(article_ids: List[str]) -> List[Dict[str, str]]:
     """
     Tests the fetch_article_content function by fetching content for a list of article IDs.
 
@@ -122,7 +124,7 @@ async def test_fetch_article_content():
     """
     async with aiohttp.ClientSession() as session:
         contents = await fetch_article_content(article_ids, session)
-        print(contents)  # Print the fetched content for verification
+        logger.info(contents)  # Print the fetched content for verification
 
 
 if __name__ == "__main__":

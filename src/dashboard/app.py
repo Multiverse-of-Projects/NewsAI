@@ -62,6 +62,8 @@ def create_and_show_gif(image_files):
     Returns:
         None
     """
+    if not all(isinstance(img, Image.Image) for img in image_files):
+        raise ValueError("All items in image_files must be PIL.Image objects.")
     images = [img.convert("RGBA") for img in image_files]
     frames = []
     for image in images:
