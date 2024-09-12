@@ -2,8 +2,8 @@ import asyncio
 import json
 import os
 import sys
+from typing import Dict, List
 from urllib.parse import urlparse
-from typing import List, Dict
 
 import aiohttp
 import requests
