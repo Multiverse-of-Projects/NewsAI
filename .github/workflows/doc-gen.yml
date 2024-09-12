@@ -1,51 +1,38 @@
 name: "Sphinx: Render docs"
 
-on:
-  push:
-    branches:
-      - main
-      - fix/sphinx-docs-pipeline
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12.1'  # Replace with the Python version you're using
-    - name: Cache pip
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install sphinx
+        pip install sphinx myst-parser
 
-    - name: Generate documentation
+    - name: Set PYTHONPATH
       run: |
-        sphinx-apidoc -o docs src/  # Generate/update .rst files for src
-        sphinx-build -b html docs/ docs/build/html  # Build the HTML documentation
+        echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV  # Set the src/ directory to PYTHONPATH
 
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: html-docs
-        path: docs/build/html/
+    - name: Generate .rst files
+      run: sphinx-apidoc -o docs/ src/
 
-    - name: Deploy to GitHub Pages
+    - name: Build HTML documentation
+      run: sphinx-build -b html docs/ docs/build/html
+
+    - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/build/html/
+        publish_dir: docs/build/html
