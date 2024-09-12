@@ -1,9 +1,10 @@
 # Configuration file for the Sphinx documentation builder.
 
-import src.sentiment_analysis.sentiment_model
-import src.pipeline
 import os
 import sys
+
+import src.pipeline
+import src.sentiment_analysis.sentiment_model
 
 sys.path.insert(0, os.path.abspath(".."))
 
