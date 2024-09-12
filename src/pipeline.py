@@ -98,7 +98,7 @@ if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
 
     process_articles("Kolkata Murder Case")
-    fetch_required_reddit_posts("Kolkata Murder Case", 10)
+    fetch_required_reddit_posts("Indian Stock Market", 100)
 
     # news_data = fetch_news(
     #     query="Kolkata Murder Case", from_date="2024-08-01", sort_by="popularity", to_json=False
