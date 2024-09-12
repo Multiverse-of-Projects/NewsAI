@@ -20,7 +20,6 @@ from src.utils.logger import setup_logger
 logger = setup_logger()
 
 
-
 async def summarize_texts_async(article_id):
     """
     Asynchronous wrapper for summarize_texts.
@@ -85,7 +84,8 @@ async def process_single_article_async(article_id, session):
         # Save content to MongoDB
         # append_to_document("News_Articles", {"id": article_id}, {"content": content})
     else:
-        logger.info(f"Content already exists for article {article_id}. Skipping fetch.")
+        logger.info(
+            f"Content already exists for article {article_id}. Skipping fetch.")
 
     # Summarize only if summary is not already present
     if not field_status["summary"]:
@@ -206,7 +206,6 @@ def process_articles(query, limit=10):
     # Analyze sentiments of summaries
     logger.info("Analyzing sentiments of summaries.")
     article_sentiments = analyze_sentiments(article_ids)
-
 
 
 if __name__ == "__main__":

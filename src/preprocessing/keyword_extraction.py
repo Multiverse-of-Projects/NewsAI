@@ -27,7 +27,7 @@ def preprocess_text(text):
     Returns:
         List[str]: A list of words without stopwords.
     """
-    
+
     logger.info("Preprocessing text for tokenization and stopword removal.")
     stop_words = set(stopwords.words("english"))
     try:

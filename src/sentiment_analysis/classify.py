@@ -1,6 +1,7 @@
+from typing import Dict, List, Tuple
+
 from src.sentiment_analysis.sentiment_model import analyze_sentiments
 from src.utils.logger import setup_logger
-from typing import List, Dict, Tuple
 
 # Setup logger
 logger = setup_logger()

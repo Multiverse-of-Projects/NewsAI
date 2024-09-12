@@ -27,7 +27,6 @@ from src.utils.dbconnector import (append_to_document,
 def download_images(image_urls, save_dir="downloaded_images"):
     # if not os.path.exists(save_dir):
     #     os.makedirs(save_dir)
-
     """
     Downloads a list of images from the given URLs and returns a list of PIL Image objects.
 
@@ -255,7 +254,8 @@ if st.button("Submit"):
         color_continuous_scale="YlGnBu",
         title="Sentiment Distribution Across Sources Over Time",
     )
-    fig.update_layout(xaxis_title="Source", yaxis_title="Date", xaxis_nticks=10)
+    fig.update_layout(xaxis_title="Source",
+                      yaxis_title="Date", xaxis_nticks=10)
     fig.update_xaxes(tickangle=-45)
 
     st.plotly_chart(fig)
