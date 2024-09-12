@@ -6,8 +6,7 @@ import sys
 import src.pipeline
 import src.sentiment_analysis.sentiment_model
 
-sys.path.insert(0, os.path.abspath("../src"))  # Adjust the path if needed
-
+sys.path.insert(0, os.path.abspath(".."))
 
 #
 # For the full list of built-in configuration values, see the documentation:
