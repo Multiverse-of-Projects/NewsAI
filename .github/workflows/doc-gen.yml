@@ -1,42 +1,32 @@
-name: "Sphinx: Render docs"
+name: Deploy Sphinx documentation to Pages
 
-on: push
+on:
+  # Triggers deployment on push to the master branch
+  push:
+    branches: [main, fix/sphinx-docs-pipeline]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  pages:
+    runs-on: ubuntu-20.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     permissions:
-      contents: write
+      pages: write
+      id-token: write
+
     steps:
-    - uses: actions/checkout@v4
+      # Step 1: Checkout the repository
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
-
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-        pip install sphinx myst-parser
-
-    - name: Set PYTHONPATH
-      run: |
-        echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV  # Set the src/ directory to PYTHONPATH
-
-    - name: Generate .rst files
-      run: sphinx-apidoc -o docs/ src/
-
-    - name: Reset Python path
-      run: |
-        echo "PYTHONPATH=$PWD/docs" >> $GITHUB_ENV
-
-    - name: Build HTML documentation
-      run: make html
-
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/build/html
+      # Step 2: Set up Sphinx and deploy to GitHub Pages using the sphinx-notes/pages action
+      - id: deployment
+        uses: sphinx-notes/pages@v3
+        with:
+          # Path to your documentation (change to your docs folder)
+          docs-folder: docs/
+          # Python dependencies to install, including any needed for building the documentation
+          extra-requirements: requirements.txt
+          # Optional: include this if using a custom Sphinx config
+          sphinx-builder: html
