@@ -28,5 +28,6 @@ jobs:
           docs-folder: docs/
           # Python dependencies to install, including any needed for building the documentation
           extra-requirements: requirements.txt
+          requirements_path: requirements.txt
           # Optional: include this if using a custom Sphinx config
           sphinx-builder: html
