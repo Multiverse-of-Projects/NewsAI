@@ -2,11 +2,11 @@
 
 import os
 import sys
-
+sys.path.insert(0, os.path.abspath(".."))
 from src import pipeline
 import src.sentiment_analysis.sentiment_model
 
-sys.path.insert(0, os.path.abspath(".."))
+
 
 #
 # For the full list of built-in configuration values, see the documentation:
