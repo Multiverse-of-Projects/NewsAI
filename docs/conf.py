@@ -1,4 +1,13 @@
 # Configuration file for the Sphinx documentation builder.
+
+import os
+import sys
+
+import src.pipeline
+import src.sentiment_analysis.sentiment_model
+
+sys.path.insert(0, os.path.abspath(".."))
+
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
@@ -14,15 +23,31 @@ release = "1.0.0"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
-
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
+    "myst_parser",  # Add this line
+]
+# Include markdown support
+myst_enable_extensions = [
+    "colon_fence",
+    "html_image",
+]
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",  # Add this line to recognize markdown files
+}
+# Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-language = "english"
+# List of patterns, relative to source directory, that match files and
+# directories to ignore when looking for source files.
+# This pattern also affects html_static_path and html_extra_path.
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "alabaster"
+html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]

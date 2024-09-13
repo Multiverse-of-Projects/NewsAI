@@ -1,16 +1,17 @@
-import aiohttp
 import asyncio
-from src.utils.logger import setup_logger
-from src.utils.dbconnector import content_manager
 import json
 import os
 import sys
+from typing import Dict, List
 from urllib.parse import urlparse
 
+import aiohttp
 import requests
 from bs4 import BeautifulSoup
 
-from src.utils.dbconnector import append_to_document, find_documents
+from src.utils.dbconnector import (append_to_document, content_manager,
+                                   find_documents)
+from src.utils.logger import setup_logger
 
 sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", "..")))
