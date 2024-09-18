@@ -10,11 +10,10 @@ from src.preprocessing.keyword_extraction import (bert_keyword_extraction,
 from src.preprocessing.summarization import summarize_texts
 from src.sentiment_analysis.classify import (analyze_sentiments,
                                              classify_sentiments)
+from src.sentiment_analysis.reddit_analysis import fetch_required_reddit_posts
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import append_to_document, content_manager
 from src.utils.logger import setup_logger
-
-from src.sentiment_analysis.reddit_analysis import fetch_required_reddit_posts
 
 # Setup logger
 logger = setup_logger()
@@ -207,9 +206,11 @@ def process_articles(query, limit=10):
     logger.info("Analyzing sentiments of summaries.")
     article_sentiments = analyze_sentiments(article_ids)
 
+
 def reddit_wrapper(keyword, limite):
     response = asyncio.run(fetch_required_reddit_posts(keyword, 100))
     return response
+
 
 if __name__ == "__main__":
     logger.info("Starting the processing of articles.")

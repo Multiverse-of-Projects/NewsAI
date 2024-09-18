@@ -1,8 +1,8 @@
+import asyncio
 import os
 import sys
 
 from textblob import TextBlob
-import asyncio
 
 from src.ingestion.prawapi import fetch_reddit_posts_by_keyword
 from src.utils.dbconnector import append_to_document, find_documents
@@ -64,6 +64,7 @@ async def fetch_sentiment_analysis(content):
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(None, sentiment_analysis, content)
 
+
 async def process_post(post):
     """
     Processes a single post by updating its sentiment and top comments.
@@ -86,7 +87,7 @@ async def process_post(post):
         tasks.append(task)
 
     comment_sentiments = await asyncio.gather(*tasks)
-    
+
     # Update comments with sentiment
     for comment, sentiment in zip(post["top_comments"], comment_sentiments):
         comment["comment_sentiment"] = sentiment
@@ -95,6 +96,7 @@ async def process_post(post):
     append_to_document("reddit_posts", {"id": post["id"]}, update_data)
 
     return post
+
 
 async def fetch_required_reddit_posts(keyword, limit):
     """
@@ -108,7 +110,8 @@ async def fetch_required_reddit_posts(keyword, limit):
         list: A list of processed documents.
     """
     # Fetch posts (assuming this is already asynchronous)
-    posts = fetch_reddit_posts_by_keyword(keyword=keyword, limit=limit, to_json=True)
+    posts = fetch_reddit_posts_by_keyword(
+        keyword=keyword, limit=limit, to_json=True)
 
     # Process posts concurrently
     tasks = [process_post(post) for post in posts]
