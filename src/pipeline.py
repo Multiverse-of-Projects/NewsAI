@@ -1,6 +1,4 @@
 import asyncio
-import json
-from concurrent.futures import ThreadPoolExecutor
 
 from aiohttp import ClientSession
 from tenacity import retry, stop_after_attempt, wait_fixed
@@ -15,6 +13,8 @@ from src.sentiment_analysis.classify import (analyze_sentiments,
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import append_to_document, content_manager
 from src.utils.logger import setup_logger
+
+from src.sentiment_analysis.reddit_analysis import fetch_required_reddit_posts
 
 # Setup logger
 logger = setup_logger()
@@ -207,12 +207,17 @@ def process_articles(query, limit=10):
     logger.info("Analyzing sentiments of summaries.")
     article_sentiments = analyze_sentiments(article_ids)
 
+def reddit_wrapper(keyword, limite):
+    response = asyncio.run(fetch_required_reddit_posts(keyword, 100))
+    return response
 
 if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
 
-    article_ids = process_articles("Adani Hindenburg Report", limit=10)
-    logger.info(f"Article IDs: {article_ids}")
+    res = asyncio.run(reddit_wrapper(keyword="IPO marker", limite=10))
+
+    # article_ids = process_articles("Adani Hindenburg Report", limit=10)
+    # logger.info(f"Article IDs: {article_ids}")
 
     # news_data = fetch_news(
     #     query="Kolkata Murder Case", from_date="2024-08-01", sort_by="popularity", to_json=False
