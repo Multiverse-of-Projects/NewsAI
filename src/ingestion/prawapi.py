@@ -38,6 +38,18 @@ REDDIT_POSTS_COLLECTION = "reddit_posts"
 
 
 def remove_emoji(string):
+    """
+    Removes all emojis from the given string.
+
+    The emojis are removed using a regular expression. The regular expression is
+    based on the Unicode ranges for emojis.
+
+    Args:
+        string (str): The string to remove emojis from.
+
+    Returns:
+        str: The string with all emojis removed.
+    """
     emoji_pattern = re.compile(
         "["
         "\U0001F600-\U0001F64F"  # emoticons
@@ -66,6 +78,10 @@ def remove_emoji(string):
 
 def clean_content(text):
     # Remove @mentions replace with blank
+    """
+    This function takes in a string and removes @mentions, #, RT, hyperlinks, and the : character.
+    It also removes emojis from the string.
+    """
     text = re.sub(r"@[A-Za-z0–9]+", "", text)
     text = re.sub(r"#", "", text)  # Remove the '#' symbol, replace with blank
     text = re.sub(r"RT[\s]+", "", text)  # Removing RT, replace with blank
@@ -75,7 +91,15 @@ def clean_content(text):
 
 
 def fetch_cached_posts(keyword):
-    """Retrieve cached posts for a keyword using the cache collection."""
+    """
+    Fetches cached posts from the database for a given keyword.
+
+    Args:
+        keyword (str): The keyword to search for.
+
+    Returns:
+        list: A list of posts if cached posts are found, otherwise None.
+    """
     cache_entry = find_one_document(
         REDDIT_CACHE_COLLECTION, {"keyword": keyword})
     if cache_entry and "post_ids" in cache_entry:
@@ -86,21 +110,37 @@ def fetch_cached_posts(keyword):
 
 
 def update_cache(keyword, post_ids):
-    """Update the cache with new post IDs for a keyword."""
+    """
+    Updates the cache with the given list of post IDs for the given keyword.
+
+    Args:
+        keyword (str): The keyword to update the cache for.
+        post_ids (list): List of post IDs to update the cache with.
+    """
     insert_document(REDDIT_CACHE_COLLECTION, {
                     "keyword": keyword, "post_ids": post_ids})
 
 
 def fetch_reddit_posts_by_keyword(keyword, limit=10, to_json=True):
+    """
+    Fetches Reddit posts containing the given keyword.
+
+    Args:
+        keyword (str): The keyword to search for in Reddit posts.
+        limit (int, optional): The number of posts to fetch. Defaults to 10.
+        to_json (bool, optional): Whether to store the results in a JSON file. Defaults to True.
+
+    Returns:
+        List[Dict]: A list of dictionaries containing the post data.
+    """
     cached_posts = fetch_cached_posts(keyword)
     if cached_posts:
         logger.info(
             f"Cache hit for keyword: {keyword}. Returning cached data.")
-        return cached_posts
+        return cached_posts[:limit]
 
 
 def clean_content(content: str) -> str:
-    # Replace carriage returns and newlines with spaces
     """
     Clean a string by replacing carriage returns and newlines with spaces and then removing excessive spaces.
 

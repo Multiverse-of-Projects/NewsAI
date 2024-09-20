@@ -116,9 +116,10 @@ async def fetch_required_reddit_posts(keyword, limit):
     # Process posts concurrently
     tasks = [process_post(post) for post in posts]
     processed_posts = await asyncio.gather(*tasks)
+    post_ids = [post["id"] for post in processed_posts]
 
-    return processed_posts
-
+    return post_ids
+    # return processed_posts
 
 if __name__ == "__main__":
     posts = fetch_required_reddit_posts(

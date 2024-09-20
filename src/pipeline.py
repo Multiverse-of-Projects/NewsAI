@@ -207,15 +207,26 @@ def process_articles(query, limit=10):
     article_sentiments = analyze_sentiments(article_ids)
 
 
-def reddit_wrapper(keyword, limite):
-    response = asyncio.run(fetch_required_reddit_posts(keyword, 100))
+def reddit_wrapper(keyword, limit=10):
+    """
+    Fetches Reddit posts containing the given keyword, processes them, and updates the sentiments.
+
+    Args:
+        keyword (str): The keyword to search for in Reddit posts.
+        limit (int, optional): The number of posts to fetch. Defaults to 10.
+
+    Returns:
+        List: A list of processed documents.
+    """
+    response = asyncio.run(fetch_required_reddit_posts(keyword, 10))
     return response
 
 
 if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
 
-    res = asyncio.run(reddit_wrapper(keyword="IPO marker", limite=10))
+    res = reddit_wrapper(keyword="IPO marker", limit=10)
+    logger.info(res)
 
     # article_ids = process_articles("Adani Hindenburg Report", limit=10)
     # logger.info(f"Article IDs: {article_ids}")
