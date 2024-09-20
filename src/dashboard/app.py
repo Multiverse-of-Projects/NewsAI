@@ -17,12 +17,14 @@ import streamlit as st
 from PIL import Image
 from streamlit_echarts import st_echarts
 
+from src.utils.logger import setup_logger
 from src.pipeline import process_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import (append_to_document,
                                    fetch_and_combine_articles, find_documents,
                                    find_one_document)
 
+logger = setup_logger()
 
 def download_images(image_urls, save_dir="downloaded_images"):
     # if not os.path.exists(save_dir):
@@ -86,7 +88,8 @@ def extract_and_flatten_keywords(data) -> List[str]:
     """
     all_keywords = []
     all_keywords = data["keywords"].tolist()
-    all_keywords = [item for sublist in all_keywords for item in sublist]
+    logger.info(all_keywords)
+    all_keywords = [item for sublist in all_keywords for item in sublist if isinstance(sublist, list)]
     return all_keywords
 
 

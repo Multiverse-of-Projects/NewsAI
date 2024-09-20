@@ -210,6 +210,7 @@ def fetch_and_combine_articles(collection_name, article_ids):
             logger.warning("No documents found for the provided article IDs.")
         else:
             logger.info("Successfully converted documents to DataFrame.")
+            logger.debug(df.columns)
 
         return df
 

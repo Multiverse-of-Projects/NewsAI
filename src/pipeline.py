@@ -136,7 +136,7 @@ async def process_articles_async(query, limit=10):
     logger.info("Starting the processing of articles.")
     article_ids = fetch_news(
         query=query,
-        from_date="2024-08-04",
+        from_date="2024-08-16",
         sort_by="popularity",
         limit=limit,
         to_json=False,

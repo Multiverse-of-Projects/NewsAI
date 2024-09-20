@@ -34,9 +34,9 @@ async def fetch_article_content(article_ids, session):
         List[Dict[str, str]]: List of dictionaries, each containing the ID and content of a fetched article.
     """
     try:
-        if not docs:
-            raise ValueError(
-                f"No documents found for article IDs: {article_ids}")
+        # if not docs:
+        #     raise ValueError(
+        #         f"No documents found for article IDs: {article_ids}")
         docs = find_documents("News_Articles", {"id": {"$in": article_ids}})
     except Exception as e:
         logger.error(f"Failed to find documents: {e}")
