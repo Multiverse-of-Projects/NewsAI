@@ -22,9 +22,3 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         assignees: ${{ github.event.issue.user.login }} # Assign the issue creator
         numOfAssignee: 1
-
-    - name: 'Request review from specific user'
-      uses: pullreminders/review-requests@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        reviewers: vrajpatelll
