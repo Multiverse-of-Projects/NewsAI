@@ -93,3 +93,8 @@ The project uses a simplified branching strategy:
 3. Create a new branch for your feature using `git checkout -b feature/your-feature-name`
 4. Work on your feature and commit changes regularly
 5. Merge your branch into `main` after peer review or pair programming sessions
+
+<h1>Our Valuable Contributors ❤️✨</h1>
+
+[![Contributors](https://contrib.rocks/image?repo=Multiverse-of-Projects/NewsAI)](https://github.com/Multiverse-of-Projects/NewsAI/graphs/contributors)
+ 
