@@ -1,5 +1,31 @@
-# News AI Dashboard Project
-=====================================
+<p align="center">
+   <a href ="https://your_project_link_here">
+      <img src="https://github.com/user-attachments/assets/b825468e-515c-45e8-9b81-a4f1b033ab0c" alt="logo" width="200">
+   </a>
+</p>
+
+<p align="center">
+    <a href="https://www.youtube.com/watch?v=stTXgljJVPQ" target="_blank">
+       <img alt="YouTube Channel Subscribers" src="https://img.shields.io/youtube/channel/subscribers/UCz_32Uvk_5rrrQVmrkektag">
+    </a>
+</p>
+
+<p align="center">
+    <a href="https://discord.gg/ZRabqqxp">
+        <img src="https://img.shields.io/discord/your_discord_id?color=5865F2&logo=discord&logoColor=white&style=flat-square" alt="Join us on Discord">
+    </a>
+</p>
+
+<p align="center">
+   <a href ="https://www.youtube.com/watch?v=stTXgljJVPQ">
+       <img alt="demo" src="https://your_demo_image_link_here" width="800" />
+   </a>
+</p>
+
+---
+
+## Welcome to the News AI Dashboard Project! 🎉
+
 
 ## Overview
 -----------
@@ -8,6 +34,25 @@ This project aims to create a comprehensive news dashboard that aggregates news 
 
 ## Directory Structure
 ----------------------
+The project is organized into the following directories:
+
+* `data/`: contains raw and processed data
+	+ `raw/`: raw JSON files from APIs
+	+ `processed/`: preprocessed and structured data
+* `src/`: contains source code for the project
+	+ `ingestion/`: code for data ingestion from multiple APIs
+	+ `preprocessing/`: code for data formatting and structuring
+	+ `sentiment_analysis/`: code for sentiment analysis and topic modeling
+	+ `summarization/`: code for summarization logic
+	+ `api/`: FastAPI implementation
+	+ `dashboard/`: Streamlit dashboard code
+* `notebooks/`: Jupyter notebooks for experiments and EDA
+* `requirements.txt`: Python packages required for the project
+* `README.md`: project overview and setup instructions
+* `.gitignore`: Git ignore file
+
+<details>
+<summary>Folder Structure for the NewsAI</summary>
 
 ```txt
 news_ai_dashboard/
@@ -50,36 +95,20 @@ news_ai_dashboard/
 ├── requirements.txt           # Python packages required
 ├── README.md                  # Project overview and setup instructions
 └── .gitignore                 # Git ignore file
-
 ```
-
-The project is organized into the following directories:
-
-* `data/`: contains raw and processed data
-	+ `raw/`: raw JSON files from APIs
-	+ `processed/`: preprocessed and structured data
-* `src/`: contains source code for the project
-	+ `ingestion/`: code for data ingestion from multiple APIs
-	+ `preprocessing/`: code for data formatting and structuring
-	+ `sentiment_analysis/`: code for sentiment analysis and topic modeling
-	+ `summarization/`: code for summarization logic
-	+ `api/`: FastAPI implementation
-	+ `dashboard/`: Streamlit dashboard code
-* `notebooks/`: Jupyter notebooks for experiments and EDA
-* `requirements.txt`: Python packages required for the project
-* `README.md`: project overview and setup instructions
-* `.gitignore`: Git ignore file
+</details> 
 
 ## Branching Strategy
 --------------------
 
 The project uses a simplified branching strategy:
 
-* `main`: the final branch where all working features are merged
-* `feature/*`: each feature branch is focused on a specific module or task
+* `main`: The final branch where all working features are merged.
+* `feature/*`: Branches created for new code additions.
+* `bug/*`: Branches dedicated to fixing existing code issues.
+* If your branch does not fit any of the above categories, you may create a new branch. However, please ensure that you give it an appropriate and relevant name.
 
 ## Demo Video
-
 
 [![Watch the video](https://img.youtube.com/vi/stTXgljJVPQ/0.jpg)](https://www.youtube.com/watch?v=stTXgljJVPQ)
 
