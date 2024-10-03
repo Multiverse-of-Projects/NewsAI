@@ -7,30 +7,26 @@
 <p align="center">
     <a href="https://www.youtube.com/watch?v=stTXgljJVPQ" target="_blank">
        <img alt="YouTube Channel Subscribers" src="https://img.shields.io/youtube/channel/subscribers/UCz_32Uvk_5rrrQVmrkektag">
-    </a>
-</p>
-
-<p align="center">
+    </a>&nbsp
     <a href="https://discord.gg/ZRabqqxp">
         <img src="https://img.shields.io/discord/your_discord_id?color=5865F2&logo=discord&logoColor=white&style=flat-square" alt="Join us on Discord">
-    </a>
-</p>
-
-<p align="center">
+    </a>&nbsp
    <a href ="https://www.youtube.com/watch?v=stTXgljJVPQ">
-       <img alt="demo" src="https://your_demo_image_link_here" width="800" />
+       <img alt="demo" src="https://www.youtube.com/watch?v=stTXgljJVPQ" width="800" />
    </a>
 </p>
 
 ---
 
-## Welcome to the News AI Dashboard Project! 🎉
-
+# Welcome to the News AI Dashboard Project! 🎉
 
 ## Overview
 -----------
-
 This project aims to create a comprehensive news dashboard that aggregates news articles from multiple APIs, performs sentiment analysis, and provides a user-friendly interface for exploration.
+
+[![Watch the video](https://img.youtube.com/vi/stTXgljJVPQ/0.jpg)](https://www.youtube.com/watch?v=stTXgljJVPQ)
+
+*Click the image to watch the demo on YouTube.*
 
 ## Directory Structure
 ----------------------
@@ -100,7 +96,6 @@ news_ai_dashboard/
 
 ## Branching Strategy
 --------------------
-
 The project uses a simplified branching strategy:
 
 * `main`: The final branch where all working features are merged.
@@ -108,15 +103,8 @@ The project uses a simplified branching strategy:
 * `bug/*`: Branches dedicated to fixing existing code issues.
 * If your branch does not fit any of the above categories, you may create a new branch. However, please ensure that you give it an appropriate and relevant name.
 
-## Demo Video
-
-[![Watch the video](https://img.youtube.com/vi/stTXgljJVPQ/0.jpg)](https://www.youtube.com/watch?v=stTXgljJVPQ)
-
-*Click the image to watch the demo on YouTube.*
-
 ## Setup Instructions
 ---------------------
-
 1. Clone the repository
 2. Install required Python packages using `pip install -r requirements.txt`
 3. Create a new branch for your feature using `git checkout -b feature/your-feature-name`
