@@ -94,7 +94,7 @@ The project uses a simplified branching strategy:
 4. Work on your feature and commit changes regularly
 5. Merge your branch into `main` after peer review or pair programming sessions
 
-#Contribution Guidelines
+# Contribution Guidelines
 We welcome contributions from everyone! To ensure a smooth collaboration, please follow these guidelines:
 
 ## Fork the Repository:
