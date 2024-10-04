@@ -156,6 +156,20 @@ async def fetch_article_content_from_url(url: str, session: aiohttp.ClientSessio
         logger.error(f"Error fetching content for article {url}: {e}")
         raise
 
+async def test_fetch_article_content_from_url(urls: List[str]) -> List[List[str]]:
+    """
+    Tests the fetch_article_content_from_url function by fetching content for a list of article URLs.
+
+    Args:
+        urls (List[str]): A list of article URLs to fetch content for.
+
+    Returns:
+        List[List[str]]: A list of lists where each list contains the content of a fetched article.
+    """
+    async with aiohttp.ClientSession() as session:
+        contents = await asyncio.gather(*[fetch_article_content_from_url(url, session) for url in urls])
+        logger.info(contents)  # Print the fetched content for verification
+
 async def test_fetch_article_content(article_ids: List[str]) -> List[Dict[str, str]]:
     """
     Tests the fetch_article_content function by fetching content for a list of article IDs.
@@ -172,9 +186,16 @@ async def test_fetch_article_content(article_ids: List[str]) -> List[Dict[str, s
 
 
 if __name__ == "__main__":
-    url = "https://www.rt.com/india/602908-reclaiming-night-protests-over-rape/"
-    article_ids = [
-        "b01d85d7-d538-47cc-a7c4-31c13e7f6b4e",
-        "15133cc7-1522-41f9-8db4-70568e837968",
+    # url = "https://www.rt.com/india/602908-reclaiming-night-protests-over-rape/"
+    # article_ids = [
+    #     "b01d85d7-d538-47cc-a7c4-31c13e7f6b4e",
+    #     "15133cc7-1522-41f9-8db4-70568e837968",
+    # ]
+    # asyncio.run(test_fetch_article_content())
+    urls = [
+        "https://www.rt.com/india/602908-reclaiming-night-protests-over-rape/",
+        "https://edition.cnn.com/2024/10/03/politics/abortion-melania-trump/index.html",
+        "https://www.androidauthority.com/full-res-pixel-9a-wallpapers-3487229/",
+        "https://edition.cnn.com/world/live-news/israel-iran-attack-war-lebanon-10-03-24-intl-hnk/index.html",
     ]
-    asyncio.run(test_fetch_article_content())
+    asyncio.run(test_fetch_article_content_from_url(urls))
