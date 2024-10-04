@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 import aiohttp
 import requests
 from bs4 import BeautifulSoup
+from tenacity import retry, stop_after_attempt, wait_exponential, RetryCallState, retry_if_exception_type
 
 from src.utils.dbconnector import (append_to_document, content_manager,
                                    find_documents)
@@ -111,6 +112,17 @@ async def fetch_article_content(article_ids, session):
     logger.info(f"Total articles content fetched: {len(article_contents)}")
     return article_contents
 
+def fetch_content_before_sleep(retry_state: RetryCallState):
+    wait_time = retry_state.next_action.sleep
+    attempt_number = retry_state.attempt_number
+    print(f"Retrying after {wait_time:.2f} seconds (Attempt {attempt_number})...")
+
+@retry(
+    stop=stop_after_attempt(3),
+    wait=wait_exponential(multiplier=1, min=1, max=10),
+    retry=retry_if_exception_type((aiohttp.ClientError, asyncio.TimeoutError)),
+    before_sleep=fetch_content_before_sleep,
+)
 async def fetch_article_content_from_url(url: str, session: aiohttp.ClientSession) -> str:
     """
     Fetches the content of an article from a given URL.
