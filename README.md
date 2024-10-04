@@ -1,61 +1,71 @@
 <p align="center">
-   <a href ="https://your_project_link_here">
+   <a href="https://your_project_link_here">
       <img src="https://github.com/user-attachments/assets/b825468e-515c-45e8-9b81-a4f1b033ab0c" alt="logo" width="200">
    </a>
 </p>
 
-<p align="center">
-    <a href="https://www.youtube.com/watch?v=stTXgljJVPQ" target="_blank">
-       <img alt="YouTube Channel Subscribers" src="https://img.shields.io/youtube/channel/subscribers/UCz_32Uvk_5rrrQVmrkektag">
-    </a>&nbsp
-    <a href="https://discord.gg/ZRabqqxp">
-        <img src="https://img.shields.io/discord/your_discord_id?color=5865F2&logo=discord&logoColor=white&style=flat-square" alt="Join us on Discord">
-    </a>&nbsp
-   <a href ="https://www.youtube.com/watch?v=stTXgljJVPQ">
-       <img alt="demo" src="https://www.youtube.com/watch?v=stTXgljJVPQ" width="800" />
-   </a>
-</p>
+
+## GitHub Repository Stats
+[![Prototype Video](https://img.shields.io/badge/Watch-Prototype_Video-red)](https://www.youtube.com/watch?v=j4-efJYhnzs)
+
+| 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** |
+|--------------|--------------|---------------|-----------------|------------------|
+| ![GitHub stars](https://img.shields.io/badge/stars-0-blue) | ![GitHub forks](https://img.shields.io/badge/forks-0-brightgreen) | ![GitHub issues](https://img.shields.io/badge/issues-0-red) | ![Open PRs](https://img.shields.io/badge/pull%20requests-0-yellow) | ![Closed PRs](https://img.shields.io/badge/pull%20requests-0-lightgrey) |
+
+
+```markdown
+| 🌟 **Stars** | 🍴 **Forks** | 🐛 **Issues** | 🔔 **Open PRs** | 🔕 **Closed PRs** |
+|--------------|--------------|---------------|-----------------|------------------|
+| ![GitHub stars](https://img.shields.io/github/stars/username/repository?style=social) | ![GitHub forks](https://img.shields.io/github/forks/username/repository?style=social) | ![GitHub issues](https://img.shields.io/github/issues/username/repository) | ![Open PRs](https://img.shields.io/github/issues-pr/username/repository) | ![Closed PRs](https://img.shields.io/github/issues-pr-closed/username/repository) |
+```
+
+Make sure to replace `username` and `repository` with your actual GitHub username and repository name!
 
 ---
 
 # Welcome to the News AI Dashboard Project! 🎉
 
 ## Overview
------------
-This project aims to create a comprehensive news dashboard that aggregates news articles from multiple APIs, performs sentiment analysis, and provides a user-friendly interface for exploration.
+This project aims to create a comprehensive news dashboard that aggregates articles from multiple APIs, performs sentiment analysis, and provides a user-friendly interface for exploration.
 
 [![Watch the video](https://img.youtube.com/vi/stTXgljJVPQ/0.jpg)](https://www.youtube.com/watch?v=stTXgljJVPQ)
 
 *Click the image to watch the demo on YouTube.*
 
+---
+
 ## Directory Structure
-----------------------
 The project is organized into the following directories:
 
-* `data/`: contains raw and processed data
-	+ `raw/`: raw JSON files from APIs
-	+ `processed/`: preprocessed and structured data
-* `src/`: contains source code for the project
-	+ `ingestion/`: code for data ingestion from multiple APIs
-	+ `preprocessing/`: code for data formatting and structuring
-	+ `sentiment_analysis/`: code for sentiment analysis and topic modeling
-	+ `summarization/`: code for summarization logic
-	+ `api/`: FastAPI implementation
-	+ `dashboard/`: Streamlit dashboard code
-* `notebooks/`: Jupyter notebooks for experiments and EDA
-* `requirements.txt`: Python packages required for the project
-* `README.md`: project overview and setup instructions
-* `.gitignore`: Git ignore file
+- **`data/`**: Contains raw and processed data.
+  - `raw/`: Raw JSON files from APIs.
+  - `processed/`: Preprocessed and structured data.
+  
+- **`src/`**: Contains source code for the project.
+  - `ingestion/`: Code for data ingestion from multiple APIs.
+  - `preprocessing/`: Code for data formatting and structuring.
+  - `sentiment_analysis/`: Code for sentiment analysis and topic modeling.
+  - `summarization/`: Code for summarization logic.
+  - `api/`: FastAPI implementation.
+  - `dashboard/`: Streamlit dashboard code.
+  
+- **`notebooks/`**: Jupyter notebooks for experiments and EDA.
+
+- **`requirements.txt`**: Python packages required for the project.
+
+- **`README.md`**: Project overview and setup instructions.
+
+- **`.gitignore`**: Git ignore file.
 
 <details>
-<summary>Folder Structure for the NewsAI</summary>
+<summary>Folder Structure for the News AI Dashboard</summary>
 
-```txt
+```plaintext
 news_ai_dashboard/
 │
 ├── data/
 │   ├── raw/                   # Raw JSON files if needed as a fallback
-│   └── processed/             # Preprocessed and structured data (can be MongoDB backup)
+│   └── processed/             # Preprocessed and structured data
 │
 ├── src/
 │   ├── ingestion/             # Code for data ingestion from multiple APIs
@@ -92,26 +102,45 @@ news_ai_dashboard/
 ├── README.md                  # Project overview and setup instructions
 └── .gitignore                 # Git ignore file
 ```
-</details> 
+</details>
+
+---
 
 ## Branching Strategy
---------------------
-The project uses a simplified branching strategy:
+The project follows a simplified branching strategy:
 
-* `main`: The final branch where all working features are merged.
-* `feature/*`: Branches created for new code additions.
-* `bug/*`: Branches dedicated to fixing existing code issues.
-* If your branch does not fit any of the above categories, you may create a new branch. However, please ensure that you give it an appropriate and relevant name.
+- **`main`**: The stable branch where all working features are merged.
+- **`feature/*`**: Branches created for new code additions.
+- **`bug/*`**: Branches dedicated to fixing existing code issues.
+- If your branch does not fit any of the above categories, please create a new branch with an appropriate name.
+
+---
 
 ## Setup Instructions
----------------------
-1. Clone the repository
-2. Install required Python packages using `pip install -r requirements.txt`
-3. Create a new branch for your feature using `git checkout -b feature/your-feature-name`
-4. Work on your feature and commit changes regularly
-5. Merge your branch into `main` after peer review or pair programming sessions
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your_username/your_repository.git
+   ```
+   
+2. **Install required Python packages**
+   ```bash
+   pip install -r requirements.txt
+   ```
+   
+3. **Create a new branch for your feature**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+   
+4. **Work on your feature and commit changes regularly**
+   
+5. **Merge your branch into `main` after peer review**
 
-<h1>Our Valuable Contributors ❤️✨</h1>
+---
 
+## Our Valuable Contributors ❤️✨
 [![Contributors](https://contrib.rocks/image?repo=Multiverse-of-Projects/NewsAI)](https://github.com/Multiverse-of-Projects/NewsAI/graphs/contributors)
- 
+
+---
+
+This structure highlights the essential parts of your project, provides clarity, and maintains an inviting tone. Feel free to adjust any sections to better match your style!
