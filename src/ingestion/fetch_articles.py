@@ -111,6 +111,50 @@ async def fetch_article_content(article_ids, session):
     logger.info(f"Total articles content fetched: {len(article_contents)}")
     return article_contents
 
+async def fetch_article_content_from_url(url: str, session: aiohttp.ClientSession) -> str:
+    """
+    Fetches the content of an article from a given URL.
+
+    Args:
+        url (str): The URL of the article to fetch content from.
+        session (aiohttp.ClientSession): The aiohttp session to use for the request.
+
+    Returns:
+        str: Content of the fetched article.
+    """
+    async def sanitize_content(content):
+        """ Removes any unwanted characters from the content.""" 
+        content = content.replace("\n", " ")
+        content = content.replace("\t", " ")
+        content = content.strip()
+        return content
+
+    async def parse_html(html):
+        """ Parses the HTML content and extracts the article content."""
+        try:
+            soup = BeautifulSoup(html, "html.parser")
+            # Extract the article content from all the <p> tags
+            page = soup.find_all("p")
+            content = [await sanitize_content(x.get_text()) for x in page]
+            content = " ".join(content)
+            return content
+        except Exception as e:
+            logger.error(f"Error parsing HTML: {e}")
+            raise
+
+    try:
+        async with session.get(url) as response:
+            if response.status == 200:
+                response_text = await response.text()
+                content = await parse_html(response_text)
+                return content
+            else:
+                raise Exception(
+                    f"Failed to fetch article {url}: {response.status}"
+                )
+    except Exception as e:
+        logger.error(f"Error fetching content for article {url}: {e}")
+        raise
 
 async def test_fetch_article_content(article_ids: List[str]) -> List[Dict[str, str]]:
     """
