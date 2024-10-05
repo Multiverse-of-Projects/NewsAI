@@ -93,9 +93,15 @@ Our docs are so good, they're basically the eighth wonder of the world. Check th
 <!-- - 🐦 Twitter: [@NewsAIDashboard](https://twitter.com/NewsAIDashboard) (Follow us for dad jokes and tech puns) -->
 - 💬 Discord: [Join our server](https://discord.gg/kV4ANf6x) (Where we debate tabs vs. spaces)
 
+## ❤️ Our  Valuable Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=Multiverse-of-Projects/NewsAI)](https://github.com/Multiverse-of-Projects/NewsAI/graphs/contributors)
+
+
 ## 📜 License to Thrill
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details. It's basically a license to code with reckless abandon!
+
 
 ---
 
