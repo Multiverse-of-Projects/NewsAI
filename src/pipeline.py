@@ -2,8 +2,8 @@ import asyncio
 import json
 from concurrent.futures import ThreadPoolExecutor
 
-from aiohttp import ClientSession
-from tenacity import retry, stop_after_attempt, wait_fixed
+from aiohttp import ClientSession, ClientError
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from src.ingestion.fetch_articles import fetch_article_content
 from src.ingestion.newsapi import fetch_news
@@ -13,200 +13,190 @@ from src.preprocessing.summarization import summarize_texts
 from src.sentiment_analysis.classify import (analyze_sentiments,
                                              classify_sentiments)
 from src.sentiment_analysis.wordcloud import generate_wordcloud
-from src.utils.dbconnector import append_to_document, content_manager
+from src.utils.dbconnector import append_to_document, content_manager, batch_insert_documents
 from src.utils.logger import setup_logger
 
 # Setup logger
 logger = setup_logger()
 
+# Define a dedicated ThreadPoolExecutor for CPU-bound tasks
+cpu_bound_executor = ThreadPoolExecutor(max_workers=4)  # Adjust based on your CPU cores
+
+# Retry configuration for transient errors
+retry_decorator = retry(
+    retry=retry_if_exception_type(ClientError),
+    stop=stop_after_attempt(5),
+    wait=wait_exponential(multiplier=1, min=4, max=10),
+    reraise=True
+)
+
+@retry_decorator
+async def fetch_article_content_retry(article_ids, session):
+    return await fetch_article_content(article_ids, session)
+
+@retry_decorator
+def summarize_texts_retry(article_ids):
+    return summarize_texts(article_ids)
+
+@retry_decorator
+def extract_keywords_retry(article_ids):
+    return extract_keywords(article_ids)
+
+@retry_decorator
+def analyze_sentiments_retry(article_ids):
+    return analyze_sentiments(article_ids)
 
 async def summarize_texts_async(article_id):
     """
     Asynchronous wrapper for summarize_texts.
-
-    Args:
-        article_id (str): ID of the article to summarize.
-
-    Returns:
-        str: Summarized text.
     """
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, summarize_texts, [article_id])
-
+    return await loop.run_in_executor(cpu_bound_executor, summarize_texts_retry, [article_id])
 
 async def extract_keywords_async(article_id):
     """
     Asynchronous wrapper for extract_keywords.
-
-    Args:
-        article_id (str): ID of the article to extract keywords from.
-
-    Returns:
-        List[str]: List of extracted keywords.
     """
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, extract_keywords, [article_id])
-
+    return await loop.run_in_executor(cpu_bound_executor, extract_keywords_retry, [article_id])
 
 async def analyze_sentiments_async(article_id):
     """
     Asynchronous wrapper for analyze_sentiments.
-
-    Args:
-        article_id (str): ID of the article to analyze.
-
-    Returns:
-        List[Dict[str, float]]: List of sentiment analysis results for each text.
     """
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, analyze_sentiments, [article_id])
+    return await loop.run_in_executor(cpu_bound_executor, analyze_sentiments_retry, [article_id])
 
-
-async def process_single_article_async(article_id, session):
-    # Check the presence of content, summary, keywords, and sentiment in the DB
+async def process_single_article_async(article_id, session, db_queue):
     """
-    Process a single article asynchronously, by fetching content, summarizing, extracting keywords and analyzing sentiment.
-
-    Args:
-        article_id (str): ID of the article to process.
-        session (aiohttp.ClientSession): The aiohttp session to use for the request.
-
-    Returns:
-        str: The ID of the article that was processed.
+    Process a single article asynchronously, including fetching content,
+    summarizing, extracting keywords, analyzing sentiment, and batching DB inserts.
     """
-    field_status = content_manager(
-        article_id, ["content", "summary", "keywords", "sentiment"]
-    )
+    try:
+        field_status = content_manager(
+            article_id, ["content", "summary", "keywords", "sentiment"]
+        )
 
-    # Fetch content only if not already present
-    if not field_status["content"]:
-        content = await fetch_article_content([article_id], session)
-        # Save content to MongoDB
-        # append_to_document("News_Articles", {"id": article_id}, {"content": content})
-    else:
-        logger.info(
-            f"Content already exists for article {article_id}. Skipping fetch.")
+        update_fields = {}
 
-    # Summarize only if summary is not already present
-    if not field_status["summary"]:
+        # Fetch content only if not already present
         if not field_status["content"]:
-            content = await fetch_article_content([article_id], session)
-        summary = await summarize_texts_async(article_id)
-        # Save summary to MongoDB
-        # append_to_document("News_Articles", {"id": article_id}, {"summary": summary})
-    else:
-        logger.info(
-            f"Summary already exists for article {article_id}. Skipping summarization."
-        )
+            content = await fetch_article_content_retry([article_id], session)
+            update_fields["content"] = content
+            logger.info(f"Fetched content for article {article_id}.")
+        else:
+            logger.info(f"Content already exists for article {article_id}. Skipping fetch.")
 
-    # Extract keywords only if not already present
-    if not field_status["keywords"]:
-        keywords = await extract_keywords_async(article_id)
-        # Save keywords to MongoDB
-        # append_to_document("News_Articles", {"id": article_id}, {"keywords": keywords})
-    else:
-        logger.info(
-            f"Keywords already exist for article {article_id}. Skipping extraction."
-        )
+        # Summarize only if summary is not already present
+        if not field_status["summary"]:
+            summary = await summarize_texts_async(article_id)
+            update_fields["summary"] = summary
+            logger.info(f"Summarized article {article_id}.")
+        else:
+            logger.info(f"Summary already exists for article {article_id}. Skipping summarization.")
 
-    # Analyze sentiment only if not already present
-    if not field_status["sentiment"]:
-        sentiment = await analyze_sentiments_async(article_id)
-        # Save sentiment to MongoDB
-        # append_to_document("News_Articles", {"id": article_id}, {"sentiment": sentiment})
-    else:
-        logger.info(
-            f"Sentiment already exists for article {article_id}. Skipping sentiment analysis."
-        )
+        # Extract keywords only if not already present
+        if not field_status["keywords"]:
+            keywords = await extract_keywords_async(article_id)
+            update_fields["keywords"] = keywords
+            logger.info(f"Extracted keywords for article {article_id}.")
+        else:
+            logger.info(f"Keywords already exist for article {article_id}. Skipping extraction.")
 
-    return article_id
+        # Analyze sentiment only if not already present
+        if not field_status["sentiment"]:
+            sentiment = await analyze_sentiments_async(article_id)
+            update_fields["sentiment"] = sentiment
+            logger.info(f"Analyzed sentiment for article {article_id}.")
+        else:
+            logger.info(f"Sentiment already exists for article {article_id}. Skipping sentiment analysis.")
 
+        if update_fields:
+            # Queue the update for batch insertion
+            db_queue.append({
+                "filter": {"id": article_id},
+                "update": {"$set": update_fields}
+            })
+
+        return article_id
+
+    except Exception as e:
+        logger.error(f"Error processing article {article_id}: {e}")
+        return None
+
+async def db_writer(db_queue):
+    """
+    Coroutine to write updates to the database in batches.
+    """
+    while True:
+        if db_queue:
+            batch = db_queue.copy()
+            db_queue.clear()
+            try:
+                batch_insert_documents("News_Articles", batch)
+                logger.info(f"Inserted batch of {len(batch)} documents into MongoDB.")
+            except Exception as e:
+                logger.error(f"Error inserting batch into MongoDB: {e}")
+        await asyncio.sleep(1)  # Adjust the sleep time as needed
 
 async def process_articles_async(query, limit=10):
     """
-    Process a list of articles asynchronously, by fetching content, summarizing, extracting keywords and analyzing sentiment.
-
-    Args:
-        query (str): The query to search for in the NewsAPI.
-        limit (int, optional): The number of articles to fetch. Defaults to 10.
-
-    Returns:
-        List[str]: The IDs of the articles that were processed.
+    Process a list of articles asynchronously with improved handling.
     """
     logger.info("Starting the processing of articles.")
-    article_ids = fetch_news(
-        query=query,
-        from_date="2024-08-16",
-        sort_by="popularity",
-        limit=limit,
-        to_json=False,
-    )
+    try:
+        article_ids = fetch_news(
+            query=query,
+            from_date="2024-08-16",
+            sort_by="popularity",
+            limit=limit,
+            to_json=False,
+        )
+    except Exception as e:
+        logger.error(f"Error fetching news: {e}")
+        return []
+
     if not isinstance(article_ids, list):
+        logger.error("article_ids should be a list")
         raise ValueError("article_ids should be a list")
+
+    db_queue = []
+    # Start the DB writer coroutine
+    writer_task = asyncio.create_task(db_writer(db_queue))
 
     async with ClientSession() as session:
         tasks = [
-            process_single_article_async(article_id, session)
+            process_single_article_async(article_id, session, db_queue)
             for article_id in article_ids
         ]
-        await asyncio.gather(*tasks)
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    # Wait a bit to ensure all DB operations are completed
+    await asyncio.sleep(2)
+    writer_task.cancel()
+    try:
+        await writer_task
+    except asyncio.CancelledError:
+        pass
+
+    # Filter out any None results due to errors
+    processed_article_ids = [aid for aid in results if aid is not None]
 
     logger.info("Processing completed.")
-    return article_ids
-
+    return processed_article_ids
 
 def process_articles(query, limit=10):
     """
-    Process a list of articles by fetching content, summarizing, extracting keywords and analyzing sentiment.
-
-    Args:
-        query (str): The query to search for in the NewsAPI.
-        limit (int, optional): The number of articles to fetch. Defaults to 10.
-
-    Returns:
-        List[str]: The IDs of the articles that were processed.
+    Synchronous entry point to process articles.
     """
     logger.info("Starting the processing of articles.")
-    article_ids = asyncio.run(process_articles_async(query, limit))
+    try:
+        article_ids = asyncio.run(process_articles_async(query, limit))
+    except Exception as e:
+        logger.error(f"Error in processing articles: {e}")
+        return []
+
     return article_ids
-    # Fetch articles from NewsAPI
-    article_ids = fetch_news(
-        query=query,
-        from_date="2024-08-04",
-        sort_by="popularity",
-        limit=limit,
-        to_json=False,
-    )
-    if not isinstance(article_ids, list):
-        raise ValueError("article_ids should be a list")
-
-    # Get contents for each article
-    article_contents = fetch_article_content(article_ids)
-
-    # contents_file = f"{query.replace(' ', '_')}_contents2.json"
-    # with open(contents_file, "w", encoding="utf-8") as f:
-    #     json.dump(article_contents, f, ensure_ascii=False, indent=4)
-
-    # Summarize the articles
-    logger.info("Summarizing articles.")
-    article_summaries = summarize_texts(article_ids)
-
-    # summaries_file = f"{query.replace(' ', '_')}_summaries2.json"
-    # with open(summaries_file, "w", encoding="utf-8") as f:
-    #     json.dump(article_summaries, f, ensure_ascii=False, indent=4)
-
-    # Extract keywords from summaries
-    logger.info("Extracting keywords from summaries.")
-    article_keywords = extract_keywords(article_ids, top_n=10)
-
-    # keywords_file = f"{query.replace(' ', '_')}_keywords2.json"
-    # with open(keywords_file, "w", encoding="utf-8") as f:
-    #     json.dump(article_keywords, f, ensure_ascii=False, indent=4)
-
-    # Analyze sentiments of summaries
-    logger.info("Analyzing sentiments of summaries.")
-    article_sentiments = analyze_sentiments(article_ids)
-
 
 if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
@@ -214,6 +204,7 @@ if __name__ == "__main__":
     article_ids = process_articles("Adani Hindenburg Report", limit=10)
     logger.info(f"Article IDs: {article_ids}")
 
+    # Example of handling post-processing if needed
     # news_data = fetch_news(
     #     query="Kolkata Murder Case", from_date="2024-08-01", sort_by="popularity", to_json=False
     # )
