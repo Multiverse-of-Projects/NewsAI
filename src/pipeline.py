@@ -1,26 +1,25 @@
 import asyncio
 import json
 from concurrent.futures import ThreadPoolExecutor
+from motor.motor_asyncio import AsyncIOMotorClient  # For async MongoDB operations
 
 from aiohttp import ClientSession, ClientError
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from token_bucket import TokenBucket  # Hypothetical token bucket class
 
 from src.ingestion.fetch_articles import fetch_article_content
 from src.ingestion.newsapi import fetch_news
-from src.preprocessing.keyword_extraction import (bert_keyword_extraction,
-                                                  extract_keywords)
+from src.preprocessing.keyword_extraction import (bert_keyword_extraction, extract_keywords)
 from src.preprocessing.summarization import summarize_texts
-from src.sentiment_analysis.classify import (analyze_sentiments,
-                                             classify_sentiments)
+from src.sentiment_analysis.classify import (analyze_sentiments, classify_sentiments)
 from src.sentiment_analysis.wordcloud import generate_wordcloud
-from src.utils.dbconnector import append_to_document, content_manager, batch_insert_documents
 from src.utils.logger import setup_logger
 
 # Setup logger
 logger = setup_logger()
 
 # Define a dedicated ThreadPoolExecutor for CPU-bound tasks
-cpu_bound_executor = ThreadPoolExecutor(max_workers=4)  # Adjust based on your CPU cores
+cpu_bound_executor = ThreadPoolExecutor(max_workers=4)
 
 # Retry configuration for transient errors
 retry_decorator = retry(
@@ -30,21 +29,102 @@ retry_decorator = retry(
     reraise=True
 )
 
-@retry_decorator
-async def fetch_article_content_retry(article_ids, session):
-    return await fetch_article_content(article_ids, session)
+# Define a token bucket for API rate limiting (e.g., Gemini API)
+token_bucket = TokenBucket(tokens=10, fill_rate=0.1)  # 10 requests/minute
 
-@retry_decorator
-def summarize_texts_retry(article_ids):
-    return summarize_texts(article_ids)
+# Motor async MongoDB client
+client = AsyncIOMotorClient("mongodb://localhost:27017")
+db = client["NewsDB"]
 
-@retry_decorator
-def extract_keywords_retry(article_ids):
-    return extract_keywords(article_ids)
+# Pipeline Manager Class
+class PipelineManager:
+    def __init__(self, db_queue):
+        self.db_queue = db_queue
+        self.failed_articles = []
 
-@retry_decorator
-def analyze_sentiments_retry(article_ids):
-    return analyze_sentiments(article_ids)
+    async def process_single_article_async(self, article_id, session):
+        """
+        Process a single article asynchronously, including fetching content,
+        summarizing, extracting keywords, analyzing sentiment, and batching DB inserts.
+        """
+        try:
+            field_status = await db["News_Articles"].find_one({"id": article_id}, {"content", "summary", "keywords", "sentiment"})
+            update_fields = {}
+
+            # Fetch content only if not already present
+            if not field_status or not field_status.get("content"):
+                await token_bucket.consume(1)  # Consume a token before making the API request
+                content = await fetch_article_content_retry([article_id], session)
+                if content:
+                    update_fields["content"] = content
+                    logger.info(f"Fetched content for article {article_id}.")
+                else:
+                    logger.warning(f"Failed to fetch content for article {article_id}. Skipping further processing.")
+                    self.failed_articles.append(article_id)
+                    return  # Skip further processing if content fetch failed
+            else:
+                logger.info(f"Content already exists for article {article_id}. Skipping fetch.")
+
+            # Summarize only if summary is not already present
+            if not field_status or not field_status.get("summary"):
+                summary = await summarize_texts_async(article_id)
+                update_fields["summary"] = summary
+                logger.info(f"Summarized article {article_id}.")
+            else:
+                logger.info(f"Summary already exists for article {article_id}. Skipping summarization.")
+
+            # Extract keywords only if not already present
+            if not field_status or not field_status.get("keywords"):
+                keywords = await extract_keywords_async(article_id)
+                update_fields["keywords"] = keywords
+                logger.info(f"Extracted keywords for article {article_id}.")
+            else:
+                logger.info(f"Keywords already exist for article {article_id}. Skipping extraction.")
+
+            # Analyze sentiment only if not already present
+            if not field_status or not field_status.get("sentiment"):
+                sentiment = await analyze_sentiments_async(article_id)
+                update_fields["sentiment"] = sentiment
+                logger.info(f"Analyzed sentiment for article {article_id}.")
+            else:
+                logger.info(f"Sentiment already exists for article {article_id}. Skipping sentiment analysis.")
+
+            if update_fields:
+                # Queue the update for batch insertion
+                self.db_queue.append({
+                    "filter": {"id": article_id},
+                    "update": {"$set": update_fields}
+                })
+
+            return article_id
+
+        except Exception as e:
+            logger.error(f"Error processing article {article_id}: {e}")
+            self.failed_articles.append(article_id)
+            return None
+
+    async def db_writer(self):
+        """
+        Coroutine to write updates to the database in batches.
+        """
+        while True:
+            if self.db_queue:
+                batch = self.db_queue.copy()
+                self.db_queue.clear()
+                try:
+                    # Use Motor for async batch insertion
+                    await db["News_Articles"].bulk_write([
+                        {"update_one": {
+                            "filter": entry["filter"],
+                            "update": entry["update"],
+                            "upsert": True
+                        }} for entry in batch
+                    ])
+                    logger.info(f"Inserted batch of {len(batch)} documents into MongoDB.")
+                except Exception as e:
+                    logger.error(f"Error inserting batch into MongoDB: {e}")
+            await asyncio.sleep(1)  # Adjust the sleep time as needed
+
 
 async def summarize_texts_async(article_id):
     """
@@ -66,78 +146,6 @@ async def analyze_sentiments_async(article_id):
     """
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(cpu_bound_executor, analyze_sentiments_retry, [article_id])
-
-async def process_single_article_async(article_id, session, db_queue):
-    """
-    Process a single article asynchronously, including fetching content,
-    summarizing, extracting keywords, analyzing sentiment, and batching DB inserts.
-    """
-    try:
-        field_status = content_manager(
-            article_id, ["content", "summary", "keywords", "sentiment"]
-        )
-
-        update_fields = {}
-
-        # Fetch content only if not already present
-        if not field_status["content"]:
-            content = await fetch_article_content_retry([article_id], session)
-            update_fields["content"] = content
-            logger.info(f"Fetched content for article {article_id}.")
-        else:
-            logger.info(f"Content already exists for article {article_id}. Skipping fetch.")
-
-        # Summarize only if summary is not already present
-        if not field_status["summary"]:
-            summary = await summarize_texts_async(article_id)
-            update_fields["summary"] = summary
-            logger.info(f"Summarized article {article_id}.")
-        else:
-            logger.info(f"Summary already exists for article {article_id}. Skipping summarization.")
-
-        # Extract keywords only if not already present
-        if not field_status["keywords"]:
-            keywords = await extract_keywords_async(article_id)
-            update_fields["keywords"] = keywords
-            logger.info(f"Extracted keywords for article {article_id}.")
-        else:
-            logger.info(f"Keywords already exist for article {article_id}. Skipping extraction.")
-
-        # Analyze sentiment only if not already present
-        if not field_status["sentiment"]:
-            sentiment = await analyze_sentiments_async(article_id)
-            update_fields["sentiment"] = sentiment
-            logger.info(f"Analyzed sentiment for article {article_id}.")
-        else:
-            logger.info(f"Sentiment already exists for article {article_id}. Skipping sentiment analysis.")
-
-        if update_fields:
-            # Queue the update for batch insertion
-            db_queue.append({
-                "filter": {"id": article_id},
-                "update": {"$set": update_fields}
-            })
-
-        return article_id
-
-    except Exception as e:
-        logger.error(f"Error processing article {article_id}: {e}")
-        return None
-
-async def db_writer(db_queue):
-    """
-    Coroutine to write updates to the database in batches.
-    """
-    while True:
-        if db_queue:
-            batch = db_queue.copy()
-            db_queue.clear()
-            try:
-                batch_insert_documents("News_Articles", batch)
-                logger.info(f"Inserted batch of {len(batch)} documents into MongoDB.")
-            except Exception as e:
-                logger.error(f"Error inserting batch into MongoDB: {e}")
-        await asyncio.sleep(1)  # Adjust the sleep time as needed
 
 async def process_articles_async(query, limit=10):
     """
@@ -161,12 +169,14 @@ async def process_articles_async(query, limit=10):
         raise ValueError("article_ids should be a list")
 
     db_queue = []
+    manager = PipelineManager(db_queue)
+
     # Start the DB writer coroutine
-    writer_task = asyncio.create_task(db_writer(db_queue))
+    writer_task = asyncio.create_task(manager.db_writer())
 
     async with ClientSession() as session:
         tasks = [
-            process_single_article_async(article_id, session, db_queue)
+            manager.process_single_article_async(article_id, session)
             for article_id in article_ids
         ]
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -182,7 +192,7 @@ async def process_articles_async(query, limit=10):
     # Filter out any None results due to errors
     processed_article_ids = [aid for aid in results if aid is not None]
 
-    logger.info("Processing completed.")
+    logger.info("Processing completed. Failed articles: %s", manager.failed_articles)
     return processed_article_ids
 
 def process_articles(query, limit=10):
@@ -198,21 +208,8 @@ def process_articles(query, limit=10):
 
     return article_ids
 
+
 if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
-
     article_ids = process_articles("Adani Hindenburg Report", limit=10)
     logger.info(f"Article IDs: {article_ids}")
-
-    # Example of handling post-processing if needed
-    # news_data = fetch_news(
-    #     query="Kolkata Murder Case", from_date="2024-08-01", sort_by="popularity", to_json=False
-    # )
-    # urls = [article.get("url") for article in news_data.get("articles", [])]
-
-    # # Process articles
-    # keywords, sentiments, wordcloud = process_articles(urls)
-    # logger.info(f"Keywords: {keywords}")
-    # logger.info(f"Sentiments: {sentiments}")
-    # wordcloud.to_image().save("wordcloud.png")
-    # logger.info("Processing of articles completed successfully.")
