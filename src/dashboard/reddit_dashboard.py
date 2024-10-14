@@ -73,8 +73,6 @@ def create_sentiment_timeline(posts, comments):
     st.plotly_chart(fig_comments_timeline)
 
 def download_images(image_urls, save_dir="downloaded_images"):
-    # if not os.path.exists(save_dir):
-    #     os.makedirs(save_dir)
     """
     Downloads a list of images from the given URLs and returns a list of PIL Image objects.
 
@@ -97,6 +95,7 @@ def download_images(image_urls, save_dir="downloaded_images"):
             print(f"Failed to download {url}: {e}")
 
     return image_files
+
 def create_and_show_gif(image_files):
     """
     Creates a GIF from a list of PIL Image objects and displays it in Streamlit.
@@ -190,12 +189,14 @@ if submit_button and keyword:
     st.plotly_chart(fig_subreddit)
 
     # Handle contentless posts with image URLs
-    # image_urls = [post["url"] for post in res if not post["content"] and post["url"].endswith(('.png', '.jpg', '.jpeg'))]
-    # if image_urls:
-    #     st.write("### Image Posts GIF")
-    #     # st.write(image_urls)
-    #     gif = create_and_show_gif(download_images(image_urls))
-    #     # st.image(gif)
+    gif_view = st.checkbox("View GIF")
+    if gif_view:
+        image_urls = [post["url"] for post in res if not post["content"] and post["url"].endswith(('.png', '.jpg', '.jpeg'))]
+        if image_urls:
+            st.write("### Image Posts GIF")
+            # st.write(image_urls)
+            gif = create_and_show_gif(download_images(image_urls))
+            # st.image(gif)
 
     # Line chart of comments over time
     comments_df["Comment Created UTC"] = pd.to_datetime(comments_df["Comment Created UTC"])
@@ -225,9 +226,3 @@ if submit_button and keyword:
     keywords = [post["title"] for post in res]  # Mock keyword extraction
     st.write("### Word Cloud of Most Discussed Topics")
     generate_wordcloud(keywords, "Important Topics")
-
-    # Add sentiment-based word cloud (if sentiments are available)
-    # sentiments = [post["sentiment"] for post in res]  # Mock sentiment extraction
-    # if sentiments:
-    #     st.write("### Word Cloud with Sentiments")
-    #     generate_wordcloud(sentiments, "Sentiment Analysis")
