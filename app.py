@@ -25,7 +25,7 @@ from src.utils.dbconnector import (append_to_document,
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
-
+st.set_page_config(layout="wide", page_title="NewsAI Dashboard App", page_icon="🚀")
 
 def download_images(image_urls, save_dir="downloaded_images"):
     # if not os.path.exists(save_dir):
