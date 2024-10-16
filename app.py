@@ -17,7 +17,7 @@ import streamlit as st
 from PIL import Image
 from streamlit_echarts import st_echarts
 
-from src.pipeline import process_articles
+# from src.pipeline import process_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import (append_to_document,
                                    fetch_and_combine_articles, find_documents,
@@ -164,7 +164,8 @@ if st.button("Submit"):
         if prev:
             data = prev["ids"]
         else:
-            data = process_articles(query, limit=fetch_till)
+            pass
+            # data = process_articles(query, limit=fetch_till)
     # st.write(data)
     df = fetch_and_combine_articles("News_Articles", data)
     st.success("Data processed successfully!")
