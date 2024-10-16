@@ -21,7 +21,7 @@ from src.pipeline import process_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import (append_to_document,
                                    fetch_and_combine_articles, find_documents,
-                                   find_one_document)
+                                   find_one_document, fetch_prefetched_queries)
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
@@ -150,10 +150,11 @@ def generate_spiderweb(data):
 # st.set_page_config(layout="wide")
 
 # Title and User Input
-st.title("News AI Dashboard")
-st.subheader("Enter your query to generate insights:")
-query = st.text_input("Query", "Enter a keyword or phrase")
-fetch_till = st.slider("Fetch articles till", 5, 100, 10)
+st.title("News AI Open to all Dashboard")
+st.subheader("Select your query to view insights:")
+query = st.selectbox("Select query", fetch_prefetched_queries())
+# fetch_till = st.slider("Fetch articles till", 5, 100, 10)
+fetch_till=5
 
 # Wait animation after submitting query
 if st.button("Submit"):
