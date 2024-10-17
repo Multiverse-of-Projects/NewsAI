@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized News Mood Board</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Personalized News Mood Board</h1>
+    <label for="emotion">Choose your mood:</label>
+    <select id="emotion" onchange="fetchArticles()">
+        <option value="joy">Happy</option>
+        <option value="sadness">Sad</option>
+        <option value="anger">Angry</option>
+    </select>
+
+    <div id="articles"></div>
+
+    <script>
+        async function fetchArticles() {
+            const emotion = document.getElementById('emotion').value;
+            const response = await fetch(`/articles/?emotion=${emotion}`);
+            const data = await response.json();
+            const articlesDiv = document.getElementById('articles');
+            articlesDiv.innerHTML = '';
+            data.articles.forEach(article => {
+                const articleDiv = document.createElement('div');
+                articleDiv.className = 'article-card';
+                articleDiv.innerHTML = `<h2>${article.title}</h2><p>${article.content}</p>`;
+                articlesDiv.appendChild(articleDiv);
+            });
+        }
+    </script>
+</body>
+</html>

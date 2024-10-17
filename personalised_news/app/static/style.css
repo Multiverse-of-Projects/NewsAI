@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+#emotion-selector {
+    margin-bottom: 20px;
+}
+#articles {
+    margin-top: 20px;
+}
+.article-card {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
