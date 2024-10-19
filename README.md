@@ -50,6 +50,9 @@ create an .env file with api keys and all
 # Add python path and run streamlit from src/dashboard/
 streamlit run app.py
 
+# If you want to run only the pipeline.py
+python -m src.pipeline
+
 # If you want to Unleash your creativity
 git checkout -b feature/skynet-integration
 
