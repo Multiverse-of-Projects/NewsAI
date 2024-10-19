@@ -57,6 +57,7 @@ python -m src.pipeline
 git checkout -b feature/skynet-integration
 
 # Start coding like you're trying to prevent Y2K!
+# for reference my python version == 3.12.7
 ```
 
 ## 🌈 Contribution: Join Our Avengers of Code!
