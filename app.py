@@ -17,15 +17,15 @@ import streamlit as st
 from PIL import Image
 from streamlit_echarts import st_echarts
 
-from src.pipeline import process_articles
+# from src.pipeline import process_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import (append_to_document,
                                    fetch_and_combine_articles, find_documents,
-                                   find_one_document)
+                                   find_one_document, fetch_prefetched_queries)
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
-
+st.set_page_config(layout="wide", page_title="NewsAI Dashboard App", page_icon="🚀")
 
 def download_images(image_urls, save_dir="downloaded_images"):
     # if not os.path.exists(save_dir):
@@ -150,10 +150,11 @@ def generate_spiderweb(data):
 # st.set_page_config(layout="wide")
 
 # Title and User Input
-st.title("News AI Dashboard")
-st.subheader("Enter your query to generate insights:")
-query = st.text_input("Query", "Enter a keyword or phrase")
-fetch_till = st.slider("Fetch articles till", 5, 100, 10)
+st.title("News AI Open to all Dashboard")
+st.subheader("Select your query to view insights:")
+query = st.selectbox("Select query", fetch_prefetched_queries())
+# fetch_till = st.slider("Fetch articles till", 5, 100, 10)
+fetch_till=5
 
 # Wait animation after submitting query
 if st.button("Submit"):
@@ -163,7 +164,8 @@ if st.button("Submit"):
         if prev:
             data = prev["ids"]
         else:
-            data = process_articles(query, limit=fetch_till)
+            pass
+            # data = process_articles(query, limit=fetch_till)
     # st.write(data)
     df = fetch_and_combine_articles("News_Articles", data)
     st.success("Data processed successfully!")

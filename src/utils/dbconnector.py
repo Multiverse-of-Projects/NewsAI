@@ -1,5 +1,5 @@
 import os
-
+import streamlit as st
 import pandas as pd
 from bson import ObjectId
 from dotenv import load_dotenv
@@ -29,10 +29,11 @@ def get_mongo_client():
         Exception: if connection fails
     """
     try:
-        mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
-        db_name = os.getenv("DB_NAME")
-        client = MongoClient(
-            mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
+        username = st.secrets["MONGO_USERNAME"]
+        password = st.secrets["MONGO_PASSWORD"] 
+        mongo_uri = f"mongodb+srv://{username}:{password}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
+        db_name = st.secrets["DB_NAME"]        
+        client = MongoClient(mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
         db = client[db_name]
         logger.info("Successfully connected to MongoDB.")
         return db
@@ -217,3 +218,13 @@ def fetch_and_combine_articles(collection_name, article_ids):
     except Exception as e:
         logger.error(f"Failed to fetch and combine articles: {e}")
         raise
+
+
+def fetch_prefetched_queries():
+    # fetches all query strings available in the database.
+    db = get_mongo_client()
+    collection = db["News_Articles_Ids"]
+    docs = collection.find()
+    
+    # from docs return list of strings infront of field query
+    return [doc["query"] for doc in docs]
