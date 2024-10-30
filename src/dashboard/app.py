@@ -17,6 +17,9 @@ import streamlit as st
 from PIL import Image
 from streamlit_echarts import st_echarts
 
+srcpath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(srcpath)
+
 from src.pipeline import process_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import (append_to_document,
@@ -25,7 +28,6 @@ from src.utils.dbconnector import (append_to_document,
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
-
 
 def download_images(image_urls, save_dir="downloaded_images"):
     # if not os.path.exists(save_dir):
@@ -149,6 +151,67 @@ def generate_spiderweb(data):
 # Layout Configuration
 # st.set_page_config(layout="wide")
 
+if 'status' not in st.session_state:
+    st.session_state["status"] = None
+if 'cookie' not in st.session_state:
+    st.session_state["cookie"] = None
+if 'user' not in st.session_state:
+    st.session_state["user"] = None
+
+with st.sidebar:
+    if st.session_state["status"] == False or st.session_state["status"] == None:
+        tab1, tab2 = st.tabs(["Login", "Register"])
+        with tab1:
+            email = st.text_input("Email")
+            password = st.text_input("Password", type="password")
+            if st.button("Sign In"):
+                response = requests.post(url="http://localhost:8000/auth/signin", json={"email": email, "password": password})
+                if response.status_code == 200:
+                    st.session_state["status"] = True
+                    st.session_state["cookies"] = response.cookies.get_dict()
+                    st.session_state["user"] = email
+                    st.rerun()
+                elif response.status_code == 401:
+                    st.error("Invalid password or email") 
+                else:
+                    st.session_state["status"] = False
+                    st.error("Failed to Sign in")
+        with tab2:
+            email = st.text_input("email")
+            password = st.text_input("password", type="password")
+            if st.button("Sign Up"):
+                if len(password) < 8:
+                    st.error("Password should have at least 8 characters")
+                else:
+                    response = requests.post("http://localhost:8000/auth/signup", json={"email": email, "password": password})
+                    if response.status_code == 400:
+                        st.error("Email already registred")
+                    else:
+                        st.rerun()
+    else:
+        usr = st.session_state["user"]
+        st.write("Logged in as ", usr)
+        tab3, tab4 = st.tabs(["Logout", "Auth"])
+        with tab3:
+            if st.button("Logout"):
+                response = requests.post("http://localhost:8000/auth/logout")
+                if response.status_code == 200:
+                    st.session_state["status"] = None
+                    st.session_state["cookies"] = None
+                    st.session_state["user"] = None
+                    st.rerun()
+                else:
+                    st.error("Failed to logout")
+        with tab4:
+            if st.button("Auth"):
+                response = requests.get("http://localhost:8000/auth/cookie", cookies=st.session_state["cookies"])
+                if response.status_code == 200:
+                    st.session_state["status"] = True
+                    st.success("Auth successfully!")
+                else:
+                    st.error("Failed to Auth")
+                    
+
 # Title and User Input
 st.title("News AI Dashboard")
 st.subheader("Enter your query to generate insights:")
@@ -264,7 +327,7 @@ if st.button("Submit"):
         title="Sentiment Distribution Across Sources Over Time",
     )
     fig.update_layout(xaxis_title="Source",
-                      yaxis_title="Date", xaxis_nticks=10)
+                    yaxis_title="Date", xaxis_nticks=10)
     fig.update_xaxes(tickangle=-45)
 
     st.plotly_chart(fig)
