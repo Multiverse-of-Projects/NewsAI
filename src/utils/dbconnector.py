@@ -29,10 +29,14 @@ def get_mongo_client():
         Exception: if connection fails
     """
     try:
-        username = st.secrets["MONGO_USERNAME"]
-        password = st.secrets["MONGO_PASSWORD"] 
-        mongo_uri = f"mongodb+srv://{username}:{password}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
-        db_name = st.secrets["DB_NAME"]        
+        mongo_uri = os.environ.get("MONGO_URI")
+        if not mongo_uri:
+            username = st.secrets["MONGO_USERNAME"]
+            password = st.secrets["MONGO_PASSWORD"]
+            mongo_uri = f"mongodb+srv://{username}:{password}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
+        db_name = os.environ.get("DB_NAME")
+        if not db_name:
+            db_name = st.secrets["DB_NAME"]
         client = MongoClient(mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
         db = client[db_name]
         logger.info("Successfully connected to MongoDB.")

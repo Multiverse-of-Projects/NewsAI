@@ -1,0 +1,25 @@
+services:
+  streamlit-app:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - MONGO_URI=${MONGO_URI:-mongodb://mongodb:27017/}
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./init-data:/docker-entrypoint-initdb.d/data
+      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
+    environment:
+      - MONGO_INITDB_DATABASE=NewAI
+
+volumes:
+  mongodb_data:

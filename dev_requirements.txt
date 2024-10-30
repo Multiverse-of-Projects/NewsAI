@@ -1,0 +1,13 @@
+logging
+wordcloud
+matplotlib
+numpy
+plotly
+seaborn
+pandas
+requests
+pillow
+pymongo
+python-dotenv
+streamlit
+colorlog

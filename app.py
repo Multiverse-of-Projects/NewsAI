@@ -15,7 +15,7 @@ import requests
 import seaborn as sns
 import streamlit as st
 from PIL import Image
-from streamlit_echarts import st_echarts
+# from streamlit_echarts import st_echarts
 
 # from src.pipeline import process_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
