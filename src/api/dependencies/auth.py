@@ -1,19 +1,6 @@
-import sys
-import os
-
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-sys.path.append(parent)
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-parparent = os.path.dirname(parent)
-sys.path.append(parparent)
-
-import jwt
 from fastapi import HTTPException, status
 from core.security import decode_access_token
 from jwt import PyJWTError
-from pydantic import BaseModel
 from src.utils.dbconnector import get_mongo_client
 from api.schemas.auth import GetUserResponse
 db = get_mongo_client()

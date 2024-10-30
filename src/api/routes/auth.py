@@ -1,15 +1,3 @@
-import sys
-import os
-import tracemalloc
-
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-sys.path.append(parent)
-current = os.path.dirname(os.path.realpath(__file__))
-parent = os.path.dirname(current)
-parparent = os.path.dirname(parent)
-sys.path.append(parparent)
- 
 from fastapi import Request, HTTPException, Response, APIRouter
 from schemas.auth import SignUpRequest, SignInRequest
 from core.security import hash_password, verify_password, create_access_token

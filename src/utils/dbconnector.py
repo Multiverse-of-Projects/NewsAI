@@ -29,7 +29,7 @@ def get_mongo_client():
         Exception: if connection fails
     """
     try:
-        mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@cluster0.cttlj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+        mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
         db_name = os.getenv("DB_NAME")
         client = MongoClient(
             mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)

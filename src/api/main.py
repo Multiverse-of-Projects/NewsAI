@@ -1,5 +1,5 @@
 
-from fastapi import Request, HTTPException, Response, FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.api.routes import auth
 app = FastAPI() 

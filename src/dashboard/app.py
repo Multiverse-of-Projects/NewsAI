@@ -1,6 +1,3 @@
-import os
-import sys
-import time
 from datetime import datetime
 from io import BytesIO
 from typing import List
@@ -16,9 +13,6 @@ import seaborn as sns
 import streamlit as st
 from PIL import Image
 from streamlit_echarts import st_echarts
-
-srcpath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(srcpath)
 
 from src.pipeline import process_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
