@@ -23,6 +23,7 @@ Imagine if CNN, Reddit, and a fortune-teller had a baby, and that baby was raise
 
 ## 🎬 See It or Don't Believe It!
 
+Deployment link : https://news-ai-dashboard.streamlit.app/
 <div align="center">
   <a href="https://www.youtube.com/watch?v=stTXgljJVPQ">
     <img src="https://img.youtube.com/vi/stTXgljJVPQ/0.jpg" alt="Demo Video" width="500px">
@@ -35,7 +36,7 @@ Imagine if CNN, Reddit, and a fortune-teller had a baby, and that baby was raise
 
 ```bash
 # Clone this bad boy
-git clone https://github.com/YourUsername/NewsAI.git
+git clone https://github.com/Multiverse-of-Projects/NewsAI.git
 
 # Enter the matrix
 cd NewsAI
@@ -49,10 +50,14 @@ create an .env file with api keys and all
 # Add python path and run streamlit from src/dashboard/
 streamlit run app.py
 
+# If you want to run only the pipeline.py
+python -m src.pipeline
+
 # If you want to Unleash your creativity
 git checkout -b feature/skynet-integration
 
 # Start coding like you're trying to prevent Y2K!
+# for reference my python version == 3.12.7
 ```
 
 ## 🌈 Contribution: Join Our Avengers of Code!
@@ -84,7 +89,7 @@ Our docs are so good, they're basically the eighth wonder of the world. Check th
 - 🧠 **Gemini AI**: For insights sharper than a samurai's sword
 - 🤖 **BERT**: Sentiment analysis that can read between the lines (and emojis)
 - 🚀 **FastAPI**: Because life's too short for slow APIs
-- 🖥️ **Streamlit**: Making dashboards sexier than a sports car
+- 🖥️ **Streamlit**: Making dashboards sexier than a sports car 
 - 🍃 **MongoDB**: NoSQL? More like YesQL to all our data needs!
 
 ## 📬 Reach Out and Touch Code
