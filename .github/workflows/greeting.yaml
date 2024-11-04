@@ -21,23 +21,22 @@ jobs:
         issue-message: ''
         pr-message: ''
 
-    - name: Set Greeting Message
+    - name: Set Greeting Message
       id: set-message
       run: |
-        if [ "${{ github.event_name }}" = "issues" ]; then
-          if [ "${{ steps.first-time.outputs.first-time-contributor }}" = "true" ]; then
+        if [[ "${{ github.event_name }}" == "issues" ]]; then
+          if [[ "${{ steps.first-time.outputs.first-time-contributor }}" == "true" ]]; then
             echo "message=👋 Welcome, first-time contributor! Thanks for raising an issue. Our team will review it shortly. Stay tuned! 🚀" >> $GITHUB_OUTPUT
           else
             echo "message=🔄 Thanks for your continued contribution! We appreciate your help in improving the project. Our team will look into the issue soon!" >> $GITHUB_OUTPUT
           fi
-        elif [ "${{ github.event_name }}" = "pull_request_target" ]; then
-          if [ "${{ steps.first-time.outputs.first-time-contributor }}" = "true" ]; then
+        elif [[ "${{ github.event_name }}" == "pull_request_target" ]]; then
+          if [[ "${{ steps.first-time.outputs.first-time-contributor }}" == "true" ]]; then
             echo "message=🎉 Welcome to your first pull request! We appreciate your contribution and will review it soon. Let's make this project even better together! 🌟" >> $GITHUB_OUTPUT
           else
             echo "message=👏 Great to see you again! Thanks for another awesome PR. We will review it as soon as possible. You're helping us improve with every contribution!" >> $GITHUB_OUTPUT
           fi
         fi
-
     - name: Post Greeting
       uses: actions/github-script@v6
       with:
