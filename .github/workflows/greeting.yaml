@@ -1,68 +1,67 @@
 name: Advanced Greetings
 
 on: 
-  pull_request_target:
-    types: [opened]
-  issues:
-    types: [opened]
+  pull_request_target:
+    types: [opened]
+  issues:
+    types: [opened]
 
 jobs:
-  greeting:
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
-    steps:
-    - name: Check if First-Time Contributor
-      id: first-time
-      uses: actions/first-interaction@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - name: Check if First-Time Contributor
+      id: first-time
+      uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: ''
+        pr-message: ''
 
-    - name: Greet for Issue
-      if: github.event_name == 'issues' && steps.first-time.outputs.first_interaction == 'true'
-      run: |
-        echo "::set-output name=message::👋 Welcome, first-time contributor! Thanks for raising an issue. Our team will review it shortly. Stay tuned! 🚀"
+    - name: Set Greeting Message
+      id: set-message
+      run: |
+        if [ "${{ github.event_name }}" = "issues" ]; then
+          if [ "${{ steps.first-time.outputs.first-time-contributor }}" = "true" ]; then
+            echo "message=👋 Welcome, first-time contributor! Thanks for raising an issue. Our team will review it shortly. Stay tuned! 🚀" >> $GITHUB_OUTPUT
+          else
+            echo "message=🔄 Thanks for your continued contribution! We appreciate your help in improving the project. Our team will look into the issue soon!" >> $GITHUB_OUTPUT
+          fi
+        elif [ "${{ github.event_name }}" = "pull_request_target" ]; then
+          if [ "${{ steps.first-time.outputs.first-time-contributor }}" = "true" ]; then
+            echo "message=🎉 Welcome to your first pull request! We appreciate your contribution and will review it soon. Let's make this project even better together! 🌟" >> $GITHUB_OUTPUT
+          else
+            echo "message=👏 Great to see you again! Thanks for another awesome PR. We will review it as soon as possible. You're helping us improve with every contribution!" >> $GITHUB_OUTPUT
+          fi
+        fi
 
-    - name: Greet Returning Contributor for Issue
-      if: github.event_name == 'issues' && steps.first-time.outputs.first_interaction != 'true'
-      run: |
-        echo "::set-output name=message::🔄 Thanks for your continued contribution! We appreciate your help in improving the project. Our team will look into the issue soon!"
-
-    - name: Greet for PR
-      if: github.event_name == 'pull_request_target' && steps.first-time.outputs.first_interaction == 'true'
-      run: |
-        echo "::set-output name=message::🎉 Welcome to your first pull request! We appreciate your contribution and will review it soon. Let’s make this project even better together! 🌟"
-
-    - name: Greet Returning Contributor for PR
-      if: github.event_name == 'pull_request_target' && steps.first-time.outputs.first_interaction != 'true'
-      run: |
-        echo "::set-output name=message::👏 Great to see you again! Thanks for another awesome PR. We will review it as soon as possible. You’re helping us improve with every contribution!"
-
-    - name: Post Greeting
-      uses: actions/github-script@v6
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const message = "${{ steps.greet.outputs.message }}";
-          if (github.event_name === 'issues') {
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: message
-            });
-          } else if (github.event_name === 'pull_request_target') {
-            github.pulls.createReview({
-              pull_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: message,
-              event: 'COMMENT'
-            });
-          }
-          
-    - name: Post Maintainer Welcome (Optional)
-      if: github.actor == 'MaintainerUsername'
-      run: |
-        echo "::set-output name=message::🙌 Welcome back, maintainer! Thanks for reviewing and supporting this project!"
+    - name: Post Greeting
+      uses: actions/github-script@v6
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const message = "${{ steps.set-message.outputs.message }}";
+          if (context.eventName === 'issues') {
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+          } else if (context.eventName === 'pull_request_target') {
+            github.rest.pulls.createReview({
+              pull_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message,
+              event: 'COMMENT'
+            });
+          }
+          
+    - name: Post Maintainer Welcome (Optional)
+      if: github.actor == 'MaintainerUsername'
+      run: |
+        echo "message=🙌 Welcome back, maintainer! Thanks for reviewing and supporting this project!" >> $GITHUB_OUTPUT
