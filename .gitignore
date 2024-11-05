@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+.streamlit/
 
 # Distribution / packaging
 .Python
@@ -64,7 +65,7 @@ _templates/
 # Django stuff:
 *.log
 log.*
-app.*
+# app.*
 mygif.gif
 local_settings.py
 db.sqlite3
