@@ -1,0 +1,1 @@
+It will store your google requested News.
