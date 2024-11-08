@@ -1,0 +1,1 @@
+It will store your database embeddings files
