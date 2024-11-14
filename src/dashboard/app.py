@@ -321,3 +321,24 @@ if st.button("Submit"):
 
         except Exception as e:
             st.error(f"Error: {e}")
+
+# Chat Box Interface
+st.subheader("Chat with NewsAI")
+chat_query = st.text_input("Ask a question about the news summaries:")
+suggested_questions = ["What is the latest news?", "Tell me about the economy."]
+
+if st.button("Ask"):
+    with st.spinner("Generating answer..."):
+        try:
+            response = requests.post("http://localhost:8000/chat", json={"query": chat_query})
+            response.raise_for_status()
+            answer = response.json().get("answer", "No answer available.")
+            st.write(f"Answer: {answer}")
+        except Exception as e:
+            st.error(f"Error: {e}")
+
+st.subheader("Suggested Questions")
+for question in suggested_questions:
+    if st.button(question):
+        chat_query = question
+        st.experimental_rerun()
