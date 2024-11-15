@@ -30,7 +30,7 @@ class MongoDBClientSingleton:
                     f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}"
                     "@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
                 )
-                db_name = os.getenv("DB_NAME")
+                db_name = os.getenv("DB_NAME", "default_db")
                 client = MongoClient(mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
                 self.db = client[db_name]
                 MongoDBClientSingleton._instance = self
