@@ -141,11 +141,6 @@ pyOpenSSL==19.0.0
 pyparsing==3.1.4
 pyrsistent==0.15.5
 pyserial==3.4
-python-dateutil==2.9.0.post0
-python-debian==0.1.36+ubuntu1.1
-python-dotenv==1.0.1
-python-jose==3.3.0
-python-multipart==0.0.12
 pytz==2024.1
 PyYAML==6.0.2
 referencing==0.35.1
