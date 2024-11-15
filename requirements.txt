@@ -30,7 +30,6 @@ cycler==0.12.1
 dbus-python==1.2.16
 distlib==0.3.8
 distro==1.4.0
-distro-info==0.23+ubuntu1.1
 dnspython==2.6.1
 docutils==0.20.1
 ecdsa==0.19.0
