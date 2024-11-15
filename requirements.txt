@@ -92,7 +92,6 @@ multidict==6.0.5
 mypy-extensions==1.0.0
 myst-parser==4.0.0
 narwhals==1.6.0
-netifaces==0.10.4
 networkx==3.3
 nltk==3.9.1
 nodeenv==1.9.1
