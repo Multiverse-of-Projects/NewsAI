@@ -20,7 +20,6 @@ cfgv==3.4.0
 chardet==3.0.4
 charset-normalizer==3.3.2
 click==8.1.7
-cloud-init==24.3
 colorama==0.4.6
 colorlog==6.8.2
 configobj==5.0.6
