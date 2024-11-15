@@ -44,7 +44,7 @@ class MongoDBUtilsTests(unittest.TestCase):
         db = get_mongo_client()
         self.assertIsNotNone(db)
 
-    @patch("src.utils.dbconnector.MongoClient")
+    @patch("utils.dbconnector.MongoClient")
     def test_get_mongo_client_failure(self, mock_mongo_client):
         # Simulujeme chybu pripojenia
         mock_mongo_client.side_effect = Exception("Connection failed")
