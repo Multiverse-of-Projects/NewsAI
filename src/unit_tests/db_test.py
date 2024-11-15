@@ -1,5 +1,6 @@
 import os, sys
 import unittest
+from unittest import TestCase, mock
 from unittest.mock import patch, MagicMock
 from bson import ObjectId
 import mongomock
@@ -7,7 +8,6 @@ import pandas as pd
 import cProfile
 import io
 import pstats
-from io import StringIO
 srcpath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(srcpath)
 from utils.dbconnector import get_mongo_client, MongoDBClientSingleton
@@ -39,7 +39,7 @@ class MongoDBUtilsTests(unittest.TestCase):
         ps.print_stats()
         print(f"\nProfiling results for {test_func.__name__}:\n{s.getvalue()}")
         
-    @patch("utils.dbconnector.MongoClient", new=mongomock.MongoClient)
+    @mock.patch.dict(os.environ, {"TESTING": "true", "MONGO_DB_NAME": "test_db"})
     def test_get_mongo_client_success(self):
         db = get_mongo_client()
         self.assertIsNotNone(db)

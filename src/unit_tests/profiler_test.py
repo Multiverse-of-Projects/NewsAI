@@ -1,6 +1,7 @@
 import os, sys
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock
+from unittest import mock
 import cProfile
 import pstats
 from io import StringIO
@@ -10,18 +11,12 @@ from utils.dbconnector import get_mongo_client, MongoDBClientSingleton
 
 # Importované funkcie, ktoré chcete testovať
 from utils.dbconnector import (
-    get_mongo_client,
-    content_manager,
-    insert_document,
-    find_one_document,
-    append_to_document,
-    find_documents,
-    fetch_and_combine_articles
+    get_mongo_client
 )
 
 class TestMongoDBClientSingleton(unittest.TestCase):
     
-    @patch("utils.dbconnector.MongoClient")
+    @mock.patch.dict(os.environ, {"TESTING": "true", "MONGO_DB_NAME": "test_db"})
     def test_repeated_connections_profile(self, mock_mongo_client):
         """
         Test that repeated calls to get_mongo_client use the same MongoDB instance.
