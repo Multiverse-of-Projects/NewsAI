@@ -4,6 +4,7 @@ import pandas as pd
 from bson import ObjectId
 from dotenv import load_dotenv
 from pymongo import MongoClient
+from mongomock import MongoClient as MockMongoClient
 srcpath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(srcpath)
 from src.utils.logger import setup_logger
@@ -22,6 +23,9 @@ class MongoDBClientSingleton:
             raise Exception("This class is a singleton!")
         else:
             try:
+                is_testing = os.getenv("TESTING", "false").lower() == "true"
+                client = MockMongoClient() if is_testing else MongoClient()
+
                 mongo_uri = (
                     f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}"
                     "@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
