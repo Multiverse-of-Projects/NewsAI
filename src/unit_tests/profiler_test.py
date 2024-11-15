@@ -17,6 +17,7 @@ from utils.dbconnector import (
 class TestMongoDBClientSingleton(unittest.TestCase):
     
     @mock.patch.dict(os.environ, {"TESTING": "true", "MONGO_DB_NAME": "test_db"})
+    @mock.patch("src.utils.dbconnector.MongoClient")
     def test_repeated_connections_profile(self, mock_mongo_client):
         """
         Test that repeated calls to get_mongo_client use the same MongoDB instance.
