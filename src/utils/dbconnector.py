@@ -1,10 +1,11 @@
-import os
+import os, sys
 
 import pandas as pd
 from bson import ObjectId
 from dotenv import load_dotenv
 from pymongo import MongoClient
-
+srcpath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(srcpath)
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
@@ -12,16 +13,40 @@ logger = setup_logger()
 # Load environment variables
 load_dotenv()
 
+class MongoDBClientSingleton:
+    _instance = None
+
+    def __init__(self):
+        """Initialize MongoDB client if it does not already exist."""
+        if MongoDBClientSingleton._instance is not None:
+            raise Exception("This class is a singleton!")
+        else:
+            try:
+                mongo_uri = (
+                    f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}"
+                    "@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
+                )
+                db_name = os.getenv("DB_NAME")
+                client = MongoClient(mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
+                self.db = client[db_name]
+                MongoDBClientSingleton._instance = self
+                logger.info("Successfully connected to MongoDB.")
+            except Exception as e:
+                logger.error(f"Failed to connect to MongoDB: {e}")
+                raise
+
+    @staticmethod
+    def get_instance():
+        """Static method to access the singleton instance of MongoDBClientSingleton."""
+        if MongoDBClientSingleton._instance is None:
+            MongoDBClientSingleton()
+        return MongoDBClientSingleton._instance
+
 
 def get_mongo_client():
     """
     Connects to MongoDB and returns the database object.
-
-    Uses environment variables for connection:
-        MONGO_USERNAME: username for MongoDB authentication
-        MONGO_PASSWORD: password for MongoDB authentication
-        MONGO_DB_NAME: name of the database to connect to
-
+    
     Returns:
         pymongo.database.Database: the connected database object
 
@@ -29,16 +54,37 @@ def get_mongo_client():
         Exception: if connection fails
     """
     try:
-        mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
-        db_name = os.getenv("DB_NAME")
-        client = MongoClient(
-            mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
-        db = client[db_name]
-        logger.info("Successfully connected to MongoDB.")
-        return db
+        return MongoDBClientSingleton.get_instance().db
     except Exception as e:
-        logger.error(f"Failed to connect to MongoDB: {e}")
+        logger.error(f"Failed to retrieve MongoDB client instance: {e}")
         raise
+
+# def get_mongo_client():
+#     """
+#     Connects to MongoDB and returns the database object.
+
+#     Uses environment variables for connection:
+#         MONGO_USERNAME: username for MongoDB authentication
+#         MONGO_PASSWORD: password for MongoDB authentication
+#         MONGO_DB_NAME: name of the database to connect to
+
+#     Returns:
+#         pymongo.database.Database: the connected database object
+
+#     Raises:
+#         Exception: if connection fails
+#     """
+#     try:
+#         mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
+#         db_name = os.getenv("DB_NAME")
+#         client = MongoClient(
+#             mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
+#         db = client[db_name]
+#         logger.info("Successfully connected to MongoDB.")
+#         return db
+#     except Exception as e:
+#         logger.error(f"Failed to connect to MongoDB: {e}")
+#         raise
 
 
 def content_manager(article_id, required_fields):
