@@ -26,6 +26,7 @@ jobs:
         pip install pymongo
         pip install pandas
         pip install python-dotenv
+        pip install colorlog
       # python -m pip install --upgrade pip
       # pip install --upgrade setuptools
       # pip install --upgrade wheel
