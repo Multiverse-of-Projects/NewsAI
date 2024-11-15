@@ -209,4 +209,3 @@ wheel==0.34.2
 wordcloud==1.9.3
 yarl==1.9.7
 zipp==1.0.0
-zope.interface==4.7.1
