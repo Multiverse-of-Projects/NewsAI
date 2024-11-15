@@ -2,9 +2,7 @@ import os, sys
 import unittest
 from unittest.mock import patch, MagicMock
 from bson import ObjectId
-import pandas as pd
 import cProfile
-import io
 import pstats
 from io import StringIO
 srcpath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
