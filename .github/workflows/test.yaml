@@ -25,6 +25,7 @@ jobs:
       run: |
         pip install pymongo
         pip install pandas
+        pip install dotenv
       # python -m pip install --upgrade pip
       # pip install --upgrade setuptools
       # pip install --upgrade wheel
