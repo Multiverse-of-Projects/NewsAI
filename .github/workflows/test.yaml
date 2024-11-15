@@ -21,6 +21,9 @@ jobs:
       with:
         python-version: '3.12' 
 
+    - name: Debug environment
+      run: printenv | grep MONGO_DB_NAME
+
     - name: Install dependencies
       run: |
         pip install pymongo
