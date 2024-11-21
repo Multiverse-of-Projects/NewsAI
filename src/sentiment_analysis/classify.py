@@ -23,17 +23,23 @@ def classify_sentiments(texts: List[str]) -> Dict[str, List[Tuple[str, float]]]:
         raise ValueError("Input texts should not be empty.")
     logger.info("Classifying sentiments of multiple articles.")
     results = {"positive": [], "negative": [], "neutral": []}
+    
     for text in texts:
-        sentiment = analyze_sentiment(text)
-        label = sentiment[0]["label"]
-        score = sentiment[0]["score"]
+        try:
+            sentiment = analyze_sentiment(text)
+            label = sentiment[0]["label"]
+            score = sentiment[0]["score"]
 
-        if label == "POSITIVE":
-            results["positive"].append((text, score))
-        elif label == "NEGATIVE":
-            results["negative"].append((text, score))
-        else:
-            results["neutral"].append((text, score))
+            if label == "POSITIVE":
+                results["positive"].append((text, score))
+            elif label == "NEGATIVE":
+                results["negative"].append((text, score))
+            else:
+                results["neutral"].append((text, score))
+
+        except Exception as e:
+            logger.error(f"Error analyzing sentiment for text: '{text}'. Error: {str(e)}")
+            results["neutral"].append((text, None))  # Append to neutral with None score on error
 
     logger.info("Sentiment classification completed.")
     return results
