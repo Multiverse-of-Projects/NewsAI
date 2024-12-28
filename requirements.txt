@@ -43,7 +43,7 @@ identify==2.6.0
 idna==3.8
 imagesize==1.4.1
 isort==5.13.2
-Jinja2==3.1.4
+Jinja2==3.1.5
 joblib==1.4.2
 jsonschema==4.23.0
 jsonschema-specifications==2023.12.1
