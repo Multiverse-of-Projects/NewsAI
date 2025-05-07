@@ -6,7 +6,7 @@ from datetime import datetime
 import requests
 from dotenv import load_dotenv
 
-from src.utils.dbconnector import find_one_document, insert_document
+from src.utils.dbconnector import find_one_document, insert_document, update_document
 from src.utils.logger import setup_logger
 
 # Load API key from .env file
@@ -163,7 +163,7 @@ def fetch_news(query, from_date, sort_by="popularity", limit=10, to_json=False, 
                 
                 # Update or insert the document in News_Articles_Ids
                 if previous:
-                    from src.utils.dbconnector import update_document
+                    # Update document logic
                     update_document("News_Articles_Ids", {"query": query}, {"ids": article_ids})
                     logger.info(f"Updated News_Articles_Ids for query '{query}' with {len(article_ids)} articles")
                 else:

@@ -283,7 +283,8 @@ def fetch_and_combine_articles(collection_name, article_ids):
 
         # Convert the list of documents to a DataFrame
         df = pd.DataFrame(docs)
-        print(df.drop(columns=["_id", "id"], inplace=True))
+        df.drop(columns=["_id", "id"], inplace=True)
+        logger.debug("Dropped '_id' and 'id' columns from the DataFrame.")
         if df.empty:
             logger.warning("No documents found for the provided article IDs.")
         else:
