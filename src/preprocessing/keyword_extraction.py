@@ -70,52 +70,84 @@ def bert_keyword_extraction(texts: List[str], top_n: int = 10) -> List[str]:
 
 def extract_keywords(article_ids, top_n: int = 10):
     """
-    Extracts keywords from a list of texts using KeyBERT.
+    Extracts keywords from article summaries using KeyBERT.
 
     Args:
-        texts (List[str]): List of texts to extract keywords from.
+        article_ids (List[str]): List of article IDs to extract keywords from.
         top_n (int): Number of top keywords to extract per text.
 
     Returns:
-        It returns something else not a list of list of str.
-        List[List[str]]: List of keyword lists for each text.
+        List[dict]: List of dictionaries containing article IDs and their keywords.
     """
     article_summaries = []
-    documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
-    for doc in documents:
-        article_summaries.append({"id": doc["id"], "summary": doc["summary"]})
+    
+    try:
+        # Fetch documents from the database
+        documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
+        for doc in documents:
+            # Ensure summary exists and is a string
+            summary = doc.get("summary", "")
+            if not summary:
+                logger.warning(f"Missing summary for article ID: {doc['id']}")
+                summary = ""
+            elif not isinstance(summary, str):
+                logger.warning(f"Summary is not a string for article ID: {doc['id']}. Converting to string.")
+                summary = str(summary)
+                
+            article_summaries.append({"id": doc["id"], "summary": summary})
+    except Exception as e:
+        logger.error(f"Error fetching articles from database: {e}")
+        return []
+    
+    if not article_summaries:
+        logger.warning("No valid article summaries found for keyword extraction")
+        return []
 
     logger.info("Initializing KeyBERT model for keyword extraction.")
-    model = KeyBERT("all-MiniLM-L6-v2")
+    try:
+        model = KeyBERT("all-MiniLM-L6-v2")
+    except Exception as e:
+        logger.error(f"Failed to initialize KeyBERT model: {e}")
+        return []
 
     article_keywords = []
     logger.info(f"Extracting keywords from {len(article_summaries)} texts.")
+    
     for idx, obj in enumerate(article_summaries):
-        logger.debug(
-            f"Extracting keywords from text {idx+1}/{len(article_summaries)}.")
+        article_id = obj.get("id")
+        logger.debug(f"Extracting keywords from text {idx+1}/{len(article_summaries)} (ID: {article_id}).")
+        
+        # Skip empty summaries
+        summary = obj.get("summary", "")
+        if not summary:
+            logger.warning(f"Skipping article {article_id} - empty summary")
+            empty_keywords = {"id": article_id, "keywords": []}
+            article_keywords.append(empty_keywords)
+            append_to_document("News_Articles", {"id": article_id}, {"keywords": []})
+            continue
+            
         try:
+            # Extract keywords from the summary
             keywords = model.extract_keywords(
-                obj.get("summary"),
+                summary,
                 keyphrase_ngram_range=(1, 2),
                 stop_words="english",
                 top_n=top_n,
             )
             extracted_keywords = [kw[0] for kw in keywords]
-            keyword_obj = {"id": obj.get("id"), "keywords": extracted_keywords}
-
+            keyword_obj = {"id": article_id, "keywords": extracted_keywords}
+            
             article_keywords.append(keyword_obj)
-            append_to_document("News_Articles", {
-                               "id": obj.get("id")}, keyword_obj)
-            logger.debug(f"Keywords for text {idx+1}: {extracted_keywords}")
+            append_to_document("News_Articles", {"id": article_id}, {"keywords": extracted_keywords})
+            logger.debug(f"Keywords for article {article_id}: {extracted_keywords}")
+            
         except Exception as e:
-            logger.error(f"Error extracting keywords from text {idx+1}: {e}")
-            article_keywords.append([])
+            logger.error(f"Error extracting keywords from article {article_id}: {e}")
+            # Save empty keywords to avoid repeated failed attempts
+            article_keywords.append({"id": article_id, "keywords": []})
+            append_to_document("News_Articles", {"id": article_id}, {"keywords": []})
+    
     logger.info("Keyword extraction completed.")
-
-    # --------
-    # MongoDB code to store article keywords
-    # --------
-
     return article_keywords
 
 

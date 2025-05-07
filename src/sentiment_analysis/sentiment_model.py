@@ -19,48 +19,93 @@ def analyze_sentiments(article_ids: List[str]) -> List[Dict[str, float]]:
     Returns:
         List[Dict[str, float]]: List of sentiment analysis results for each text.
     """
-    article_obj = []  # This object should have id, title and description
-    documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
-    for doc in documents:
-        article_obj.append(
-            {
+    article_obj = []
+    
+    try:
+        # Fetch documents from the database
+        documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
+        for doc in documents:
+            # Use summary for sentiment analysis if available, otherwise use content
+            text_content = doc.get("summary", doc.get("content", ""))
+            
+            # Ensure content is a string
+            if not isinstance(text_content, str):
+                logger.warning(f"Content is not a string for article ID: {doc['id']}. Converting to string.")
+                text_content = str(text_content) if text_content else ""
+                
+            if not text_content.strip():
+                logger.warning(f"Empty content for article ID: {doc['id']}")
+                
+            article_obj.append({
                 "id": doc["id"],
-                "title": doc["title"],
-                "description": doc.get("content", ""),
-            }
-        )
+                "title": doc.get("title", ""),
+                "text_content": text_content
+            })
+    except Exception as e:
+        logger.error(f"Error fetching articles from database: {e}")
+        return []
+    
+    if not article_obj:
+        logger.warning("No valid articles found for sentiment analysis")
+        return []
 
     logger.info("Initializing sentiment analysis pipeline.")
-    sentiment_analyzer = pipeline(
-        "sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment-latest"
-    )
+    try:
+        sentiment_analyzer = pipeline(
+            "sentiment-analysis", 
+            model="cardiffnlp/twitter-roberta-base-sentiment-latest"
+        )
+    except Exception as e:
+        logger.error(f"Failed to initialize sentiment analysis pipeline: {e}")
+        return []
 
     article_sentiments = []
     logger.info(f"Analyzing sentiments for {len(article_obj)} texts.")
+    
     for idx, obj in enumerate(article_obj):
-        logger.debug(
-            f"Analyzing sentiment for text {idx+1}/{len(article_obj)}.")
+        article_id = obj.get("id")
+        logger.debug(f"Analyzing sentiment for text {idx+1}/{len(article_obj)} (ID: {article_id}).")
+        
+        # Skip empty text content
+        text_content = obj.get("text_content", "").strip()
+        if not text_content:
+            logger.warning(f"Skipping article {article_id} - empty text content")
+            empty_sentiment = {
+                "id": article_id,
+                "sentiment": "UNKNOWN", 
+                "sentiment_score": 0.0
+            }
+            article_sentiments.append(empty_sentiment)
+            append_to_document("News_Articles", {"id": article_id}, empty_sentiment)
+            continue
+            
         try:
-            analysis = sentiment_analyzer(obj.get("description")[:511])
-            print("Analysis", analysis)
+            # Truncate text to fit model constraints (typically 512 tokens)
+            truncated_text = text_content[:500]  
+            
+            # Perform sentiment analysis - IMPORTANT: pass truncated_text as INPUTS parameter (not text)
+            analysis = sentiment_analyzer(inputs=truncated_text)
+            
             sentiment_obj = {
-                "id": obj.get("id"),
+                "id": article_id,
                 "sentiment": analysis[0]["label"],
                 "sentiment_score": analysis[0]["score"],
             }
+            
             article_sentiments.append(sentiment_obj)
-            append_to_document("News_Articles", {
-                               "id": obj.get("id")}, sentiment_obj)
-            logger.debug(f"Sentiment for text {idx+1}: {sentiment_obj}")
-
+            append_to_document("News_Articles", {"id": article_id}, sentiment_obj)
+            logger.debug(f"Sentiment for article {article_id}: {sentiment_obj}")
+            
         except Exception as e:
-            logger.error(f"Error analyzing sentiment for text {idx+1}: {e}")
-            article_sentiments.append({"label": "UNKNOWN", "score": 0.0})
-            append_to_document(
-                "News_Articles",
-                {"id": obj.get("id")},
-                {"sentiment": "UNKNOWN", "sentiment_score": 0.0},
-            )
+            logger.error(f"Error analyzing sentiment for article {article_id}: {e}")
+            # Save unknown sentiment to avoid repeated failed attempts
+            unknown_sentiment = {
+                "id": article_id,
+                "sentiment": "UNKNOWN", 
+                "sentiment_score": 0.0
+            }
+            article_sentiments.append(unknown_sentiment)
+            append_to_document("News_Articles", {"id": article_id}, unknown_sentiment)
 
     logger.info("Sentiment analysis completed.")
     return article_sentiments
