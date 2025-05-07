@@ -1,9 +1,12 @@
 import os
+import time
+import random
 from typing import List
 
 import google.generativeai as genai
 from dotenv import load_dotenv
 from google.generativeai.types import HarmBlockThreshold, HarmCategory
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
 from src.utils.dbconnector import append_to_document, find_documents
 from src.utils.logger import setup_logger
@@ -17,6 +20,52 @@ genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 logger = setup_logger()
 
 
+# Define a custom exception for rate limiting
+class RateLimitException(Exception):
+    pass
+
+
+# Custom retry decorator for Gemini API calls with exponential backoff
+@retry(
+    retry=retry_if_exception_type(RateLimitException),
+    wait=wait_exponential(multiplier=1, min=4, max=60),
+    stop=stop_after_attempt(5),
+    before_sleep=lambda retry_state: logger.info(f"Rate limit hit, retrying in {retry_state.next_action.sleep} seconds...")
+)
+def generate_summary_with_retry(content):
+    """
+    Generate a summary with retry logic for handling rate limits
+    """
+    try:
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        prompt = f"""
+        Summarize the provided news document while preserving the most important keywords and maintaining the original sentiment or tone. Ensure that the summary is concise, accurately reflects the key points, and retains the emotional impact or intent of the original content.
+
+        News Article:
+        {content}
+        """
+        response = model.generate_content(
+            prompt,
+            safety_settings={
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            },
+        )
+        return response.text
+    except Exception as e:
+        error_str = str(e).lower()
+        if "429" in error_str or "quota" in error_str or "rate limit" in error_str:
+            logger.warning(f"Gemini API rate limit hit: {e}")
+            # Add some jitter to avoid all requests retrying at the same time
+            time.sleep(random.uniform(1, 3))
+            raise RateLimitException(f"Rate limit exceeded: {e}")
+        else:
+            # Re-raise other exceptions
+            raise
+
+
 def summarize_texts(
     articles_id: List[str], max_length: int = 200, min_length: int = 20
 ):
@@ -24,56 +73,70 @@ def summarize_texts(
     Summarizes a list of texts using a pre-trained Transformer model.
 
     Args:
-        texts (List[str]): List of texts to summarize.
+        articles_id (List[str]): List of article IDs to summarize.
         max_length (int): Maximum length of the summary.
         min_length (int): Minimum length of the summary.
 
     Returns:
-        List[str]: List of summarized texts.
+        List[dict]: List of dictionaries containing article IDs and their summaries.
     """
     texts = []
     logger.info("Initializing summarization pipeline.")
-    articles = find_documents("News_Articles", {"id": {"$in": articles_id}})
-    for article in articles:
-        texts.append(
-            {"id": article["id"], "content": article.get("content", "")})
+    
+    # Fetch articles from database
+    try:
+        articles = find_documents("News_Articles", {"id": {"$in": articles_id}})
+        for article in articles:
+            # Ensure content exists and is a string
+            content = article.get("content", "")
+            if not content or not isinstance(content, str):
+                logger.warning(f"Missing or invalid content for article ID: {article['id']}")
+                content = "" if not content else str(content)
+                
+            texts.append({"id": article["id"], "content": content})
+    except Exception as e:
+        logger.error(f"Error fetching articles from database: {e}")
+        return []
+    
+    if not texts:
+        logger.warning("No valid articles found for summarization")
+        return []
+    
     article_summaries = []
-
     logger.info(f"Starting summarization of {len(texts)} texts.")
+    
+    # Process each article with proper rate limiting and error handling
     for idx, obj in enumerate(texts):
-        logger.debug(f"Summarizing text {idx+1}/{len(texts)}.")
+        article_id = obj.get("id")
+        logger.debug(f"Summarizing text {idx+1}/{len(texts)} (ID: {article_id}).")
+        
+        # Skip empty content
+        if not obj.get("content"):
+            logger.warning(f"Skipping article {article_id} - empty content")
+            article_summaries.append({"id": article_id, "summary": ""})
+            append_to_document("News_Articles", {"id": article_id}, {"summary": ""})
+            continue
+        
+        # Generate summary with retry logic
         try:
-            model = genai.GenerativeModel("gemini-1.5-flash")
-            prompt = f"""
-            Summarize the provided news document while preserving the most important keywords and maintaining the original sentiment or tone. Ensure that the summary is concise, accurately reflects the key points, and retains the emotional impact or intent of the original content.
-
-            News Article:
-            {obj.get("content")}
-            """
-            response = model.generate_content(
-                prompt,
-                safety_settings={
-                    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-                },
-            )
-            logger.debug(f"DEBUG SUmmary{response.text}")
-            article_summaries.append(
-                {"id": obj.get("id"), "summary": response.text})
-            append_to_document(
-                "News_Articles", {"id": obj.get("id")}, {
-                    "summary": response.text}
-            )
-            logger.debug(f"Summary {idx+1}: {response.text}")
-
+            # Add a small delay between requests to avoid hitting rate limits
+            if idx > 0:
+                time.sleep(2)  # 2-second delay between requests
+                
+            summary = generate_summary_with_retry(obj["content"])
+            
+            logger.debug(f"Summary generated for article {article_id}")
+            article_summaries.append({"id": article_id, "summary": summary})
+            
+            # Save to database
+            append_to_document("News_Articles", {"id": article_id}, {"summary": summary})
+            
         except Exception as e:
-            logger.error(f"Error summarizing text {idx+1}: {e}")
-            article_summaries.append("")
-            append_to_document("News_Articles", {
-                               "id": obj.get("id")}, {"summary": ""})
-
+            logger.error(f"Failed to summarize article {article_id} after retries: {e}")
+            # Save an empty summary to avoid repeated failed attempts
+            article_summaries.append({"id": article_id, "summary": ""})
+            append_to_document("News_Articles", {"id": article_id}, {"summary": ""})
+    
     logger.info("Summarization completed.")
     return article_summaries
 
@@ -87,7 +150,45 @@ if __name__ == "__main__":
         },
         {
             "id": "2",
-            "content": 'The rape and murder of a trainee doctor in India’s Kolkata city earlier this month has sparked massive outrage in the country, with tens of thousands of people protesting on the streets, demanding justice. BBC Hindi spoke to the doctor’s parents who remember their daughter as a clever, young woman who wanted to lead a good life and take care of her family.\nAll names and details of the family have been removed as Indian laws prohibit identifying a rape victim or her family.\n"Please make sure dad takes his medicines on time. Don\'t worry about me."\nThis was the last thing the 31-year-old doctor said to her mother, hours before she was brutally assaulted in a hospital where she worked. \n“The next day, we tried reaching her but the phone kept ringing," the mother told the BBC at their family home in a narrow alley, a few kilometres from Kolkata.\nThe same morning, the doctor’s partially-clothed body was discovered in the seminar hall, bearing extensive injuries. A hospital volunteer worker has been arrested in connection with the crime.\nThe incident has sparked massive outrage across the country, with protests in several major cities. At the weekend, doctors across hospitals in India observed a nation-wide strike called by the Indian Medical Association (IMA), with only emergency services available at major hospitals.\nThe family say they feel hollowed out by their loss.\n“At the age of 62, all my dreams have been shattered," her father told the BBC. \nSince their daughter\'s horrific murder, their house, located in a respectable neighbourhood, has become the focus of intense media scrutiny. \nBehind a police barricade stand dozens of journalists and camera crew, hoping to capture the parents in case they step out.\nA group of 10 to 15 police officers perpetually stand guard to ensure the cameras do not take photos of the victim\'s house.\nThe crime took place on the night of 9 August, when the woman, who was a junior doctor at the city\'s RG Kar Medical College, had gone to a seminar room to rest after a gruelling 36-hour shift. \nHer parents remembered how the young doctor, their only child, was a passionate  student who worked extremely hard to become a doctor. \n“We come from a lower middle-class background and built everything on our own. When she was little, we struggled financially," said the father, who is a tailor.\nThe living room where he sat was cluttered with tools from his profession - a sewing machine, spools of thread and a heavy iron. There were scraps of fabrics scattered on the floor. \nThere were times when the family did not have money to even buy pomegranates, their daughter\'s favourite fruit, he continued. \n"But she could never bring herself to ask for anything for herself."\n“People would say, ‘You can’t make your daughter a doctor\'. But my daughter proved everyone wrong and got admission in a government-run medical college," he added, breaking down. A relative tried to console him.\nThe mother recalled how her daughter would write in her diary every night before going to bed.\n“She wrote that she wanted to win a gold medal for her medical degree. She wanted to lead a good life and take care of us too,” she said softly.\nAnd she did. \nThe father, who is a high blood-pressure patient, said their daughter always made sure he took his medicines on time. \n“Once I ran out of medicine and thought I’d just buy it the next day. But she found out, and even though it was around 10 or 11pm at night, she said no-one will eat until the medicine is here,” he said.\n“That’s how she was - she never let me worry about anything."\nHer mother listened intently, her hands repeatedly touching a gold bangle on her wrist - a bangle she had bought with her daughter.\nThe parents said their daughter’s marriage had almost been finalised. "But she would tell us not to worry and say she would continue to take care of all our expenses even after marriage," the father said. \nAs he spoke those words, the mother began to weep, her soft sobs echoing in the background.\nOccasionally, her eyes would wander to the staircase, leading up to their daughter\'s room.\nThe door has remained shut since 10 August and the parents have not set foot there since the news of her death.\nThey say they still can\'t believe that something "so barbaric" could happen to their daughter at her workplace. \n"The hospital should be a safe place," the father said. \nViolence against women is a major issue in India - an average of 90 rapes a day were reported in 2022, according to government data.\nThe parents said their daughter’s death had brought back memories of a 2012 case when a 22-year-old physiotherapy intern was gang-raped on a moving bus in capital Delhi. Her injuries were fatal.\nFollowing the assault - which made global headlines and led to weeks of protests - India tightened laws against sexual violence.\nBut reported cases of sexual assault have gone up and access to justice still remains a challenge for women.\nLast week, thousands participated in a Reclaim the Night march held in Kolkata to demand safety for women across the country.\nThe doctor’s case has also put a spotlight on challenges faced by healthcare workers, who have demanded a thorough and impartial investigation into the murder and a federal law to protect them - especially women - at work.\nFederal Health Minister JP Nadda has assured doctors that he will bring in strict measures to ensure better safety in their professional environments.\nBut for the parents of the doctor, it\'s too little too late.\n“We want the harshest punishment for the culprit," the father said.\n“Our state, our country and the whole world is asking for justice for our daughter."\nWith his song Big Dawgs, Hanumankind has fast become a name to reckon with in the global hip-hop scene.\nEighty years on, three survivors recall the catastrophe which killed at least three million people.\nThe building is to become an Ibis hotel, but one floor is now being used by the Indian Consulate.\nAmi and Stuart Geddes son Clark was delivered at 24 weeks due to complications and lived for just 12 days.\nThe venture will form India\'s biggest entertainment player, competing with Sony, Netflix, and Amazon.\nCopyright 2024 BBC. All rights reserved.  The BBC is not responsible for the content of external sites. Read about our approach to external linking.',
+            "content": '''The rape and murder of a trainee doctor in India’s Kolkata city earlier this month has sparked massive outrage in the country, with tens of thousands of people protesting on the streets, demanding justice. BBC Hindi spoke to the doctor’s parents who remember their daughter as a clever, young woman who wanted to lead a good life and take care of her family.\nAll names and details of the family have been removed as Indian laws prohibit identifying a rape victim or her family.\n"Please make sure dad takes his medicines on time. Don\'t worry about me."\nThis was the last thing the 31-year-old doctor said to her mother, hours before she was brutally assaulted in a hospital where she worked. \n“The next day, we tried reaching her but the phone kept ringing," the mother told the BBC at their family home in a narrow alley, a few kilometres from Kolkata.\nThe same morning, the doctor’s partially-clothed body was discovered in the seminar hall, bearing extensive injuries. A hospital volunteer worker has been arrested in connection with the crime.\nThe incident has sparked massive outrage across the country, with protests in several major cities. At the weekend, doctors across hospitals in India observed a nation-wide strike called by the Indian Medical Association (IMA), with only emergency services available at major hospitals.
+The family say they feel hollowed out by their loss.
+“At the age of 62, all my dreams have been shattered," her father told the BBC. \nSince their daughter\'s horrific murder, their house, located in a respectable neighbourhood, has become the focus of intense media scrutiny. \nBehind a police barricade stand dozens of journalists and camera crew, hoping to capture the parents in case they step out.
+A group of 10 to 15 police officers perpetually stand guard to ensure the cameras do not take photos of the victim\'s house.
+The crime took place on the night of 9 August, when the woman, who was a junior doctor at the city\'s RG Kar Medical College, had gone to a seminar room to rest after a gruelling 36-hour shift. \nHer parents remembered how the young doctor, their only child, was a passionate  student who worked extremely hard to become a doctor. \n“We come from a lower middle-class background and built everything on our own. When she was little, we struggled financially," said the father, who is a tailor.
+The living room where he sat was cluttered with tools from his profession - a sewing machine, spools of thread and a heavy iron. There were scraps of fabrics scattered on the floor. \nThere were times when the family did not have money to even buy pomegranates, their daughter\'s favourite fruit, he continued. \n"But she could never bring herself to ask for anything for herself."
+“People would say, ‘You can’t make your daughter a doctor\'. But my daughter proved everyone wrong and got admission in a government-run medical college," he added, breaking down. A relative tried to console him.
+The mother recalled how her daughter would write in her diary every night before going to bed.
+“She wrote that she wanted to win a gold medal for her medical degree. She wanted to lead a good life and take care of us too,” she said softly.
+And she did. 
+The father, who is a high blood-pressure patient, said their daughter always made sure he took his medicines on time. 
+“Once I ran out of medicine and thought I’d just buy it the next day. But she found out, and even though it was around 10 or 11pm at night, she said no-one will eat until the medicine is here,” he said.
+“That’s how she was - she never let me worry about anything."
+Her mother listened intently, her hands repeatedly touching a gold bangle on her wrist - a bangle she had bought with her daughter.
+The parents said their daughter’s marriage had almost been finalised. "But she would tell us not to worry and say she would continue to take care of all our expenses even after marriage," the father said. 
+As he spoke those words, the mother began to weep, her soft sobs echoing in the background.
+Occasionally, her eyes would wander to the staircase, leading up to their daughter\'s room.
+The door has remained shut since 10 August and the parents have not set foot there since the news of her death.
+They say they still can\'t believe that something "so barbaric" could happen to their daughter at her workplace. 
+"The hospital should be a safe place," the father said. 
+Violence against women is a major issue in India - an average of 90 rapes a day were reported in 2022, according to government data.
+The parents said their daughter’s death had brought back memories of a 2012 case when a 22-year-old physiotherapy intern was gang-raped on a moving bus in capital Delhi. Her injuries were fatal.
+Following the assault - which made global headlines and led to weeks of protests - India tightened laws against sexual violence.
+But reported cases of sexual assault have gone up and access to justice still remains a challenge for women.
+Last week, thousands participated in a Reclaim the Night march held in Kolkata to demand safety for women across the country.
+The doctor’s case has also put a spotlight on challenges faced by healthcare workers, who have demanded a thorough and impartial investigation into the murder and a federal law to protect them - especially women - at work.
+Federal Health Minister JP Nadda has assured doctors that he will bring in strict measures to ensure better safety in their professional environments.
+But for the parents of the doctor, it\'s too little too late.
+“We want the harshest punishment for the culprit," the father said.
+“Our state, our country and the whole world is asking for justice for our daughter."
+With his song Big Dawgs, Hanumankind has fast become a name to reckon with in the global hip-hop scene.
+Eighty years on, three survivors recall the catastrophe which killed at least three million people.
+The building is to become an Ibis hotel, but one floor is now being used by the Indian Consulate.
+Ami and Stuart Geddes son Clark was delivered at 24 weeks due to complications and lived for just 12 days.
+The venture will form India\'s biggest entertainment player, competing with Sony, Netflix, and Amazon.
+Copyright 2024 BBC. All rights reserved.  The BBC is not responsible for the content of external sites. Read about our approach to external linking.''',
+        },
+        {
+            "id": "3",
         },
     ]
     print("Here")

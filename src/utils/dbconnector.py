@@ -29,10 +29,30 @@ def get_mongo_client():
         Exception: if connection fails
     """
     try:
-        mongo_uri = f"mongodb+srv://{os.getenv('MONGO_USERNAME')}:{os.getenv('MONGO_PASSWORD')}@devasy23.a8hxla5.mongodb.net/?retryWrites=true&w=majority&appName=Devasy23"
-        db_name = os.getenv("DB_NAME")
+        # Get MongoDB connection parameters from environment variables
+        username = os.getenv('MONGO_USERNAME')
+        password = os.getenv('MONGO_PASSWORD')
+        db_name = os.getenv('DB_NAME')
+        
+        # Handle special characters in password by using urllib.parse.quote_plus
+        from urllib.parse import quote_plus
+        encoded_password = quote_plus(password)
+        
+        # Create the MongoDB connection URI with authentication database explicitly set to 'admin'
+        mongo_uri = f"mongodb+srv://{username}:{encoded_password}@devasy23.a8hxla5.mongodb.net/{db_name}"
+        
+        # Create MongoDB client with increased timeouts and server selection settings
         client = MongoClient(
-            mongo_uri, socketTimeoutMS=60000, connectTimeoutMS=60000)
+            mongo_uri, 
+            socketTimeoutMS=60000, 
+            connectTimeoutMS=60000,
+            serverSelectionTimeoutMS=30000
+        )
+        
+        # Test the connection by performing a simple operation
+        client.server_info()
+        
+        # Get the specific database
         db = client[db_name]
         logger.info("Successfully connected to MongoDB.")
         return db
@@ -143,6 +163,36 @@ def append_to_document(collection_name, query, update_data):
         raise
 
 
+def update_document(collection_name, filter_query, update_data):
+    """
+    Updates a document in the given MongoDB collection.
+
+    Args:
+        collection_name (str): The name of the collection.
+        filter_query (dict): The query to select the document to update.
+        update_data (dict): The new data to update the document with.
+
+    Returns:
+        int: The number of documents updated.
+
+    Raises:
+        Exception: If there is an error updating the document.
+    """
+    db = get_mongo_client()
+    collection = db[collection_name]
+    try:
+        result = collection.update_one(filter_query, {"$set": update_data})
+        if result.modified_count > 0:
+            logger.info(f"Document in {collection_name} updated successfully.")
+        else:
+            logger.warning(
+                f"No document in {collection_name} matched the query. No update performed.")
+        return result.modified_count
+    except Exception as e:
+        logger.error(f"Failed to update document in {collection_name}: {e}")
+        raise
+
+
 def find_documents(collection_name, query):
     """
     Finds documents in the given MongoDB collection using the given query.
@@ -164,6 +214,34 @@ def find_documents(collection_name, query):
         return documents
     except Exception as e:
         logger.error(f"Failed to find documents: {e}")
+        raise
+
+
+def delete_query_cache(query):
+    """
+    Deletes the document in News_Articles_Ids collection for a specific query.
+    
+    Args:
+        query (str): The search query to delete from cache
+        
+    Returns:
+        bool: True if document was deleted, False if not found
+        
+    Raises:
+        Exception: If there is an error deleting the document
+    """
+    db = get_mongo_client()
+    collection = db["News_Articles_Ids"]
+    try:
+        result = collection.delete_one({"query": query})
+        if result.deleted_count > 0:
+            logger.info(f"Cache for query '{query}' deleted successfully.")
+            return True
+        else:
+            logger.warning(f"No cache found for query '{query}'. Nothing deleted.")
+            return False
+    except Exception as e:
+        logger.error(f"Failed to delete cache for query '{query}': {e}")
         raise
 
 
@@ -205,7 +283,8 @@ def fetch_and_combine_articles(collection_name, article_ids):
 
         # Convert the list of documents to a DataFrame
         df = pd.DataFrame(docs)
-        print(df.drop(columns=["_id", "id"], inplace=True))
+        df.drop(columns=["_id", "id"], inplace=True)
+        logger.debug("Dropped '_id' and 'id' columns from the DataFrame.")
         if df.empty:
             logger.warning("No documents found for the provided article IDs.")
         else:
