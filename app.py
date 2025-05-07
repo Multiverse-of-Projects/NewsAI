@@ -11,17 +11,21 @@ import numpy as np
 import pandas as pd
 import plotly.colors as pc
 import plotly.express as px
+import plotly.graph_objects as go
 import requests
 import seaborn as sns
 import streamlit as st
 from PIL import Image
+import google.generativeai as genai
+from sklearn.decomposition import PCA
 from streamlit_echarts import st_echarts
 
 # from src.pipeline import process_articles
 from src.sentiment_analysis.wordcloud import generate_wordcloud
 from src.utils.dbconnector import (append_to_document,
                                    fetch_and_combine_articles, find_documents,
-                                   find_one_document, fetch_prefetched_queries)
+                                   find_one_document, fetch_prefetched_queries,
+                                   get_mongo_client)
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
@@ -98,6 +102,153 @@ def extract_and_flatten_keywords(data) -> List[str]:
     ]
     return all_keywords
 
+def generate_article_embeddings(df):
+    """
+    Generates embeddings for articles using Google's embedding model.
+    Prioritizes full content over summary for better semantic representation.
+    
+    Args:
+        df (pd.DataFrame): DataFrame containing article data
+        
+    Returns:
+        np.ndarray: Array of 3D reduced embeddings for the articles
+    """
+    try:
+        # Make sure the DataFrame has required columns
+        if 'id' not in df.columns:
+            logger.error("DataFrame is missing required 'id' column")
+            st.error("DataFrame is missing required 'id' column for embedding generation")
+            return None
+            
+        api_key = st.secrets.get("GEMINI_API_KEY")
+        
+        if not api_key:
+            st.error("Google API key not found in Streamlit secrets.")
+            return None
+            
+        genai.configure(api_key=api_key)
+        
+        # Initialize the embedding model (use the stable model that's known to work)
+        embedding_model = "models/embedding-001"  # Using the stable version that's supported
+        
+        # Generate embeddings from article content (full content preferred over summary over description)
+        texts = []
+        for _, row in df.iterrows():
+            if pd.notna(row.get('content')) and row['content']:
+                texts.append(row['content'])
+            elif pd.notna(row.get('summary')) and row['summary']:
+                texts.append(row['summary'])
+            elif pd.notna(row.get('description')) and row['description']:
+                texts.append(row['description'])
+            else:
+                texts.append("")
+        
+        # Check if embeddings already exist in the database
+        article_ids = df['id'].tolist()
+        
+        # Handle possible NaN or None values in the ids
+        article_ids = [str(article_id) for article_id in article_ids if pd.notna(article_id)]
+        
+        if not article_ids:
+            logger.error("No valid article IDs found in DataFrame")
+            st.error("No valid article IDs found for embedding generation")
+            return None
+            
+        db = get_mongo_client()
+        embeddings_collection = db["Article_Embeddings"]
+        
+        # Retrieve existing embeddings
+        existing_embeddings = {}
+        try:
+            for doc in embeddings_collection.find({"article_id": {"$in": article_ids}}):
+                existing_embeddings[doc["article_id"]] = doc["embedding"]
+        except Exception as e:
+            logger.error(f"Error retrieving existing embeddings: {e}")
+            # Continue with empty existing_embeddings
+        
+        # Generate embeddings using Google's model for articles that don't have cached embeddings
+        embeddings = []
+        # Show progress bar for embedding generation
+        progress_bar = st.progress(0)
+        for i, (_, row) in enumerate(df.iterrows()):
+            # Update progress bar
+            progress_bar.progress((i + 1) / len(df))
+            if 'id' not in row or pd.isna(row['id']):
+                logger.warning(f"Row {i} missing ID, skipping")
+                embeddings.append([0] * 768)  # Use zero vector for missing ID
+                continue
+                
+            article_id = str(row['id'])  # Convert to string to ensure consistency
+            
+            # If embedding already exists in database, use it
+            if article_id in existing_embeddings:
+                embeddings.append(existing_embeddings[article_id])
+                logger.info(f"Using cached embedding for article {article_id}")
+                continue
+                
+            try:
+                if i >= len(texts):
+                    logger.error(f"Index {i} out of range for texts list of length {len(texts)}")
+                    embeddings.append([0] * 768)
+                    continue
+                    
+                # Truncate text if it exceeds the model's token limit
+                text_to_embed = texts[i]
+                if not text_to_embed:
+                    logger.warning(f"Empty text for article {article_id}, using zero vector")
+                    embeddings.append([0] * 768)
+                    continue
+                
+                # Get title from article if available (but don't pass it as parameter for embedding-001)
+                title = row.get('title', '') if pd.notna(row.get('title')) else ''
+                
+                # For embedding-001, we need to use simpler parameters
+                result = genai.embed_content(
+                    model=embedding_model,
+                    content=text_to_embed[:8000],  # Google's embedding model has a token limit
+                    task_type="CLUSTERING",  # Best for article content
+                    # title=title  # Include title for better quality
+                )
+                embedding = result["embedding"]
+                embeddings.append(embedding)
+                
+                # Store the embedding in the database for future use
+                try:
+                    embeddings_collection.insert_one({
+                        "article_id": article_id,
+                        "embedding": embedding,
+                        "created_at": datetime.now()
+                    })
+                    logger.info(f"Generated and stored embedding for article {article_id}")
+                except Exception as e:
+                    logger.error(f"Error storing embedding in database: {e}")
+                
+            except Exception as e:
+                logger.error(f"Error generating embedding for article {article_id}: {e}")
+                # Add a zero vector as fallback if embedding fails
+                embeddings.append([0] * 768)  # typical embedding dimension
+        
+        # Convert embeddings to numpy array
+        if not embeddings:
+            logger.error("No embeddings were generated")
+            return None
+            
+        embeddings_array = np.array(embeddings)
+        
+        # Make sure we have enough embeddings for PCA
+        if len(embeddings_array) < 3:
+            logger.error(f"Not enough embeddings ({len(embeddings_array)}) for 3D PCA")
+            return None
+            
+        # Reduce dimensionality to 3D for visualization
+        pca = PCA(n_components=3)
+        embeddings_3d = pca.fit_transform(embeddings_array)
+        
+        return embeddings_3d
+    except Exception as e:
+        logger.error(f"Error generating embeddings: {e}")
+        st.error(f"Error generating embeddings: {e}")
+        return None
 
 def load_css(file_name):
     """
@@ -276,7 +427,6 @@ if st.button("Submit"):
     create_and_show_gif(downloaded_images)
 
     # Display summaries with highlighted keywords in an expander
-    # Display summaries with highlighted keywords in an expander
     def highlight_keywords(text, keywords):
         for keyword in keywords:
             text = text.replace(
@@ -284,6 +434,53 @@ if st.button("Submit"):
                 f"<span style='background-color: #ffc107; color: white'>{keyword}</span>",
             )
         return text
+
+    # 3D Cluster visualization of article embeddings
+    st.header("3D Article Embedding Clusters")
+    st.write("This visualization shows articles clustered by their semantic similarity. Similar articles appear closer together in 3D space.")
+    
+    # Generate embeddings for articles
+    with st.spinner("Generating article embeddings..."):
+        embeddings_3d = generate_article_embeddings(df)
+        
+    if embeddings_3d is not None and len(embeddings_3d) > 0:
+        # Create 3D scatter plot with hover data showing article information
+        fig = go.Figure(data=[go.Scatter3d(
+            x=embeddings_3d[:, 0],
+            y=embeddings_3d[:, 1],
+            z=embeddings_3d[:, 2],
+            mode='markers',
+            marker=dict(
+                size=5,
+                color=pd.Categorical(df['sentiment']).codes,  # Color by sentiment
+                colorscale='Viridis',
+                opacity=0.8,
+                colorbar=dict(title="Sentiment")
+            ),
+            text=[f"<b>{row['title']}</b><br>Source: {row['source']}<br>URL: <a href='{row['url']}' target='_blank'>{row['url']}</a>" 
+                  for _, row in df.iterrows()],
+            hoverinfo='text'
+        )])
+        
+        # Update layout for better visualization
+        fig.update_layout(
+            title="3D Cluster Visualization of Article Embeddings",
+            autosize=True,
+            height=800,
+            scene=dict(
+                xaxis_title='Component 1',
+                yaxis_title='Component 2',
+                zaxis_title='Component 3',
+                aspectmode='cube'
+            ),
+        )
+        
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Add explanation
+        st.info("Hover over points to see article details and click on URLs to read the original articles. Articles with similar content appear closer together in the 3D space.")
+    else:
+        st.error("Could not generate embeddings for visualization.")
 
     with st.expander("View All Summaries with Highlighted Keywords"):
         st.subheader("Summaries")
@@ -323,3 +520,4 @@ if st.button("Submit"):
 
         except Exception as e:
             st.error(f"Error: {e}")
+

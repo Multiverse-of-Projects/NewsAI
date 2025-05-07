@@ -206,12 +206,16 @@ def fetch_and_combine_articles(collection_name, article_ids):
 
         # Convert the list of documents to a DataFrame
         df = pd.DataFrame(docs)
-        print(df.drop(columns=["_id", "id"], inplace=True))
+        
+        # Just drop _id and keep id column
+        if '_id' in df.columns:
+            df.drop(columns=["_id"], inplace=True)
+            
         if df.empty:
             logger.warning("No documents found for the provided article IDs.")
         else:
             logger.info("Successfully converted documents to DataFrame.")
-            logger.debug(df.columns)
+            logger.debug(f"DataFrame columns: {df.columns.tolist()}")
 
         return df
 
