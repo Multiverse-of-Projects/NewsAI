@@ -1,3 +1,7 @@
+"""
+This script asynchronously fetches and stores content of news articles
+by scraping provided URLs and checking if the content is already present in the database.
+"""
 import asyncio
 import json
 import os
