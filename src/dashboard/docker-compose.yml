@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Path to the Dockerfile
+    ports:
+      - "8501:8501"  # Expose the container's port 8501 to the host
+    environment:
+      - PYTHONUNBUFFERED=1  # Ensures logs are immediately flushed to stdout
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    volumes:
+      - .:/app # Mount the current directory to /app in the container
