@@ -122,13 +122,14 @@ async def process_single_article_async(article_id, session):
     return article_id
 
 
-async def process_articles_async(query, limit=10):
+async def process_articles_async(query, limit=10, force_fetch=False):
     """
     Process a list of articles asynchronously, by fetching content, summarizing, extracting keywords and analyzing sentiment.
 
     Args:
         query (str): The query to search for in the NewsAPI.
         limit (int, optional): The number of articles to fetch. Defaults to 10.
+        force_fetch (bool, optional): Whether to bypass the cache and fetch new results. Defaults to False.
 
     Returns:
         List[str]: The IDs of the articles that were processed.
@@ -136,10 +137,11 @@ async def process_articles_async(query, limit=10):
     logger.info("Starting the processing of articles.")
     article_ids = fetch_news(
         query=query,
-        from_date="2024-08-16",
+        from_date="2025-04-16",
         sort_by="popularity",
         limit=limit,
         to_json=False,
+        force_fetch=force_fetch
     )
     if not isinstance(article_ids, list):
         raise ValueError("article_ids should be a list")
@@ -155,73 +157,34 @@ async def process_articles_async(query, limit=10):
     return article_ids
 
 
-def process_articles(query, limit=10):
+def process_articles(query, limit=10, force_fetch=False):
     """
     Process a list of articles by fetching content, summarizing, extracting keywords and analyzing sentiment.
 
     Args:
         query (str): The query to search for in the NewsAPI.
         limit (int, optional): The number of articles to fetch. Defaults to 10.
+        force_fetch (bool, optional): Whether to bypass the cache and fetch new results. Defaults to False.
 
     Returns:
         List[str]: The IDs of the articles that were processed.
     """
     logger.info("Starting the processing of articles.")
-    article_ids = asyncio.run(process_articles_async(query, limit))
+    article_ids = asyncio.run(process_articles_async(query, limit, force_fetch))
     return article_ids
-    # Fetch articles from NewsAPI
-    article_ids = fetch_news(
-        query=query,
-        from_date="2024-08-04",
-        sort_by="popularity",
-        limit=limit,
-        to_json=False,
-    )
-    if not isinstance(article_ids, list):
-        raise ValueError("article_ids should be a list")
-
-    # Get contents for each article
-    article_contents = fetch_article_content(article_ids)
-
-    # contents_file = f"{query.replace(' ', '_')}_contents2.json"
-    # with open(contents_file, "w", encoding="utf-8") as f:
-    #     json.dump(article_contents, f, ensure_ascii=False, indent=4)
-
-    # Summarize the articles
-    logger.info("Summarizing articles.")
-    article_summaries = summarize_texts(article_ids)
-
-    # summaries_file = f"{query.replace(' ', '_')}_summaries2.json"
-    # with open(summaries_file, "w", encoding="utf-8") as f:
-    #     json.dump(article_summaries, f, ensure_ascii=False, indent=4)
-
-    # Extract keywords from summaries
-    logger.info("Extracting keywords from summaries.")
-    article_keywords = extract_keywords(article_ids, top_n=10)
-
-    # keywords_file = f"{query.replace(' ', '_')}_keywords2.json"
-    # with open(keywords_file, "w", encoding="utf-8") as f:
-    #     json.dump(article_keywords, f, ensure_ascii=False, indent=4)
-
-    # Analyze sentiments of summaries
-    logger.info("Analyzing sentiments of summaries.")
-    article_sentiments = analyze_sentiments(article_ids)
 
 
 if __name__ == "__main__":
     logger.info("Starting the processing of articles.")
-
-    article_ids = process_articles("Adani Hindenburg Report", limit=10)
-    logger.info(f"Article IDs: {article_ids}")
-
-    # news_data = fetch_news(
-    #     query="Kolkata Murder Case", from_date="2024-08-01", sort_by="popularity", to_json=False
-    # )
-    # urls = [article.get("url") for article in news_data.get("articles", [])]
-
-    # # Process articles
-    # keywords, sentiments, wordcloud = process_articles(urls)
-    # logger.info(f"Keywords: {keywords}")
-    # logger.info(f"Sentiments: {sentiments}")
-    # wordcloud.to_image().save("wordcloud.png")
-    # logger.info("Processing of articles completed successfully.")
+    
+    try:
+        # Process articles about India retaliation attacks with force_fetch=True to bypass cache
+        search_query = "India retaliation attack"
+        logger.info(f"Fetching news articles about: {search_query}")
+        article_ids = process_articles(search_query, limit=100, force_fetch=True)
+        logger.info(f"Successfully processed {len(article_ids)} articles about '{search_query}'")
+        logger.info(f"Article IDs: {article_ids}")
+    except Exception as e:
+        logger.error(f"Error processing articles: {e}")
+        import traceback
+        traceback.print_exc()
