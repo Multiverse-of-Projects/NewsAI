@@ -4,6 +4,16 @@ import time
 from datetime import datetime
 from io import BytesIO
 from typing import List
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('navigation.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
