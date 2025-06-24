@@ -16,8 +16,7 @@ nltk.download("stopwords")
 logger = setup_logger()
 
 
-# Not in use
-def preprocess_text(text):
+def preprocess_text(text: str) -> List[str]:
     """
     Preprocesses a given text by tokenizing it and removing stopwords.
 
@@ -27,7 +26,6 @@ def preprocess_text(text):
     Returns:
         List[str]: A list of words without stopwords.
     """
-
     logger.info("Preprocessing text for tokenization and stopword removal.")
     stop_words = set(stopwords.words("english"))
     try:
@@ -42,7 +40,6 @@ def preprocess_text(text):
     return filtered_words
 
 
-# Not in use
 def bert_keyword_extraction(texts: List[str], top_n: int = 10) -> List[str]:
     """
     Extracts keywords from a list of texts using KeyBERT.
@@ -65,20 +62,19 @@ def bert_keyword_extraction(texts: List[str], top_n: int = 10) -> List[str]:
         all_keywords.extend([kw[0] for kw in keywords])
 
     logger.info("KeyBERT keyword extraction completed successfully.")
-    return list(set(all_keywords))  # Return unique keywords
+    return list(set(all_keywords))
 
 
-def extract_keywords(article_ids, top_n: int = 10):
+def extract_keywords(article_ids: List[str], top_n: int = 10) -> List[dict]:
     """
     Extracts keywords from a list of texts using KeyBERT.
 
     Args:
-        texts (List[str]): List of texts to extract keywords from.
+        article_ids (List[str]): List of article IDs to extract keywords from.
         top_n (int): Number of top keywords to extract per text.
 
     Returns:
-        It returns something else not a list of list of str.
-        List[List[str]]: List of keyword lists for each text.
+        List[Dict]: List of dictionaries containing article IDs and their extracted keywords.
     """
     article_summaries = []
     documents = find_documents("News_Articles", {"id": {"$in": article_ids}})
@@ -91,8 +87,7 @@ def extract_keywords(article_ids, top_n: int = 10):
     article_keywords = []
     logger.info(f"Extracting keywords from {len(article_summaries)} texts.")
     for idx, obj in enumerate(article_summaries):
-        logger.debug(
-            f"Extracting keywords from text {idx+1}/{len(article_summaries)}.")
+        logger.debug(f"Extracting keywords from text {idx+1}/{len(article_summaries)}.")
         try:
             keywords = model.extract_keywords(
                 obj.get("summary"),
@@ -104,23 +99,11 @@ def extract_keywords(article_ids, top_n: int = 10):
             keyword_obj = {"id": obj.get("id"), "keywords": extracted_keywords}
 
             article_keywords.append(keyword_obj)
-            append_to_document("News_Articles", {
-                               "id": obj.get("id")}, keyword_obj)
+            append_to_document("News_Articles", {"id": obj.get("id")}, keyword_obj)
             logger.debug(f"Keywords for text {idx+1}: {extracted_keywords}")
         except Exception as e:
             logger.error(f"Error extracting keywords from text {idx+1}: {e}")
-            article_keywords.append([])
+            article_keywords.append({"id": obj.get("id"), "keywords": []})
     logger.info("Keyword extraction completed.")
 
-    # --------
-    # MongoDB code to store article keywords
-    # --------
-
     return article_keywords
-
-
-# def aggregate_keywords(texts, top_n=10):
-#     logger.info("Aggregating keywords across all articles.")
-#     keywords = extract_keywords(texts, top_n)
-#     logger.info(f"Top {top_n} aggregated keywords: {keywords}")
-#     return keywords
