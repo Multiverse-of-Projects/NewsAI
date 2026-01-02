@@ -1,0 +1,24 @@
+/* Global styles */
+.stApp {
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* Custom header style */
+h1 {
+    text-align: center;
+    color: #4B0082; /* Indigo */
+}
+
+/* Footer style */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+    z-index: 100;
+}
