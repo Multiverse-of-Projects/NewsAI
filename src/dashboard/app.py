@@ -144,16 +144,23 @@ def generate_spiderweb(data):
     st_echarts(options=options)
 
 
-# Load external CSS
-# load_css("styles.css")
 # Layout Configuration
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title="NewsAI", page_icon="📰")
+
+# Load external CSS
+# Using absolute path relative to this file to ensure it works regardless of CWD
+css_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "styles.css")
+if os.path.exists(css_path):
+    load_css(css_path)
 
 # Title and User Input
 st.title("News AI Dashboard")
 st.subheader("Enter your query to generate insights:")
 query = st.text_input("Query", "Enter a keyword or phrase")
 fetch_till = st.slider("Fetch articles till", 5, 100, 10)
+
+# Footer
+st.markdown('<div class="footer">Powered by NewsAI 🚀</div>', unsafe_allow_html=True)
 
 # Wait animation after submitting query
 if st.button("Submit"):
