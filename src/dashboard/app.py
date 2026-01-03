@@ -25,6 +25,7 @@ from src.utils.dbconnector import (append_to_document,
 from src.utils.logger import setup_logger
 
 logger = setup_logger()
+st.set_page_config(layout="wide", page_title="News AI Dashboard")
 
 
 def download_images(image_urls, save_dir="downloaded_images"):
@@ -145,9 +146,8 @@ def generate_spiderweb(data):
 
 
 # Load external CSS
-# load_css("styles.css")
-# Layout Configuration
-# st.set_page_config(layout="wide")
+css_path = os.path.join(os.path.dirname(__file__), "..", "styles.css")
+load_css(css_path)
 
 # Title and User Input
 st.title("News AI Dashboard")
