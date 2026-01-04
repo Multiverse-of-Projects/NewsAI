@@ -144,10 +144,11 @@ def generate_spiderweb(data):
     st_echarts(options=options)
 
 
-# Load external CSS
-# load_css("styles.css")
 # Layout Configuration
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title="News AI Dashboard")
+
+# Load external CSS
+load_css("styles.css")
 
 # Title and User Input
 st.title("News AI Dashboard")
