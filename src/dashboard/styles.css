@@ -1,0 +1,111 @@
+/* Global Styles */
+:root {
+    --bg-color: #f0f0f0;
+    --text-color: #1a1a1a;
+    --accent-color: #ffc107; /* Amber/Yellow from memory */
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --border-width: 2px;
+    --border-radius: 8px;
+    --shadow: 4px 4px 0px 0px #000;
+}
+
+/* Streamlit Main Container */
+.stApp {
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Neo-brutalism Titles */
+h1, h2, h3 {
+    color: var(--text-color) !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+}
+
+h1 {
+    font-size: 3rem !important;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem !important;
+}
+
+/* Custom Card Style for Metrics/Info */
+div[data-testid="stMetric"] {
+    background-color: white;
+    border: var(--border-width) solid #000;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+}
+
+div[data-testid="stMetric"]:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px #000;
+}
+
+/* Buttons */
+.stButton button {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border: var(--border-width) solid #000 !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: var(--shadow) !important;
+    font-weight: bold !important;
+    transition: all 0.1s ease !important;
+}
+
+.stButton button:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0px 0px #000 !important;
+}
+
+.stButton button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #000 !important;
+}
+
+/* Inputs */
+.stTextInput input, .stNumberInput input {
+    border: var(--border-width) solid #000 !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: 2px 2px 0px 0px #000;
+}
+
+.stTextInput input:focus, .stNumberInput input:focus {
+    box-shadow: 4px 4px 0px 0px var(--accent-color) !important;
+    border-color: #000 !important;
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    border: var(--border-width) solid #000 !important;
+    border-radius: var(--border-radius) !important;
+    background-color: white !important;
+    color: black !important;
+    font-weight: bold !important;
+}
+
+/* Plotly Charts Container */
+.js-plotly-plot {
+    border: var(--border-width) solid #000;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    background: white;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+/* Loading Spinner */
+.stSpinner > div {
+    border-top-color: var(--accent-color) !important;
+}
+
+/* Highlighted Text */
+span[style*="background-color: #ffc107"] {
+    border: 1px solid #000;
+    padding: 0 4px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #000 !important; /* Force black text for contrast */
+}
