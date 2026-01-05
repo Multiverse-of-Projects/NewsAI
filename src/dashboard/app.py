@@ -145,9 +145,12 @@ def generate_spiderweb(data):
 
 
 # Load external CSS
-# load_css("styles.css")
+# Make sure to load the CSS from the current directory
+css_path = os.path.join(os.path.dirname(__file__), "styles.css")
+load_css(css_path)
+
 # Layout Configuration
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title="NewsAI Dashboard", page_icon="🚀")
 
 # Title and User Input
 st.title("News AI Dashboard")
