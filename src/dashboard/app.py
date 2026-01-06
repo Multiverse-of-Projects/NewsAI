@@ -4,6 +4,7 @@ import time
 from datetime import datetime
 from io import BytesIO
 from typing import List
+import tempfile
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
@@ -23,6 +24,9 @@ from src.utils.dbconnector import (append_to_document,
                                    fetch_and_combine_articles, find_documents,
                                    find_one_document)
 from src.utils.logger import setup_logger
+
+# Layout Configuration must be the first Streamlit command
+st.set_page_config(layout="wide", page_title="NewsAI Dashboard", page_icon="📰")
 
 logger = setup_logger()
 
@@ -70,10 +74,11 @@ def create_and_show_gif(image_files):
     frames = []
     for image in images:
         frames.append(image)
-    frames[0].save(
-        "mygif.gif", save_all=True, append_images=frames[1:], duration=300, loop=0
-    )
-    st.image("mygif.gif", use_column_width=True)
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".gif") as tmp_gif:
+        frames[0].save(
+            tmp_gif.name, save_all=True, append_images=frames[1:], duration=300, loop=0
+        )
+        st.image(tmp_gif.name, use_column_width=True)
 
 
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(_file_), "..", "..")))
@@ -145,18 +150,25 @@ def generate_spiderweb(data):
 
 
 # Load external CSS
-# load_css("styles.css")
-# Layout Configuration
-# st.set_page_config(layout="wide")
+# Adjust path to look in current directory or src/dashboard
+css_path = os.path.join(os.path.dirname(__file__), "styles.css")
+if os.path.exists(css_path):
+    load_css(css_path)
 
 # Title and User Input
-st.title("News AI Dashboard")
-st.subheader("Enter your query to generate insights:")
-query = st.text_input("Query", "Enter a keyword or phrase")
-fetch_till = st.slider("Fetch articles till", 5, 100, 10)
+st.title("News AI Dashboard 🚀")
+
+# Sidebar for inputs
+with st.sidebar:
+    st.header("Configuration")
+    query = st.text_input("Query", "Enter a keyword or phrase")
+    fetch_till = st.slider("Fetch articles till", 5, 100, 10)
+    submit_button = st.button("Submit")
+
+st.subheader("Enter your query in the sidebar to generate insights")
 
 # Wait animation after submitting query
-if st.button("Submit"):
+if submit_button:
     with st.spinner("Processing data, please wait..."):
         prev = find_one_document("News_Articles_Ids", {"query": query})
         # st.write(prev)
