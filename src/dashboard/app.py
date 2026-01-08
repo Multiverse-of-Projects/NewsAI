@@ -144,13 +144,26 @@ def generate_spiderweb(data):
     st_echarts(options=options)
 
 
-# Load external CSS
-# load_css("styles.css")
 # Layout Configuration
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", page_title="NewsAI Dashboard", page_icon="📰")
+
+# Load external CSS
+current_dir = os.path.dirname(os.path.abspath(__file__))
+css_path = os.path.join(current_dir, "../styles.css")
+load_css(css_path)
 
 # Title and User Input
-st.title("News AI Dashboard")
+st.markdown("<h1 style='text-align: center;'>News AI Dashboard</h1>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div class='main-description'>
+        Welcome to the <b>NewsAI Dashboard</b>. Enter a topic below to aggregate news,
+        analyze sentiment, and discover insights powered by AI.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 st.subheader("Enter your query to generate insights:")
 query = st.text_input("Query", "Enter a keyword or phrase")
 fetch_till = st.slider("Fetch articles till", 5, 100, 10)
