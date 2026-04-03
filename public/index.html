@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewsAI — Intelligent News Analytics Dashboard</title>
+  <meta name="description" content="AI-powered news analytics dashboard with sentiment analysis, keyword extraction, source distribution, and rich article insights." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <!-- Marked.js for Markdown rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@15.0.7/marked.min.js"></script>
+  <!-- wordcloud2.js -->
+  <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.3/src/wordcloud2.js"></script>
+</head>
+<body>
+
+  <!-- ======== Hero ======== -->
+  <header class="hero" id="hero">
+    <div class="hero__logo"><span class="dot"></span> NewsAI</div>
+    <h1>News Intelligence Dashboard</h1>
+    <p>AI-powered insights — sentiment analysis, keyword extraction, and source intelligence across global news.</p>
+  </header>
+
+  <!-- ======== Controls ======== -->
+  <section class="controls" id="controls">
+    <label for="query-select">Explore a topic:</label>
+    <div class="custom-dropdown" id="custom-dropdown">
+      <div class="custom-dropdown__selected" id="dropdown-selected">
+        — Loading queries… —
+      </div>
+      <div class="custom-dropdown__options" id="dropdown-options">
+        <div class="custom-dropdown__option" data-value="">— Loading queries… —</div>
+      </div>
+    </div>
+    <button class="btn-primary" id="analyze-btn" disabled>
+      <span id="btn-label">Analyze</span>
+    </button>
+  </section>
+
+  <!-- ======== Error Banner (hidden by default) ======== -->
+  <div class="error-banner hidden" id="error-banner">
+    <span>⚠️</span>
+    <span id="error-text"></span>
+  </div>
+
+  <!-- ======== Stats Ribbon ======== -->
+  <section class="stats-ribbon hidden" id="stats-ribbon"></section>
+
+  <!-- ======== Dashboard Grid ======== -->
+  <main class="dashboard hidden" id="dashboard">
+
+    <!-- Sentiment Doughnut -->
+    <div class="card" id="card-sentiment">
+      <div class="card__header">
+        <div class="card__icon card__icon--emerald">📊</div>
+        <div>
+          <div class="card__title">Sentiment Analysis</div>
+          <div class="card__subtitle">Distribution of article sentiments</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart-sentiment"></canvas>
+      </div>
+    </div>
+
+    <!-- Source Distribution -->
+    <div class="card" id="card-sources">
+      <div class="card__header">
+        <div class="card__icon card__icon--cyan">🌐</div>
+        <div>
+          <div class="card__title">Source Distribution</div>
+          <div class="card__subtitle">Where the news comes from</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart-sources"></canvas>
+      </div>
+    </div>
+
+    <!-- Word Cloud -->
+    <div class="card" id="card-wordcloud">
+      <div class="card__header">
+        <div class="card__icon card__icon--violet">☁️</div>
+        <div>
+          <div class="card__title">Keyword Cloud</div>
+          <div class="card__subtitle">Most frequent keywords across articles</div>
+        </div>
+      </div>
+      <canvas id="wordcloud-canvas"></canvas>
+    </div>
+
+    <!-- Heatmap -->
+    <div class="card" id="card-heatmap">
+      <div class="card__header">
+        <div class="card__icon card__icon--amber">🔥</div>
+        <div>
+          <div class="card__title">Source × Date Heatmap</div>
+          <div class="card__subtitle">Article volume by source over time</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="chart-heatmap"></canvas>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="card card--wide" id="card-timeline">
+      <div class="card__header">
+        <div class="card__icon card__icon--indigo">📈</div>
+        <div>
+          <div class="card__title">Sentiment Timeline</div>
+          <div class="card__subtitle">How sentiment evolves over time</div>
+        </div>
+      </div>
+      <div class="chart-container" style="aspect-ratio: 3/1;">
+        <canvas id="chart-timeline"></canvas>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======== Articles ======== -->
+  <section class="articles-section hidden" id="articles-section">
+    <h2>📰 Articles</h2>
+    <div class="articles-grid" id="articles-grid"></div>
+  </section>
+
+  <!-- ======== Footer ======== -->
+  <footer class="footer">
+    <p>Built with ♥ by the <a href="https://github.com/Devasy23/NewsAI" target="_blank">NewsAI</a> team</p>
+    <div class="footer__links">
+      <a href="https://github.com/Devasy23/NewsAI" target="_blank">GitHub</a>
+      <a href="https://github.com/Devasy23/NewsAI/blob/main/README.md" target="_blank">Docs</a>
+      <a href="https://github.com/Devasy23/NewsAI/blob/main/LICENSE" target="_blank">License</a>
+    </div>
+  </footer>
+
+  <!-- ======== Toast ======== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
