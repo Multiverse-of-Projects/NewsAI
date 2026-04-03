@@ -157,45 +157,106 @@ h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 700; letter-spa
   justify-content: center;
   gap: var(--space-md);
   padding: var(--space-lg) var(--space-xl);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
 }
 .controls label {
   font-weight: 500;
   color: var(--text-secondary);
   font-size: .95rem;
+  white-space: nowrap;
 }
-.select-wrapper {
+.custom-dropdown {
   position: relative;
+  flex: 1;
+  min-width: 0;
+  font-family: 'Inter', sans-serif;
+  z-index: 100;
 }
-.select-wrapper::after {
-  content: '▾';
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--accent-cyan);
-  pointer-events: none;
-  font-size: .85rem;
-}
-.select-wrapper select {
-  appearance: none;
+.custom-dropdown__selected {
   background: var(--bg-card);
   border: 1px solid var(--border-glass);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
   font-size: .95rem;
   padding: 12px 44px 12px 18px;
   border-radius: var(--radius-md);
-  min-width: 320px;
   cursor: pointer;
   backdrop-filter: blur(12px);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  position: relative;
 }
-.select-wrapper select:hover,
-.select-wrapper select:focus {
+.custom-dropdown__selected::after {
+  content: '▾';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-cyan);
+  transition: transform var(--transition-fast);
+}
+.custom-dropdown.open .custom-dropdown__selected {
   border-color: var(--accent-indigo);
   box-shadow: 0 0 0 3px rgba(99,102,241,.15);
-  outline: none;
+}
+.custom-dropdown.open .custom-dropdown__selected::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+.custom-dropdown__options {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  max-height: 400px;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+}
+.custom-dropdown.open .custom-dropdown__options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.custom-dropdown__options::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-dropdown__options::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-dropdown__options::-webkit-scrollbar-thumb {
+  background: var(--accent-indigo);
+  border-radius: 4px;
+}
+.custom-dropdown__option {
+  padding: 12px 18px;
+  font-size: .95rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.custom-dropdown__option:last-child {
+  border-bottom: none;
+}
+.custom-dropdown__option:hover {
+  background: rgba(99,102,241,.18);
+  color: var(--accent-cyan);
 }
 
 .btn-primary {
@@ -266,7 +327,7 @@ h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 700; letter-spa
 /* ---------- Dashboard Grid ---------- */
 .dashboard {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-lg);
   padding: var(--space-xl);
   max-width: 1600px;
@@ -694,7 +755,8 @@ h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 700; letter-spa
     grid-template-columns: 1fr;
   }
   .hero { padding: var(--space-2xl) var(--space-md) var(--space-lg); }
-  .controls { padding: var(--space-md); }
+  .controls { padding: var(--space-md); flex-wrap: wrap; }
+  .select-wrapper { width: 100%; flex: none; }
   .select-wrapper select { min-width: 100%; }
   .articles-section { padding: 0 var(--space-md) var(--space-md); }
 }

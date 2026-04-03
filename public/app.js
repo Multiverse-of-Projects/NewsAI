@@ -23,7 +23,11 @@
   const $  = (s) => document.querySelector(s);
   const $$ = (s) => document.querySelectorAll(s);
 
-  const select        = $('#query-select');
+  const dropdown      = $('#custom-dropdown');
+  const dropdownSelected = $('#dropdown-selected');
+  const dropdownOptions  = $('#dropdown-options');
+  let currentQuery = '';
+
   const analyzeBtn    = $('#analyze-btn');
   const btnLabel      = $('#btn-label');
   const errorBanner   = $('#error-banner');
@@ -45,9 +49,35 @@
 
   async function init() {
     setupIntersectionObserver();
+    setupDropdown();
     await loadQueries();
-    select.addEventListener('change', onQueryChange);
     analyzeBtn.addEventListener('click', onAnalyze);
+  }
+
+  function setupDropdown() {
+    dropdownSelected.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+
+    dropdownOptions.addEventListener('click', (e) => {
+      const option = e.target.closest('.custom-dropdown__option');
+      if (!option) return;
+      const value = option.dataset.value;
+      
+      dropdownSelected.textContent = option.textContent;
+      dropdown.classList.remove('open');
+      
+      currentQuery = value;
+      analyzeBtn.disabled = !currentQuery;
+    });
   }
 
   // ── API helpers ──
@@ -64,26 +94,24 @@
   async function loadQueries() {
     try {
       const { queries } = await apiFetch('/get-queries');
-      select.innerHTML = '<option value="">— Select a topic —</option>';
+      dropdownOptions.innerHTML = '<div class="custom-dropdown__option" data-value="">— Select a topic —</div>';
       queries.forEach((q) => {
-        const opt = document.createElement('option');
-        opt.value = q;
+        const opt = document.createElement('div');
+        opt.className = 'custom-dropdown__option';
+        opt.dataset.value = q;
         opt.textContent = q;
-        select.appendChild(opt);
+        dropdownOptions.appendChild(opt);
       });
+      dropdownSelected.textContent = '— Select a topic —';
     } catch (err) {
       showError(`Failed to load queries: ${err.message}`);
-      select.innerHTML = '<option value="">— Could not load —</option>';
+      dropdownSelected.textContent = '— Could not load —';
     }
-  }
-
-  function onQueryChange() {
-    analyzeBtn.disabled = !select.value;
   }
 
   // ── Analyze ──
   async function onAnalyze() {
-    const query = select.value;
+    const query = currentQuery;
     if (!query) return;
 
     setLoading(true);

@@ -27,10 +27,13 @@
   <!-- ======== Controls ======== -->
   <section class="controls" id="controls">
     <label for="query-select">Explore a topic:</label>
-    <div class="select-wrapper">
-      <select id="query-select" aria-label="Select a news query">
-        <option value="">— Loading queries… —</option>
-      </select>
+    <div class="custom-dropdown" id="custom-dropdown">
+      <div class="custom-dropdown__selected" id="dropdown-selected">
+        — Loading queries… —
+      </div>
+      <div class="custom-dropdown__options" id="dropdown-options">
+        <div class="custom-dropdown__option" data-value="">— Loading queries… —</div>
+      </div>
     </div>
     <button class="btn-primary" id="analyze-btn" disabled>
       <span id="btn-label">Analyze</span>
@@ -77,20 +80,6 @@
       </div>
     </div>
 
-    <!-- Timeline -->
-    <div class="card card--wide" id="card-timeline">
-      <div class="card__header">
-        <div class="card__icon card__icon--indigo">📈</div>
-        <div>
-          <div class="card__title">Sentiment Timeline</div>
-          <div class="card__subtitle">How sentiment evolves over time</div>
-        </div>
-      </div>
-      <div class="chart-container" style="aspect-ratio: 3/1;">
-        <canvas id="chart-timeline"></canvas>
-      </div>
-    </div>
-
     <!-- Word Cloud -->
     <div class="card" id="card-wordcloud">
       <div class="card__header">
@@ -114,6 +103,20 @@
       </div>
       <div class="chart-container">
         <canvas id="chart-heatmap"></canvas>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="card card--wide" id="card-timeline">
+      <div class="card__header">
+        <div class="card__icon card__icon--indigo">📈</div>
+        <div>
+          <div class="card__title">Sentiment Timeline</div>
+          <div class="card__subtitle">How sentiment evolves over time</div>
+        </div>
+      </div>
+      <div class="chart-container" style="aspect-ratio: 3/1;">
+        <canvas id="chart-timeline"></canvas>
       </div>
     </div>
 
