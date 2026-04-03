@@ -171,3 +171,10 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 app.log.5
+
+# Local Netlify folder
+.netlify
+
+# Node.js
+node_modules/
+package-lock.json

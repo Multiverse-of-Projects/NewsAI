@@ -1,0 +1,12 @@
+{
+  "name": "newsai-dashboard",
+  "version": "1.0.0",
+  "description": "NewsAI modern dashboard powered by Netlify Functions",
+  "private": true,
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
